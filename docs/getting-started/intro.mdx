@@ -1,0 +1,227 @@
+---
+sidebar_position: 1
+toc_max_heading_level: 4
+---
+
+import GuideGroup from '@site/src/components/GuideGroup';
+import GuideItem from '@site/src/components/GuideItem';
+
+# Getting Started with Cloud Robotics
+
+This guide is designed to help you use the cloud - and AWS in particular - to design and build a robot, from coming up with the initial idea all the way through to supporting your robots out in the wild! This guide will be updated over time as I'm able to build and upload new content, so keep checking back.
+
+## How to use this guide
+
+Each category shows how a different technology can be supported using the cloud, both in development and in production. Resources in each category will link to blog posts, YouTube videos, and any other content that will help with that category, including providing guidance on AWS services that can assist.
+
+If you use all of the knowledge here, you could end up with a scalable management system in the cloud for onboarding, monitoring, and controlling robots anywhere in the world (with an internet connection!).
+
+## Categories
+
+Take a look at the following categories to find more resources for each.
+
+### AWS Services
+
+#### Getting Started with AWS
+
+<GuideGroup>
+
+<GuideItem
+    title="AWS Account: Signup, Costs, and Budgets!"
+    summary="Taking the first step into a new set of services is scary, but AWS has
+              controls to make it easy. Take a look at some of the options ready to
+              start your AWS journey."
+    youtube="https://www.youtube.com/embed/LreFpJDXZs0?si=Tz6SzcwmhYJngvOZ"
+/>
+
+</GuideGroup>
+
+#### AWS IoT Core
+
+<GuideGroup>
+
+<GuideItem
+    title="What is AWS IoT Core?"
+    summary="Learn about AWS IoT Core, which you can use to connect your robots
+              to the cloud!"
+    youtube="https://www.youtube.com/embed/hOjagXz8gso?si=T2XU_i8gKt91dWIS"
+/>
+
+<GuideItem
+    title="What are AWS IoT Device Shadows?"
+    summary="Continue with AWS IoT Core by looking at Device Shadows, a powerful
+              feature to keep a JSON document synchronized between cloud and robot!"
+    youtube="https://www.youtube.com/embed/qD6MKMkmCcQ?si=Q6zj3sGnH-9MnUBQ"
+/>
+
+</GuideGroup>
+
+#### AWS IoT Greengrass
+
+<GuideGroup>
+
+<GuideItem
+    title="AWS IoT Greengrass Concepts and Components!"
+    summary="See how to set up and use AWS IoT Greengrass, the reliable method of
+              deploying and managing software at the edge."
+    github="https://github.com/mikelikesrobots/greengrass-hello-world"
+    youtube="https://www.youtube.com/embed/2VXIILtiMiU?si=tPiSegvSrOmfdon4"
+/>
+
+<GuideItem
+    title="Building Greengrass Components in Java and Python!"
+    summary="Build your own Greengrass components in Java and in Python using this sample repository."
+    github="https://github.com/mikelikesrobots/greengrass-multi-language"
+    youtube="https://www.youtube.com/embed/IzBAp8T2CxE?si=02lcXNs7My736-6N"
+/>
+
+</GuideGroup>
+
+#### Amazon CloudWatch
+
+<GuideGroup>
+
+<GuideItem
+    title="Collect and Filter Robot Logs with Amazon CloudWatch!"
+    summary="Send ROS2 log messages into Amazon CloudWatch using IoT Rules, and see what useful information can be pulled out from those logs. Also includes how to spot and fix a few common mistakes."
+    youtube="https://www.youtube.com/embed/cCZwQfaE6Jc?si=8Nc7w03TaCjSeQYb"
+/>
+
+</GuideGroup>
+
+#### AWS Cloud Development Kit
+
+<GuideGroup>
+
+<GuideItem
+    title="From AWS IoT Core to SiteWise with CDK Magic!"
+    summary="See how to use Rules to ingest data from IoT Core into SiteWise. Set up
+    performed manually, then automated with CDK."
+    github="https://github.com/mikelikesrobots/sw-rule-cdk"
+    youtube="https://www.youtube.com/embed/9ZRZhrJFz7A?si=lZqREJ98lRgiW6-R"
+/>
+
+</GuideGroup>
+
+### Robot Setup
+
+<GuideGroup>
+
+<GuideItem
+    title="Initial Setup of Waveshare Jetbot AI Robot!"
+    summary="Initial setup of a Waveshare Jetbot AI Robot kit, minus the kit assembly. Show the parts up close and the installation steps to get the robot moving."
+    youtube="https://www.youtube.com/embed/GdUGegYUOpM?si=iT9rizx1ENx7S4rx"
+/>
+
+</GuideGroup>
+
+### Connecting to the Cloud
+
+<GuideGroup>
+
+<GuideItem
+    title="How to send ROS2 Data to AWS IoT Core!"
+    summary="See how to create X.509 certificates for connecting your robot to IoT Core,
+          a great first step in writing your data to the cloud."
+    youtube="https://www.youtube.com/embed/OnVewSeayjI?si=vnZTvVH2ClhtAnH5"
+/>
+
+<GuideItem
+    title="From AWS IoT Core to SiteWise with CDK Magic!"
+    summary="See how to use Rules to ingest data from IoT Core into SiteWise. Set up
+    performed manually, then automated with CDK."
+    github="https://github.com/mikelikesrobots/sw-rule-cdk"
+    youtube="https://www.youtube.com/embed/9ZRZhrJFz7A?si=lZqREJ98lRgiW6-R"
+/>
+
+<GuideItem
+    title="Building a ROS2 Node using Rust!"
+    summary="Hear about the benefits of Rust, and why it's useful in many areas, including robotics. Then build a sample repository and use it to push data to AWS IoT Core."
+    youtube="https://www.youtube.com/embed/U5wHiZpNdvg?si=NEjZGSBtOsK3KGEv"
+    aws_community="https://community.aws/content/2ajlclWej60yjqDsp691XTNzuHx/building-a-ros2-node-in-rust"
+    github="https://github.com/mikelikesrobots/aws-iot-node-rust"
+    local_blog="http://localhost:3000/blog/ros2-rust-node"
+/>
+
+</GuideGroup>
+
+### Deployment
+
+Resources coming soon.
+
+### Visualizing Data
+
+<GuideGroup>
+
+<GuideItem
+    title="Estimating Battery Health with SiteWise!"
+    summary="Connect your robots to AWS IoT SiteWise to enable graphing of key metrics
+          and other visualization!"
+    github="https://github.com/mikelikesrobots/sitewise-battery-data"
+    youtube="https://www.youtube.com/embed/68G4wrLXeq4?si=QiZrlCAfilq5mif5"
+/>
+
+<GuideItem
+    title="Streaming JetBot Webcam data to Amazon KVS!"
+    summary="Set up two different ways of streaming data into KVS from the JetBot - direct ingestion and streaming using WebRTC."
+    github="https://github.com/mikelikesrobots/amazon-kinesis-video-streams-webrtc-sdk-c"
+    youtube="https://www.youtube.com/embed/Sfc641i3i64?si=7KBzvAL2nJVmHMCs"
+/>
+
+</GuideGroup>
+
+### Remote Controlling Robots
+
+<GuideGroup>
+
+<GuideItem
+    title="Turning off a robot from the cloud!"
+    summary="Configure your ROS2 node to only operate if the AWS IoT Device Shadow says
+          it's enabled for a simple remote on/off button."
+    youtube="https://www.youtube.com/embed/A5J1-FLQhi8?si=DgjyXofc5Zb3v-7F"
+/>
+
+<GuideItem
+    title="JetBot Gamepad Control with ROS2!"
+    summary="Move the JetBot around using a PlayStation controller over ROS2."
+    github="https://github.com/mikelikesrobots/jetbot-joy-teleop"
+    youtube="https://www.youtube.com/embed/0Hi3L1LkC-I?si=vqKgrCv-CgtH9Pmn"
+/>
+
+<GuideItem
+    title="How to Build Gamepad Control in ROS2 for the Jetbot!"
+    summary="Deep dive of the previous video, with more detail on setting
+      up the workspaces from scratch, including Docker development in VSCode."
+    github="https://github.com/mikelikesrobots/jetbot-joy-teleop"
+    youtube="https://www.youtube.com/embed/pozA2Fc9kj4?si=4WMHMCgBbHbGF-oZ"
+/>
+
+<GuideItem
+    title="Using a phone to move a JetBot using an AWS Amplify Webapp!"
+    summary="Deploy a webapp that will listen for messages and forward them to a
+      ROS2 robot. Includes arrow keys so a cell phone can be used as a remote control!"
+    github="https://github.com/mikelikesrobots/amplify-control-webapp"
+    youtube="https://www.youtube.com/embed/vzzmse-XgHg?si=P9qpTLMnES0-ZFeM"
+/>
+
+</GuideGroup>
+
+### Testing and Verification
+
+Resources coming soon.
+
+### Simulation
+
+Resources coming soon.
+
+### Engineering Career
+
+<GuideGroup>
+
+<GuideItem
+    title="Getting Started as a Robotics Software Engineer!"
+    summary="Learn how to get started as a robotics engineer - what to buy, and what to practise. I talk about hardware, your first programming language, and some robot kits to get going."
+    youtube="https://www.youtube.com/embed/tkYZmw8x-SM?si=9bA8wxOiRPhr-8uG"
+/>
+
+</GuideGroup>
