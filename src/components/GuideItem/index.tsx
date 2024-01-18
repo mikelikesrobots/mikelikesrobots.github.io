@@ -1,7 +1,7 @@
 import styles from './styles.module.css';
-import Details from '@theme/Details';
 import Image from '@theme/ThemedImage';
 import Link from '@docusaurus/Link';
+import clsx from 'clsx';
 
 export type GuideItemProps = {
   title: string;
@@ -20,9 +20,7 @@ function Summary(props: Pick<GuideItemProps, 'summary'>): JSX.Element {
 
 function YoutubeVideo(props: Pick<GuideItemProps, 'youtube'>): JSX.Element {
   return props.youtube ?
-    <Details summary="Watch on YouTube!">
-      <iframe className="youtube-video" src={props.youtube} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-    </Details> :
+    <iframe className={clsx("youtube-video", styles.rounded_top_corners)} src={props.youtube} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe> :
     null;
 }
 
@@ -31,7 +29,7 @@ function LocalBlogLink(props: {href?: string}): JSX.Element {
     <div className={styles.text_link}>
       <Link to={props.href}>
         <Image height={"30px"} className={styles.pad_right} sources={{light: "/img/logo.svg", dark: "/img/logo.svg"}}/>
-        Read more on Mike Likes Robots Blog!
+        Read more on my blog!
       </Link>
     </div> :
     null;
@@ -78,12 +76,12 @@ export default function GuideItem(props: GuideItemProps): JSX.Element {
   return (
     <section className={styles.card}>
       <div className={styles.card_title}>
+        <YoutubeVideo {...props} />
         <h5 className={styles.h5}>{props.title}</h5>
       </div>
       <div className={styles.card_container}>
         <Summary {...props} />
         <TextLinks {...props} />
-        <YoutubeVideo {...props} />
       </div>
     </section>
   )
