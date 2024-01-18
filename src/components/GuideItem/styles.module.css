@@ -1,0 +1,59 @@
+.pad_right {
+  padding-right: 5px;
+}
+.padded {
+  padding-bottom: 1rem;
+}
+.justify_vertical {
+  text-align: center;
+}
+
+.h5 {
+  font-size: larger;
+  padding: 10px 6px;
+}
+
+.blog_link {
+  flex-grow: 1;
+  padding-bottom: 5px;
+}
+.blog_link > a {
+  text-decoration: underline;
+  color: var(--mlr-color-unvisited);
+}
+.blog_link > a:visited {
+  color: var(--mlr-color-visited);
+}
+
+.blog_link > a > img {
+  padding-right: 10px;
+  vertical-align: middle;
+}
+
+.blog_links_wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  padding-bottom: 3px;
+  /* flex-direction: row; */
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  background-color: var(--mlr-color-primary-lighter);
+  outline: var(--mlr-color-primary-light) solid 2px;
+  margin-bottom: 1rem;
+}
+
+.card_title {
+  font-size: larger;
+  background-color: var(--mlr-color-primary-light);
+  width: 100%;
+  height: 100%;
+}
+
+.card_container {
+  padding: 10px;
+}
