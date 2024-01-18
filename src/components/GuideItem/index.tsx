@@ -1,5 +1,4 @@
 import styles from './styles.module.css';
-import Heading from '@theme/Heading';
 import Details from '@theme/Details';
 import Image from '@theme/ThemedImage';
 import Link from '@docusaurus/Link';
@@ -10,6 +9,7 @@ export type GuideItemProps = {
   youtube?: string;
   local_blog?: string;
   aws_community?: string;
+  github?: string;
 }
 
 function Summary(props: Pick<GuideItemProps, 'summary'>): JSX.Element {
@@ -28,7 +28,7 @@ function YoutubeVideo(props: Pick<GuideItemProps, 'youtube'>): JSX.Element {
 
 function LocalBlogLink(props: {href?: string}): JSX.Element {
   return props.href ? 
-    <div className={styles.blog_link}>
+    <div className={styles.text_link}>
       <Link to={props.href}>
         <Image height={"30px"} className={styles.pad_right} sources={{light: "/img/logo.svg", dark: "/img/logo.svg"}}/>
         Read more on Mike Likes Robots Blog!
@@ -39,7 +39,7 @@ function LocalBlogLink(props: {href?: string}): JSX.Element {
 
 function AWSCommunityBlogLink(props: {href?: string}): JSX.Element {
   return props.href ? 
-    <div className={styles.blog_link}>
+    <div className={styles.text_link}>
       <Link to={props.href}>
         <Image height={"30px"} className={styles.pad_right} sources={{light: "/img/aws_logo_smile_1200x630.png", dark: "/img/aws_logo_smile_1200x630.png"}}/>
         Read more on AWS Community!
@@ -48,13 +48,26 @@ function AWSCommunityBlogLink(props: {href?: string}): JSX.Element {
     null;
 }
 
-function Blogs(props: Pick<GuideItemProps, 'local_blog' | 'aws_community'>): JSX.Element {
+function GithubLink(props: Pick<GuideItemProps, 'github'>): JSX.Element {
+  return props.github ? 
+    <div className={styles.text_link}>
+      <Link to={props.github}>
+        <Image height={"30px"} className={styles.pad_right} sources={{light: "/img/github.jpg", dark: "/img/github.jpg"}}/>
+        See the source code on Github!
+      </Link>
+    </div> :
+    null;
+}
+
+function TextLinks(props: Pick<GuideItemProps, 'local_blog' | 'aws_community' | 'github'>): JSX.Element {
   const local = <LocalBlogLink href={props.local_blog} />;
   const aws = <AWSCommunityBlogLink href={props.aws_community} />;
-  if (local !== null || aws !== null) {
-    return <div className={styles.blog_links_wrapper}>
+  const github = <GithubLink {...props} />
+  if (local !== null || aws !== null || github !== null) {
+    return <div className={styles.text_links_wrapper}>
       {local}
       {aws}
+      {github}
     </div>
   } else {
     return null;
@@ -69,7 +82,7 @@ export default function GuideItem(props: GuideItemProps): JSX.Element {
       </div>
       <div className={styles.card_container}>
         <Summary {...props} />
-        <Blogs {...props} />
+        <TextLinks {...props} />
         <YoutubeVideo {...props} />
       </div>
     </section>
