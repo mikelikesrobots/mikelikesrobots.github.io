@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmikelikesrobots_github_io=self.webpackChunkmikelikesrobots_github_io||[]).push([[161],{3637:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/aws","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

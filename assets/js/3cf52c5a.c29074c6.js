@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmikelikesrobots_github_io=self.webpackChunkmikelikesrobots_github_io||[]).push([[24],{2707:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/iot","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

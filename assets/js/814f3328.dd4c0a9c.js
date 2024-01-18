@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmikelikesrobots_github_io=self.webpackChunkmikelikesrobots_github_io||[]).push([[535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Building a ROS2 node in Rust!","permalink":"/blog/ros2-rust-node","unlisted":false}]}')}}]);

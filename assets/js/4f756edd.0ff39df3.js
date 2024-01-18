@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmikelikesrobots_github_io=self.webpackChunkmikelikesrobots_github_io||[]).push([[296],{4787:o=>{o.exports=JSON.parse('{"permalink":"/blog/tags/robotics","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

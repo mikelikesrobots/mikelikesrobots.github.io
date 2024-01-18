@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmikelikesrobots_github_io=self.webpackChunkmikelikesrobots_github_io||[]).push([[958],{6115:s=>{s.exports=JSON.parse('{"label":"robotics","permalink":"/blog/tags/robotics","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);
