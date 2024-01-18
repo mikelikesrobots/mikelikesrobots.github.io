@@ -20,6 +20,7 @@
 .text_link > a {
   text-decoration: underline;
   color: var(--mlr-color-unvisited);
+  white-space: nowrap;
 }
 .text_link > a:visited {
   color: var(--mlr-color-visited);
@@ -35,7 +36,7 @@
   align-items: stretch;
   width: 100%;
   padding-bottom: 3px;
-  /* flex-direction: row; */
+  flex-flow: row wrap;
 }
 
 .card {
