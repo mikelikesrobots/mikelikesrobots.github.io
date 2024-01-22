@@ -13,7 +13,7 @@ These Docker Compose files can be used to run public Docker components, or pull 
 
 This post is also available in video form - check the video link below if you want to follow along!
 
-TODO
+<iframe class="youtube-video" src="https://www.youtube.com/embed/7lA-CDG22oo?si=F0fY2dIyqO40HpP3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## What is Docker?
 
