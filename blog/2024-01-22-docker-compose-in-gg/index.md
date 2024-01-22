@@ -19,7 +19,7 @@ This post is also available in video form - check the video link below if you wa
 
 Docker is very widely known in the DevOps world, but if you haven't heard of it, it's a way of taking a software application and bundling it up with all its dependencies so it can be easily moved around and run as an application. For example, if you have a Python application, you have two options:
 
-1. Ask the user to install Python, the `pip` dependencies needed to run the application, and give instructions on downloading and running the application;
+1. Ask the user to install Python, the `pip` dependencies needed to run the application, and give instructions on downloading and running the application; or
 1. Ask the user to install Docker, then provide a single command to download and run your application.
 
 Either option is viable, but it's clear to see the advantages of the Docker method.
@@ -84,7 +84,7 @@ docker compose --version
 More information can be found for any of these components using:
 
 1. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-2. [Greengrass Development Kit](https://docs.aws.amazon.com/greengrass/v2/developerguide/install-greengrass-development-kit-cli.html)
+2. [Greengrass Development Kit (GDK)](https://docs.aws.amazon.com/greengrass/v2/developerguide/install-greengrass-development-kit-cli.html)
 3. `jq`: `sudo apt install jq`
 4. [Docker](https://docs.docker.com/get-docker/)
 5. [Docker Compose](https://docs.docker.com/compose/install/)
@@ -143,7 +143,7 @@ By default, this project builds and pushes a Docker image tagged `python-hello-w
 
 ![ECR Repository Created](./img/ecr-repo.png)
 
-Copy the URI from the repo and strip off the `python-hello-world` ending to get the BASE_URI. Then, back in your cloned repository, open the `.env` file and replace the `ECR_REPO` variable with your base URL. It should look like the following:
+Copy the URI from the repo and strip off the `python-hello-world` ending to get the `BASE_URI`. Then, back in your cloned repository, open the `.env` file and replace the `ECR_REPO` variable with your base URL. It should look like the following:
 
 ```bash
 ECR_REPO=012345678901.dkr.ecr.us-west-2.amazonaws.com
@@ -216,6 +216,10 @@ This will show all current logs. It may take a few minutes to get going, so keep
 
 From these logs, we can see both "Successfully published" messages and "Received new message" messages, showing that the component is running correctly and has all the permissions it needs.
 
+This isn't the only way to check the component is running! We could also use the Local Debug Console, a locally-hosted web UI, to publish/subscribe to local topics. Take a look at this excellent video if you want to set this method up for yourself:
+
+<iframe class="youtube-video" src="https://www.youtube.com/embed/adx3zUGRoWw?si=pkuzWSUErByqiJsb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 :::info[Congratulations!]
 
 If you got to this point, you have successfully deployed a Docker Compose application using Greengrass!
@@ -265,11 +269,17 @@ gdk component build
 find . -maxdepth 1 -type f -not -name "*.sh" -exec sed -i "s/$ECR_REPO/{ECR_REPO}/g" {} \;
 ```
 
-...replace the ECR_REPO placeholder with the actual repo, then build the component with GDK, then replace that value back to the placeholder. As a result, the built files are modified, but the source files are changed to their original state.
+...replace the `ECR_REPO` placeholder with the actual repo, then build the component with GDK, then replace that value back to the placeholder. As a result, the built files are modified, but the source files are changed to their original state.
 
 Next we have the [GDK configuration file](https://github.com/mikelikesrobots/greengrass-docker-compose/blob/main/components/com.docker.PythonHelloWorld/gdk-config.json), which shows that our build system is set to `zip`. We could push only the Docker Compose file, but this method allows us to zip other files that support it if we want to extend the component. We also have the version tag, which needs to be incremented with new component versions.
 
-After that, we have the [Docker Compose file](https://github.com/mikelikesrobots/greengrass-docker-compose/blob/main/components/com.docker.PythonHelloWorld/docker-compose.yml). This contains one single service, some environment variables, and a volume. The service refers to the `python-hello-world` Docker image built by `docker/python-hello-world` by specifying the image name. **One important note here:** the component references the `latest` tag of python-hello-world. If you want your Greengrass component version to be meaningful, you should extend the build scripts to give a version number as the Docker image tag, so that each component version references a specific Docker image version.
+After that, we have the [Docker Compose file](https://github.com/mikelikesrobots/greengrass-docker-compose/blob/main/components/com.docker.PythonHelloWorld/docker-compose.yml). This contains one single service, some environment variables, and a volume. The service refers to the `python-hello-world` Docker image built by `docker/python-hello-world` by specifying the image name.
+
+:::warning
+
+This component references the `latest` tag of `python-hello-world`. If you want your Greengrass component version to be meaningful, you should extend the build scripts to give a version number as the Docker image tag, so that each component version references a specific Docker image version.
+
+:::
 
 We can see the `MQTT_TOPIC` and `MQTT_MESSAGE` environment variables that need to be passed to the container. These can be overridden in the `recipe.yaml` by Greengrass configuration, allowing us to pass configuration through to the Docker container.
 
