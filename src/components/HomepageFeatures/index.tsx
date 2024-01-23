@@ -7,7 +7,7 @@ import Link from '@docusaurus/Link';
 type FeatureItem = {
   title: string;
   title_href?: string;
-  image: string;
+  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
 };
 
@@ -15,7 +15,7 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'Thorough Getting Started Guide',
     title_href: '/docs/getting-started/intro',
-    image: '/img/shuttle.png',
+    Svg: require('@site/static/img/shuttle.svg').default,
     description: (
       <>
         Getting Started shows how to get going with connecting your robots to
@@ -27,7 +27,7 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'Active Blogging Platform',
     title_href: '/blog',
-    image: '/img/blog.png',
+    Svg: require('@site/static/img/blog.svg').default,
     description: (
       <>
         Site includes a blog actively updated as new content is released. Keep
@@ -38,21 +38,21 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-{/* <div className={clsx("text--center", styles.svg_background)}></div> */}
-
-function Feature({title, title_href, image, description}: FeatureItem) {
+function Feature({title, title_href, Svg, description}: FeatureItem) {
   const titleElement = title_href ?
     <Heading as="h3" className={styles.pad_top}><Link to={title_href}>{title}</Link></Heading> :
     <Heading as="h3" className={styles.pad_top}>{title}</Heading>;
   return (
     <div className={clsx('col col--6')}>
-      <div className={clsx("text--center", styles.svg_background)}>
-        <ThemedImage className={styles.featureSvg} sources={{ light: image, dark: image }} />
-      </div>
-      <div className="text--center padding-horiz--md">
-        {titleElement}
-        <p>{description}</p>
-      </div>
+      <Link to={title_href} className={styles.hover_expand}>
+        <div className={clsx("text--center", styles.svg_background)}>
+          <Svg className={styles.featureSvg} role="img" />
+        </div>
+        <div className="text--center padding-horiz--md">
+          {titleElement}
+          <p>{description}</p>
+        </div>
+      </Link>
     </div>
   );
 }

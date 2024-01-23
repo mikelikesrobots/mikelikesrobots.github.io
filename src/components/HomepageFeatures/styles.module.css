@@ -22,3 +22,14 @@
 .pad_top {
   padding-top: 20px;
 }
+
+.hover_expand > div > svg:hover {
+  transition-duration: 0.1s;
+  transform: scale(1.2);
+  transform-origin: center;
+}
+.hover_expand > div > svg {
+  transition-duration: 0.1s;
+  transform: scale(1.0);
+  transform-origin: center;
+}

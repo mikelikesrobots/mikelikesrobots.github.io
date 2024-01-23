@@ -126,10 +126,6 @@ const config: Config = {
               to: '/blog',
             },
             {
-              label: 'Flaticons - Freepik',
-              to: 'https://www.flaticon.com/free-icons/start-button',
-            },
-            {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
             },
