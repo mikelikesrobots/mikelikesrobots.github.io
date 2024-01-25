@@ -8,7 +8,7 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-color: var(--mlr-color-primary);
+  background-color: var(--ifm-color-primary-lighter);
 }
 
 @media screen and (max-width: 996px) {

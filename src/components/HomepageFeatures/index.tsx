@@ -40,19 +40,19 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({title, title_href, Svg, description}: FeatureItem) {
   const titleElement = title_href ?
-    <Heading as="h3" className={styles.pad_top}><Link to={title_href}>{title}</Link></Heading> :
-    <Heading as="h3" className={styles.pad_top}>{title}</Heading>;
+    <Heading as="h2" className={styles.pad_top}><Link to={title_href}>{title}</Link></Heading> :
+    <Heading as="h2" className={styles.pad_top}>{title}</Heading>;
   return (
     <div className={clsx('col col--6')}>
       <Link to={title_href} className={styles.hover_expand}>
         <div className={clsx("text--center", styles.svg_background)}>
           <Svg className={styles.featureSvg} role="img" />
         </div>
-        <div className="text--center padding-horiz--md">
-          {titleElement}
-          <p>{description}</p>
-        </div>
       </Link>
+      <div className="text--center padding-horiz--md">
+        {titleElement}
+        <p>{description}</p>
+      </div>
     </div>
   );
 }

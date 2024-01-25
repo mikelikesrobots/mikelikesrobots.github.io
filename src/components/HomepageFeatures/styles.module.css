@@ -10,11 +10,14 @@
   width: 200px;
   margin-top: 50px;
 }
+.featureSvg > g > path {
+  stroke: white;
+}
 
 .svg_background {
   width: 300px;
   height: 300px;
-  background-color: var(--mlr-color-primary-lighter);
+  background-color: var(--ifm-color-primary);
   border-radius: 150px;
   margin: auto;
 }

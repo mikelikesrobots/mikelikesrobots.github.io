@@ -6,51 +6,38 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #20659E;
+  --ifm-color-primary-dark: #1A5586;
+  --ifm-color-primary-darker: #14466F;
+  --ifm-color-primary-darkest: #0F3758;
+  --ifm-color-primary-light: #2778BA;
+  --ifm-color-primary-lighter: #3490DB;
+  --ifm-color-primary-lightest: #3FA8FF;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
+article {
+  --ifm-link-decoration: underline;
+}
+
+.footer__link-item {
+  line-height: 2.5;
+}
+
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #2174B8;
+  --ifm-color-primary-dark: #1e639c;
+  --ifm-color-primary-darker: #1b588a;
+  --ifm-color-primary-darkest: #143f63;
+  --ifm-color-primary-light: #2C8BD9;
+  --ifm-color-primary-lighter: #4397DC;
+  --ifm-color-primary-lightest: #54A2E2;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-}
-
-:root {
-  /* Material UI - skip a few between primary and dark */
-  --mlr-color-primary-lighter: #90caf9;
-  --mlr-color-primary-light: #64b5f6;
-  --mlr-color-primary: #42a5f5;
-  --mlr-color-primary-dark: #1565c0;
-  --mlr-color-primary-darker: #0d47a1;
-  --mlr-color-unvisited: #1565c0;
-  --mlr-color-visited: #673ab7;
-
-  /* Override link colors across site */
-  --ifm-link-color: var(--mlr-color-unvisited);
-}
-
-[data-theme='dark'] {
-  --mlr-color-primary-lighter: #0d47a1;
-  --mlr-color-primary-light: #1565c0;
-  --mlr-color-primary: #42a5f5;
-  --mlr-color-primary-dark: #64b5f6;
-  --mlr-color-primary-darker: #90caf9;
-  --mlr-color-unvisited: var(--mlr-color-primary-darker);
-  --mlr-color-visited: #d1c4e9;
+  --ifm-link-color: var(--ifm-color-primary-lighter);
+  --ifm-breadcrumb-color-active: var(--ifm-color-primary-lighter);
+  --ifm-menu-color-active: var(--ifm-color-primary-lighter);
 }
 
 .youtube-video {

@@ -56,7 +56,7 @@ const config: Config = {
     navbar: {
       title: 'Mike Likes Robots',
       logo: {
-        alt: 'Mike Likes Robots',
+        alt: 'Ike-U - mascot icon for blog',
         src: 'img/logo.svg',
       },
       items: [
