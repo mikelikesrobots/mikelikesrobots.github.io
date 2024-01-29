@@ -38,7 +38,7 @@ On top of bundling software into images, Docker has a plugin called Docker Compo
 
 We're now going to use Docker Compose by showing how to deploy and run an application using Greengrass and Docker Compose. Let's take a look at the code.
 
-The code we're using comes from my sample repository. You can find it [here](https://github.com/mikelikesrobots/greengrass-docker-compose).
+The code we're using comes from [my sample repository](https://github.com/mikelikesrobots/greengrass-docker-compose).
 
 ### Clone the Code
 
@@ -240,7 +240,7 @@ Let's take a deeper dive into the Docker image and the Greengrass component in t
 
 ### Docker Image (docker/python-hello-world)
 
-Inside this folder, we can see the [LocalPubSub sample application](https://github.com/mikelikesrobots/greengrass-docker-compose/blob/main/docker/python-hello-world/main.py) from Greengrass (see the template [here](https://github.com/aws-greengrass/aws-greengrass-component-templates/tree/main/templates/python/LocalPubSub)), with some minor modifications. Instead of passing in the topic to publish on and the message to publish, we are instead using environment variables.
+Inside this folder, we can see the [LocalPubSub sample application](https://github.com/mikelikesrobots/greengrass-docker-compose/blob/main/docker/python-hello-world/main.py) from Greengrass (see [the template](https://github.com/aws-greengrass/aws-greengrass-component-templates/tree/main/templates/python/LocalPubSub)), with some minor modifications. Instead of passing in the topic to publish on and the message to publish, we are instead using environment variables.
 
 ```python
 topic = os.environ.get("MQTT_TOPIC", "example/topic")

@@ -28,7 +28,7 @@ function LocalBlogLink(props: {href?: string}): JSX.Element {
   return props.href ? 
     <div className={styles.text_link}>
       <Link to={props.href}>
-        <Image height={"30px"} className={styles.pad_right} sources={{light: "/img/logo.svg", dark: "/img/logo.svg"}}/>
+        <Image alt="Ike-U - mascot icon for blog" height={"30px"} className={styles.pad_right} sources={{light: "/img/logo.svg", dark: "/img/logo.svg"}}/>
         Read more on my blog!
       </Link>
     </div> :
@@ -39,7 +39,7 @@ function AWSCommunityBlogLink(props: {href?: string}): JSX.Element {
   return props.href ? 
     <div className={styles.text_link}>
       <Link to={props.href}>
-        <Image height={"30px"} className={styles.pad_right} sources={{light: "/img/aws_logo_smile_1200x630.png", dark: "/img/aws_logo_smile_1200x630.png"}}/>
+        <Image alt="AWS Community Logo Icon" height={"30px"} className={styles.pad_right} sources={{light: "/img/aws_logo_smile_bullet.webp", dark: "/img/aws_logo_smile_bullet.webp"}}/>
         Read more on AWS Community!
       </Link>
     </div> :
@@ -50,7 +50,7 @@ function GithubLink(props: Pick<GuideItemProps, 'github'>): JSX.Element {
   return props.github ? 
     <div className={styles.text_link}>
       <Link to={props.github}>
-        <Image height={"30px"} className={styles.pad_right} sources={{light: "/img/github.jpg", dark: "/img/github.jpg"}}/>
+        <Image alt="Github Logo Icon" height={"30px"} className={styles.pad_right} sources={{light: "/img/github_bullet.webp", dark: "/img/github_bullet.webp"}}/>
         See the source code on Github!
       </Link>
     </div> :
@@ -77,7 +77,7 @@ export default function GuideItem(props: GuideItemProps): JSX.Element {
     <section className={styles.card}>
       <div className={styles.card_title}>
         <YoutubeVideo {...props} />
-        <h5 className={styles.h5}>{props.title}</h5>
+        <p className={styles.h5}>{props.title}</p>
       </div>
       <div className={styles.card_container}>
         <Summary {...props} />

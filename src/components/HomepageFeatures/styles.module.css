@@ -10,15 +10,29 @@
   width: 200px;
   margin-top: 50px;
 }
+.featureSvg > g > path {
+  stroke: white;
+}
 
 .svg_background {
   width: 300px;
   height: 300px;
-  background-color: var(--mlr-color-primary-lighter);
+  background-color: var(--ifm-color-primary);
   border-radius: 150px;
   margin: auto;
 }
 
 .pad_top {
   padding-top: 20px;
+}
+
+.hover_expand > div > svg:hover {
+  transition-duration: 0.1s;
+  transform: scale(1.2);
+  transform-origin: center;
+}
+.hover_expand > div > svg {
+  transition-duration: 0.1s;
+  transform: scale(1.0);
+  transform-origin: center;
 }
