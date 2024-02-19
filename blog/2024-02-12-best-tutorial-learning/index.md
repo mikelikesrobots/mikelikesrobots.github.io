@@ -5,13 +5,15 @@ authors: mike
 tags: [educational]
 ---
 
-TODO insert YT vid
-
 This post is about how beginners can make the most out of every tutorial by digging deep into the code to understand it. This is the best foundation you can give yourself for continuing to work on the code and making your own modifications. It follows on from [Getting Started as a Robotics Software Engineer!](/blog/getting-started-robot-sw-eng/), where I give the advice: 
 
 > First, look for and use every resource you have available to you. Look online, ask people, work in the field; anything you can to make your journey easier.
 
 Following on from that, I wanted to show how to take a tutorial and use various resources to understand what's happening in the provided code. I'll take the tutorial from ROS about [writing a simple publisher/subscriber](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html), and I'll use C++ to build it, as this is less well-known than Python and so a better way to demonstrate self-learning.
+
+If you'd prefer to follow along, I've built a video demonstrating everything in this article, available here:
+
+<iframe class="youtube-video" src="https://www.youtube.com/embed/Isk6Uh_i-8s?si=dkFYHbCkgh6CE70c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 To understand the tutorial code, we'll be using the following resources:
 1. [Version control (git)](#using-source-control-to-your-advantage) - to check the differences between versions and understand what's changed
