@@ -7,7 +7,7 @@ tags: [robotics, aws, iot, lambda]
 
 <!-- Co-ordinate fleets? Track status/give orders in cloud. Use Lambda for serverless. Demonstrate using simple function to update status in table. -->
 
-This post shows how to build two simple serverless functions, running in the cloud, using AWS Lambda. The purpose of the functions is the same - to update the status of a given robot name in a database, allowing us to view the current statuses in the database or build tools on top of it. This is how we can coordinate robots in a fleet, or across multiple fleets - using the cloud to store the state and run the logic to co-ordinate those robots.
+This post shows how to build two simple serverless functions, running in the cloud, using AWS Lambda. The purpose of the functions is the same - to update the status of a given robot name in a database, allowing us to view the current statuses in the database or build tools on top of it. This is one way we could coordinate robots in one or more fleets - using the cloud to store the state and run the logic to co-ordinate those robots.
 
 This post is also available in video form - check the video link below if you want to follow along!
 
@@ -15,24 +15,24 @@ TODO: post video link
 
 ## What is AWS Lambda?
 
-AWS Lambda is a service for executing serverless functions. That means you don't need to provision any virtual machines or clusters in the cloud - just trigger the Lambda with some kind of event, and your pre-built function will run on the inputs. It could give you some outputs, or make changes in the cloud (like database modifications), or both.
+AWS Lambda is a service for executing serverless functions. That means you don't need to provision any virtual machines or clusters in the cloud - just trigger the Lambda with some kind of event, and your pre-built function will run. It runs on inputs from the event and could give you some outputs, make changes in the cloud (like database modifications), or both.
 
-AWS Lambda charges based on the time taken to execute the function and the memory assigned to the function. The compute power available for a function scales with the memory assigned to it. We will explore this later in the post by looking at some rough numbers.
+AWS Lambda charges based on the time taken to execute the function and the memory assigned to the function. The compute power available for a function scales with the memory assigned to it. We will explore this later in the post by comparing the memory and execution time of two Lambda functions.
 
-In short, AWS Lambda allows you to build and upload functions that will execute in the cloud when triggered by configured events. Take a look at [the documentation](https://aws.amazon.com/lambda/) if you'd like to learn more about the core service!
+In short, AWS Lambda allows you to build and upload functions that will execute in the cloud when triggered by configured events. Take a look at [the documentation](https://aws.amazon.com/lambda/) if you'd like to learn more about the service!
 
 ## How does that help with robot co-ordination?
 
-Scaling up from one robot to multiple robots helping perform the same core service means that you will need a central system to co-ordinate between the different actors. It may distribute orders to different robots, tell them to go recharge batteries, and alert a user when something goes wrong.
+Moving from one robot to multiple robots helping with the same task means that you will need a central system to co-ordinate between them. The system may distribute orders to different robots, tell them to go recharge batteries, or alert a user when something goes wrong.
 
 This central service can run anywhere that the robots are able to communicate with it - on one of the robots, on a server near the robots, or in the cloud. If you don't want to have the burden of building a server that is constantly online and reachable, the cloud is an excellent choice, and AWS Lambda is a cost-effective way to run a central system.
 
-Let's take an example: you have built a prototype robot booth for serving drinks. Users may place an order at a terminal next to the robot and have their drink made. After this success, your next step is to add two new features:
+Let's take an example: you have built a prototype robot booth for serving drinks. Users may place an order at a terminal next to the robot and have their drink made. Your booth is working, so now you want to add more robots and distribute orders among them. That means your next step is to add two new features:
 
 1. Users should be able to place orders online through a digital portal.
 1. Any order should be dispatched to any available robot at a given location, and alert the user when complete.
 
-Suddenly, you have gone from one robot capable of accepting orders through a terminal to needing a central database with ordering system. Not only that, but if you want to be able to deploy to a new location, having a single server per site is not the most feasible option. One large central system to manage the orders and robots is perfect for this use case.
+Suddenly, you have gone from one robot capable of accepting orders through a terminal to needing a central database with ordering system. Not only that, but if you want to be able to deploy to a new location, having a single server per site makes it more difficult to route online orders to the right location. One central system in the cloud to manage the orders and robots is perfect for this use case.
 
 ## Building Lambda Functions
 
@@ -40,7 +40,7 @@ Convinced? Great! Let's start by building a simple Lambda function - or rather, 
 
 All of the code used in this post is [available on Github](https://github.com/mikelikesrobots/lambda-iot-rule).
 
-Instructions for the setup are in the README. In this post, I'll focus on the interesting parts of the code.
+Instructions for the setup are in the README. In this post, I'll focus on relevant parts of the code.
 
 ### Python Function
 
@@ -53,7 +53,7 @@ def lambda_handler(event, context):
     status = str(event["status"])
 ```
 
-We can see that the event is passed to the lambda handler and contains the required fields. If valid, the [DynamoDB table is updated](https://github.com/mikelikesrobots/lambda-iot-rule/blob/main/handlers/python-update-status/handler.py#L20-L30):
+We can see that the event is passed to the lambda handler and contains the required fields, `name` and `status`. If valid, the [DynamoDB table is updated](https://github.com/mikelikesrobots/lambda-iot-rule/blob/main/handlers/python-update-status/handler.py#L20-L30):
 
 ```python
 ddb = boto3.resource("dynamodb")
@@ -123,7 +123,11 @@ In this case, our CDK stack is building and deploying a few things:
 1. The DynamoDB table used to hold the robot statuses
 1. An IoT Rule per Lambda function that will listen for MQTT messages and call the corresponding Lambda function
 
-TODO IoT Rule
+The DynamoDB table comes from Amazon DynamoDB, another service from AWS that keeps a NoSQL database in the cloud. This service is also serverless, again meaning that no servers or clusters are needed.
+
+There are also two IoT Rules, which are from AWS IoT Core, and define an action to take when an MQTT message is published on a particular topic filter. In our case, it allows robots to publish an MQTT message saying they are online, and will call the corresponding Lambda function. I have used IoT Rules before for inserting data into AWS IoT SiteWise - take a look at the following video for more information on setting up rules and seeing how they work:
+
+<iframe class="youtube-video" src="https://www.youtube.com/embed/9ZRZhrJFz7A?si=hAbivHoZCKmmUkqD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Testing the Functions
 
@@ -161,7 +165,7 @@ Success! We have used functions run in the cloud to modify a database to contain
 
 ### Executing the Functions
 
-Lambda functions have a large selection of ways that they can be executed. For example, we could set up an API Gateway that is able to accept API requests and forward them to the Lambda, then return the results. One way to check the input types is to access the Lambda, then click the "Add trigger" button. There are far too many options to list them all here, so I encourage you to take a look for yourself!
+Lambda functions have a large selection of ways that they can be executed. For example, we could set up an API Gateway that is able to accept API requests and forward them to the Lambda, then return the results. One way to check the possible input types is to access the Lambda, then click the "Add trigger" button. There are far too many options to list them all here, so I encourage you to take a look for yourself!
 
 ![Lambda add trigger button](./img/lambda-function-diagram.webp)
 
