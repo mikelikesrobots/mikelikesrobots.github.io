@@ -9,7 +9,7 @@ This post shows how to build two simple functions, running in the cloud, using A
 
 This post is also available in video form - check the video link below if you want to follow along!
 
-TODO: post video link
+<iframe class="youtube-video" src="https://www.youtube.com/embed/AVfk8ICQK9o?si=68mtXaVTU65VI6BE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## What is AWS Lambda?
 
