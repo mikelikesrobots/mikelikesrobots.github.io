@@ -1,13 +1,11 @@
 ---
-title: "Co-ordinating robot fleets with AWS Lambda!"
+title: "Co-ordinating Robot Fleets with AWS Lambda"
 slug: coordinating-with-lambda
 authors: mike
 tags: [robotics, aws, iot, lambda]
 ---
 
-<!-- Co-ordinate fleets? Track status/give orders in cloud. Use Lambda for serverless. Demonstrate using simple function to update status in table. -->
-
-This post shows how to build two simple serverless functions, running in the cloud, using AWS Lambda. The purpose of the functions is the same - to update the status of a given robot name in a database, allowing us to view the current statuses in the database or build tools on top of it. This is one way we could coordinate robots in one or more fleets - using the cloud to store the state and run the logic to co-ordinate those robots.
+This post shows how to build two simple functions, running in the cloud, using AWS Lambda. The purpose of these functions is the same - to update the status of a given robot name in a database, allowing us to view the current statuses in the database or build tools on top of it. This is one way we could coordinate robots in one or more fleets - using the cloud to store the state and run the logic to co-ordinate those robots.
 
 This post is also available in video form - check the video link below if you want to follow along!
 
@@ -23,28 +21,26 @@ In short, AWS Lambda allows you to build and upload functions that will execute 
 
 ## How does that help with robot co-ordination?
 
-Moving from one robot to multiple robots helping with the same task means that you will need a central system to co-ordinate between them. The system may distribute orders to different robots, tell them to go recharge batteries, or alert a user when something goes wrong.
+Moving from one robot to multiple robots helping with the same task means that you will need a central system to co-ordinate between them. The system may distribute orders to different robots, tell them to go and recharge their batteries, or alert a user when something goes wrong.
 
-This central service can run anywhere that the robots are able to communicate with it - on one of the robots, on a server near the robots, or in the cloud. If you don't want to have the burden of building a server that is constantly online and reachable, the cloud is an excellent choice, and AWS Lambda is a cost-effective way to run a central system.
+This central service can run anywhere that the robots are able to communicate with it - on one of the robots, on a server near the robots, or in the cloud. If you want to avoid standing up and maintaining a server that is constantly online and reachable, the cloud is an excellent choice, and AWS Lambda is a great way to run function code as part of this central system.
 
-Let's take an example: you have built a prototype robot booth for serving drinks. Users may place an order at a terminal next to the robot and have their drink made. Your booth is working, so now you want to add more robots and distribute orders among them. That means your next step is to add two new features:
+Let's take an example: you have built a prototype robot booth for serving drinks. Customers can place an order at a terminal next to the robot and have their drink made. Now that your booth is working, you want to add more booths with robots and distribute orders among them. That means your next step is to add two new features:
 
-1. Users should be able to place orders online through a digital portal.
+1. Customers should be able to place orders online through a digital portal or webapp.
 1. Any order should be dispatched to any available robot at a given location, and alert the user when complete.
 
-Suddenly, you have gone from one robot capable of accepting orders through a terminal to needing a central database with ordering system. Not only that, but if you want to be able to deploy to a new location, having a single server per site makes it more difficult to route online orders to the right location. One central system in the cloud to manage the orders and robots is perfect for this use case.
+Suddenly, you have gone from one robot capable of accepting orders through a terminal to needing a central database with ordering system. Not only that, but if you want to be able to deploy to a new location, having a single server per site makes it more difficult to route online orders to the right location. One central system in the cloud to manage the orders and robots is *perfect* for this use case.
 
 ## Building Lambda Functions
 
 Convinced? Great! Let's start by building a simple Lambda function - or rather, two simple Lambda functions. We're going to build one Python function and one Rust function. That's to allow us to explore the differences in memory usage and runtime, both of which increase the cost of running Lambda functions.
 
-All of the code used in this post is [available on Github](https://github.com/mikelikesrobots/lambda-iot-rule).
-
-Instructions for the setup are in the README. In this post, I'll focus on relevant parts of the code.
+All of the code used in this post is [available on Github](https://github.com/mikelikesrobots/lambda-iot-rule), with setup instructions in the [README](https://github.com/mikelikesrobots/lambda-iot-rule/blob/main/README.md). In this post, I'll focus on relevant parts of the code.
 
 ### Python Function
 
-Firstly, what are the Lambda functions doing? In both cases, they accept a `name` and a `status` as arguments, attached to the `event` object passed to the handler, check the status is valid, and update a DynamoDB table for the given robot `name` with the given robot `status`. For example, in the [Python code](https://github.com/mikelikesrobots/lambda-iot-rule/blob/main/handlers/python-update-status/handler.py#L5-L11):
+Firstly, what are the Lambda functions doing? In both cases, they accept a `name` and a `status` as arguments, attached to the `event` object passed to the handler; check the status is valid; and update a DynamoDB table for the given robot `name` with the given robot `status`. For example, in the [Python code](https://github.com/mikelikesrobots/lambda-iot-rule/blob/main/handlers/python-update-status/handler.py#L5-L11):
 
 ```python
 def lambda_handler(event, context):
@@ -71,7 +67,7 @@ table.update_item(
 
 ### Rust Function
 
-The equivalent for checking the [input arguments for Rust](https://github.com/mikelikesrobots/lambda-iot-rule/blob/main/handlers/rust-update-status/src/main.rs#L6-L21):
+Here is the equivalent for checking the [input arguments for Rust](https://github.com/mikelikesrobots/lambda-iot-rule/blob/main/handlers/rust-update-status/src/main.rs#L6-L21):
 
 ```rust
 #[derive(Deserialize, Debug, Serialize)]
@@ -113,27 +109,25 @@ tracing::info!("Got response: {:#?}", response);
 
 ### CDK Build
 
-To make it easier to build and deploy the functions, the sample repository contains a CDK stack. I've talked more about Cloud Development Kit (CDK) and the advantages of Infrastructure-as-Code (IaC) in my video TODO:
+To make it easier to build and deploy the functions, the sample repository contains a CDK stack. I've talked more about Cloud Development Kit (CDK) and the advantages of Infrastructure-as-Code (IaC) in my video "From AWS IoT Core to SiteWise with CDK Magic!":
 
-TODO
+<iframe class="youtube-video" src="https://www.youtube.com/embed/9ZRZhrJFz7A?si=ZFBWN24xmXXWcDFH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 In this case, our CDK stack is building and deploying a few things:
 
 1. The two Lambda functions
-1. The DynamoDB table used to hold the robot statuses
+1. The DynamoDB table used to store the robot statuses
 1. An IoT Rule per Lambda function that will listen for MQTT messages and call the corresponding Lambda function
 
 The DynamoDB table comes from Amazon DynamoDB, another service from AWS that keeps a NoSQL database in the cloud. This service is also serverless, again meaning that no servers or clusters are needed.
 
-There are also two IoT Rules, which are from AWS IoT Core, and define an action to take when an MQTT message is published on a particular topic filter. In our case, it allows robots to publish an MQTT message saying they are online, and will call the corresponding Lambda function. I have used IoT Rules before for inserting data into AWS IoT SiteWise - take a look at the following video for more information on setting up rules and seeing how they work:
-
-<iframe class="youtube-video" src="https://www.youtube.com/embed/9ZRZhrJFz7A?si=hAbivHoZCKmmUkqD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+There are also two IoT Rules, which are from AWS IoT Core, and define an action to take when an MQTT message is published on a particular topic filter. In our case, it allows robots to publish an MQTT message saying they are online, and will call the corresponding Lambda function. I have used IoT Rules before for inserting data into AWS IoT SiteWise; for more information on setting up rules and seeing how they work, take a look at the video I linked just above.
 
 ### Testing the Functions
 
 Once the CDK stack has been built and deployed, take a look at the [Lambda console](https://us-west-2.console.aws.amazon.com/lambda/home). You should have two new functions built, just like in the image below:
 
-![Two new Lambda functions in the console](./img/functions-in-console.webp)
+![Two new Lambda functions in the AWS console](./img/functions-in-console.webp)
 
 Great! Let's open one up and try it out. Open the function name that has "Py" in it and scroll down to the Test section (top red box). Enter a test name (center red box) and a valid input JSON document (bottom red box), then save the test. 
 
@@ -157,7 +151,7 @@ Select the button in the top right to explore items.
 
 ![Explore Table Items button in DynamoDB](./img/explore-table-items.webp)
 
-This should reveal a screen with the current items in the table. It should contain the two test names you used for the Lambda functions:
+This should reveal a screen with the current items in the table - the two test names you used for the Lambda functions:
 
 ![DynamoDB table with Lambda test items](./img/table-items.webp)
 
@@ -165,7 +159,7 @@ Success! We have used functions run in the cloud to modify a database to contain
 
 ### Executing the Functions
 
-Lambda functions have a large selection of ways that they can be executed. For example, we could set up an API Gateway that is able to accept API requests and forward them to the Lambda, then return the results. One way to check the possible input types is to access the Lambda, then click the "Add trigger" button. There are far too many options to list them all here, so I encourage you to take a look for yourself!
+Lambda functions have a huge variety of ways that they can be executed. For example, we could set up an API Gateway that is able to accept API requests and forward them to the Lambda, then return the results. One way to check the possible input types is to access the Lambda, then click the "Add trigger" button. There are far too many options to list them all here, so I encourage you to take a look for yourself!
 
 ![Lambda add trigger button](./img/lambda-function-diagram.webp)
 
@@ -181,28 +175,27 @@ One message published on the topic will trigger both functions to run, and we ca
 
 There is only one extra entry, and that's because both functions executed on the same input. That means "FakeRobot" had its status updated to ONLINE once by each function.
 
-<!-- TODO add IoT Core video -->
+If we wanted, we could set up the robot to call the Lambda function when it comes online - it could make an API call, or it could connect to AWS IoT Core and publish a message with its ONLINE status. We could also set up more Lambda functions to take customer orders, dispatch them to robots, and so on - the Lambda functions and accompanying AWS services allow us to build a completely serverless robot co-ordination system in the cloud. If you want to see more about connecting ROS2 robots to AWS IoT Core, take a look at my video here:
 
-If we wanted, we could set up the robot to call the Lambda function when it comes online - it could make an API call, or it could connect to AWS IoT Core and publish a message with its ONLINE status. We could also set up more Lambda functions to take customer orders, dispatch them to robots, and so on - the Lambda functions and accompanying AWS services allow us to build a completely serverless robot co-ordination system in the cloud.
+<iframe class="youtube-video" src="https://www.youtube.com/embed/OnVewSeayjI?si=tGqH8sE93w_CzHUF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### Cost
+## Lambda Function Cost
 
-<!-- TODO provide link for the price calc -->
-How much does Lambda cost to run? For this section, I'll give rough numbers using the AWS Price Calculator. For our system, we will assume that customer orders are arriving, robots are reporting their status when it changes, and orders are being distributed; in all, I'll assume a rough estimate of 100 messages per minute, triggering 1 Lambda function invocation each.
+How much does Lambda cost to run? For this section, I'll give rough numbers using the [AWS Price Calculator](https://calculator.aws). We will assume a rough estimate of 100 messages per minute - that accounts for customer orders arriving, robots reporting their status when it changes, and orders are being distributed; in all, I'll assume a rough estimate of 100 messages per minute, triggering 1 Lambda function invocation each.
 
-For our functions, we can run the test case a few times for each function. We will also edit the configuration in the console to set higher memory limits, to see if the increase in speed will offset the increased memory cost.
+For our functions, we can run the test case a few times for each function to get a small spread of numbers. We can also edit the configuration in the console to set higher memory limits, to see if the increase in speed will offset the increased memory cost.
 
 ![Edit Lambda general configuration](./img/lambda-config.webp)
 
 ![Edit Lambda memory setting](./img/lambda-memory-setting.webp)
 
-Finally, we will use an ARM architecture, as this is currently more cost effective in AWS.
+Finally, we will use an ARM architecture, as this currently costs less than x86 in AWS.
 
-I will run a valid test input for each test function 44 times each for 3 different memory values - 128MB, 256MB, and 1024MB - and take the latter 3 invocations, as the first invocation takes much longer. I will then take the median billed runtime and calculate the cost per month for 100 invocations per minute at that runtime and memory usage.
+I will run a valid test input for each test function 4 times each for 3 different memory values - 128MB, 256MB, and 512MB - and take the latter 3 invocations, as the first invocation takes much longer. I will then take the median billed runtime and calculate the cost per month for 100 invocations per minute at that runtime and memory usage.
 
 My results are as follows:
 
-| Test | Python (128MB) | Python (256MB) | Python (512MB) | Rust (128MB) | Rust (256MB) | Rust (1024MB) |
+| Test | Python (128MB) | Python (256MB) | Python (512MB) | Rust (128MB) | Rust (256MB) | Rust (512MB) |
 | ---- | -------------- | -------------- | --------------- | ------------ | ------------ | ------------- |
 | 1      | 594 ms | 280 ms | 147 ms | 17 ms | 5 ms | 6 ms |
 | 2      | 574 ms | 279 ms | 147 ms | 15 ms | 6 ms | 6 ms |
@@ -212,12 +205,20 @@ My results are as follows:
 
 There is a lot of information to pull out from this table! The first thing to notice is the monthly cost. This is the estimated cost per month for Lambda - 100 invocations per minute for the entire month costs a maximum total of $5.17. These are rough numbers, and other services will add to that cost, but that's still very low!
 
-Next, we notice with the Python function that as the memory increases, the runtime decreases by roughly the same factor. The cost stays roughly the same as well. That means we can take the highest memory to get the fastest runtime while still paying the same price. In some further testing, I found that 1024MB was a good middle ground. It's worth experimenting to find the best price point and speed of execution.
+Next, in the Python function, we can see that multiplying the memory will divide the runtime by roughly the same factor. The cost stays roughly the same as well. That means we can configure the function to use more memory to get the fastest runtime, while still paying the same price. In some further testing, I found that 1024MB is a good middle ground. It's worth experimenting to find the best price point and speed of execution.
 
-However, when we compare that to the Rust function, we find that the execution time is pretty stable from 256MB onwards. Adding more memory doesn't speed up our function - it is most likely limited by the response time of DynamoDB. The optimal point seems to be 256MB, which gives very stable (and snappy) response times.
+If we instead look at the Rust function, we find that the execution time is pretty stable from 256MB onwards. Adding more memory doesn't speed up our function - it is most likely limited by the response time of DynamoDB. The optimal point seems to be 256MB, which gives very stable (and snappy) response times.
 
-Finally, when we compare the two functions, we can see that Rust is much more responsive, and costs around 20% as much. That's a large difference in execution time and in cost, and tells us that it's worth considering a compiled language (Rust, C++, Go etc) when building a Lambda function that will be executed many times.
+Finally, when we compare the two functions, we can see that Rust is much faster to respond (5ms instead of 279 ms at 256MB), and costs ~20% as much per month. That's a large difference in execution time and in cost, and tells us that it's worth considering a compiled language (Rust, C++, Go etc) when building a Lambda function that will be executed many times.
 
 The main point to take away from this comparison is that memory and execution time are the major factors when estimating Lambda cost. If we can minimize these parameters, we will minimize cost of Lambda invocation. The follow-up to that is to consider using a compiled language for frequently-run functions to minimize these parameters.
 
-<!-- What's my summary? -->
+## Summary
+
+Once you move from one robot working alone to multiple robots working together, you're very likely to need some central management system, and the cloud is a great option for this. What's more, you can use serverless technologies like AWS Lambda and Amazon DynamoDB to only pay for the transactions - no upkeep, and no server provisioning. This makes the management process easy: just define your database and the functions to interact with it, and your system is good to go!
+
+AWS Lambda is a great way to define one or more of these functions. It can react to events like API calls or MQTT messages by integrating with other services. By combining IoT, DynamoDB, and Lambda, we can allow robots to send an MQTT message that triggers a Lambda, allowing us to track the current status of robots in our fleet - all deployed using CDK.
+
+Lambda functions are charged by invocation, where the cost for each invocation depends on the memory assigned to the function and the time taken for that function to complete. We can minimize the cost of Lambda by reducing the memory required and the execution time for a function. Because of this, using a compiled language could translate to large savings for functions that run frequently. With that said, the optimal price point might not be the minimum possible memory - the Python function seems to be cheapest when configured with 1024MB.
+
+We could continue to expand this system by adding more possible statuses, defining the fleet for each robot, and adding more functions to manage distributing orders. This is the starting point of our management system. See if you can expand one or both of the Lambda functions to define more possible statuses for the robots!
