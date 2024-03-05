@@ -3,6 +3,7 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
+@import 'font-awesome/css/font-awesome.min.css';
 
 /* You can override the default Infima variables here. */
 :root {
@@ -43,4 +44,21 @@ article {
 .youtube-video {
   width: 100%;
   aspect-ratio: 16 / 9;
+}
+
+/* Add icons for social links */
+
+.header-img {
+  height: 1lh;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.header-link {
+  display: flex;
+  align-items: baseline;
+}
+
+.small-pad-right {
+  padding-right: 0.3rem;
 }

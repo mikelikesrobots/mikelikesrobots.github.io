@@ -68,24 +68,32 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://community.aws/@mikelikesrobots',
-          label: 'AWS Community',
-          position: 'right',
-        },
-        {
           href: 'https://www.youtube.com/channel/UCAdis20vFM97syzwG1YlacQ',
-          label: 'YouTube',
+          'aria-label': 'YouTube',
           position: 'right',
-        },
-        {
-          href: 'https://www.linkedin.com/in/michael-hart-a7614262/',
-          label: 'LinkedIn',
-          position: 'right',
+          html: '<i class="fa fa-youtube-play fa-lg"></i>',
+          className: 'header-link',
         },
         {
           href: 'https://github.com/mikelikesrobots',
-          label: 'GitHub',
+          'aria-label': 'GitHub',
+          html: '<i class="fa fa-github fa-lg small-pad-right"></i>',
           position: 'right',
+          className: 'header-link',
+        },
+        {
+          href: 'https://www.linkedin.com/in/michael-hart-a7614262/',
+          'aria-label': 'LinkedIn',
+          position: 'right',
+          html: '<i class="fa fa-linkedin fa-lg small-pad-right"></i>',
+          className: 'header-link',
+        },
+        {
+          href: 'https://www.reddit.com/user/mikelikesrobots',
+          'aria-label': 'Reddit',
+          position: 'right',
+          html: '<i class="fa fa-reddit fa-lg small-pad-right"></i>',
+          className: 'header-link',
         },
       ],
     },
@@ -111,6 +119,10 @@ const config: Config = {
             {
               href: 'https://www.youtube.com/channel/UCAdis20vFM97syzwG1YlacQ',
               label: 'YouTube',
+            },
+            {
+              href: 'https://www.reddit.com/user/mikelikesrobots',
+              label: 'Reddit',
             },
             {
               href: 'https://www.linkedin.com/in/michael-hart-a7614262/',
