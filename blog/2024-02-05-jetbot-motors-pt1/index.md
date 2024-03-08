@@ -1,11 +1,11 @@
 ---
-title: "ROS Control with the JetBot Part 1: Using I2C to control PWM"
+title: "ROS2 Control with the JetBot Part 1: Using I2C to control PWM"
 slug: jetbot-motors-pt1
 authors: mike
 tags: [aws, robotics, communication, embedded, serial, i2c, pwm, jetbot]
 ---
 
-Welcome to a new series - setting up the JetBot to work with [ROS Control](http://wiki.ros.org/ros_control) interfaces! Previously, I showed how to set up the JetBot to work from ROS commands, but that was a very basic motor control method. It didn't need to be advanced because a human was remote controlling it. However, if we want autonomous control, we need to be able to travel a specific distance or follow a defined path, like a [spline](https://en.wikipedia.org/wiki/Spline_(mathematics)). A better way of moving a robot using ROS is by using the ROS Control interfaces; if done right, this means your robot can autonomously follow a path sent by the ROS navigation stack. That's our goal for this series: move the JetBot using RViz!
+Welcome to a new series - setting up the JetBot to work with [ROS2 Control](https://control.ros.org) interfaces! Previously, I showed how to set up the JetBot to work from ROS commands, but that was a very basic motor control method. It didn't need to be advanced because a human was remote controlling it. However, if we want autonomous control, we need to be able to travel a specific distance or follow a defined path, like a [spline](https://en.wikipedia.org/wiki/Spline_(mathematics)). A better way of moving a robot using ROS is by using the ROS Control interfaces; if done right, this means your robot can autonomously follow a path sent by the ROS navigation stack. That's our goal for this series: move the JetBot using RViz!
 
 The first step towards this goal is giving ourselves the ability to control the motors using C++. That's because the controllers in ROS Control requires extending C++ classes. Unfortunately, the existing drivers are in Python, meaning we'll need to rewrite them in C++ - which is a good opportunity to learn how the serial control works. We use I<sup>2</sup>C to talk to the motor controller chip, an [AdaFruit DC Motor + Stepper FeatherWing](https://www.adafruit.com/product/2927), which sets the PWM duty cycle that makes the motors move. I'll refer to this chip as the FeatherWing for the rest of this article.
 
