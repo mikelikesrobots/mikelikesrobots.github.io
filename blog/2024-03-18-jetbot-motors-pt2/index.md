@@ -1,5 +1,5 @@
 ---
-title: "ROS2 Control with the JetBot Part 2: Building a ROS2 Control System"
+title: "ROS2 Control with the JetBot Part 2: Building a ros2_control System"
 slug: jetbot-motors-pt2
 authors: mike
 tags: [aws, robotics, communication, embedded, jetbot, ros2, control]
@@ -11,7 +11,7 @@ In this post, I show the next step in making ROS2 Control work with the WaveShar
 
 This post is also available in video form - check the video link below if you want to follow along!
 
-<!-- TODO: insert video link -->
+<iframe class="youtube-video" src="https://www.youtube.com/embed/2JJApj-PNVk?si=_nkaaluuLeg8ggnS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## ROS2 Control Concepts
 
@@ -49,8 +49,7 @@ We will be using [example 2](https://github.com/ros-controls/ros2_control_demos/
 
 ## JetBot System Implementation
 
-<!-- TODO make Github link point to branch -->
-In this section, I'll take you through the key parts of my JetBot System implementation for ros2_control. The code is available on [Github](https://github.com/mikelikesrobots/jetbot-ros-control) - remember that this repository will be updated over time, so select the tag TODO to get the same code version as in this article!
+In this section, I'll take you through the key parts of my JetBot System implementation for ros2_control. The code is available on [Github](https://github.com/mikelikesrobots/jetbot-ros-control/tree/jetbot-motors-pt2) - remember that this repository will be updated over time, so select the tag `jetbot-motors-pt2` to get the same code version as in this article!
 
 ### Components are libraries, not nodes
 
@@ -92,8 +91,7 @@ In the private fields of the class, we create the fields that we will need durin
   std::vector<double> hw_velocities_;
 ```
 
-<!-- TODO link full header -->
-Then, a number of methods need to be overridden from the base class. Take a look at the full header file to see them, but essentially it boils down to three concepts:
+Then, a number of methods need to be overridden from the base class. Take a look at the [full header file](https://github.com/mikelikesrobots/jetbot-ros-control/blob/jetbot-motors-pt2/hardware/include/jetbot_control/jetbot_system.hpp) to see them, but essentially it boils down to three concepts:
 
 1. `export_state_interfaces`/`export_command_interfaces`: report the state and command interfaces supported by this system class. These interfaces can then be checked by the controller for compatibility.
 1. `on_init`/`on_activate`/`on_deactivate`: lifecycle methods automatically called by the controller. Different setup stages for the System occur in these methods, including enabling the motors in the `on_activate` method and stopping them in `on_deactivate`.
@@ -296,7 +294,7 @@ Hooray! We have defined everything we need to launch ros2_control and configure 
 
 ## Running on the JetBot
 
-To try the package out, we first need a working JetBot. I've created a video on JetBot setup here, if you want to follow along:
+To try the package out, we first need a working JetBot. If you're not sure how to do the initial setup, I've created a video on exactly that:
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/GdUGegYUOpM?si=b70pUlHgR4W7dNkI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -305,8 +303,8 @@ With the JetBot working, we can create a workspace and clone the code into it. U
 ```bash
 mkdir ~/dev_ws
 cd ~/dev_ws
-git clone TODO -b jetbot-motors-pt2
-cp -r TODO/.devcontainer .
+git clone https://github.com/mikelikesrobots/jetbot-ros-control -b jetbot-motors-pt2
+cp -r ./jetbot-ros-control/.devcontainer .
 ```
 
 Then use the Dev Containers plugin to rebuild and reload the container. This will take a few minutes, but the step is crucial to allow us to run ROS2 Humble on the JetBot, which uses an older version of Ubuntu. Once complete, we can build the workspace, source it, and launch the controller:
