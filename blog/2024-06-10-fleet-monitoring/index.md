@@ -11,6 +11,8 @@ Fleet Indexing is a feature of AWS IoT Core that collects and indexes informatio
 
 I want to walk you through this process and show you what it looks like in the console and using Command Line Interface (CLI) commands. We'll be using the sample code from [aws-iot-robot-connectivity-samples-ros2](https://github.com/aws-samples/aws-iot-robot-connectivity-samples-ros2), but I've forked it to add some helper scripts that make setup a little easier for multiple robots. It also adds a launch script so multiple robots can be launched at the same time.
 
+This guide is also available in video form - see the link below!
+
 <iframe class="youtube-video" src="https://www.youtube.com/embed/IbCCwTWp0ec?si=7N-uGh6eO16yJE0_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Fleet Indexing
