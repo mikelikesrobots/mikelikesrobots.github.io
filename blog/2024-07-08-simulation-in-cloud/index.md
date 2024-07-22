@@ -111,7 +111,7 @@ sudo systemctl isolate graphical.target
 
 This will install a new desktop manager and configure it so DCV can use it, then restart the desktop service.
 
-#### Server Installation
+#### DCV Server Installation
 
 With the prerequisites installed, we can proceeed to the [installation step](https://docs.aws.amazon.com/dcv/latest/adminguide/setting-up-installing-linux-server.html). Run the following to install the server and reboot:
 
@@ -169,7 +169,7 @@ You should now be able to see a full Ubuntu remote desktop. Success!
 
 ## Installing ROS2
 
-ROS2 can be installed by executing the following steps from [this guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html). I haven't gone into depth here as the installation guide has much more information - just be ready to hit Enter to accept adding the software repository and wait for completion.
+ROS2 can be installed by executing the following steps from [this guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html). Be ready to hit Enter to accept adding the software repository and wait for completion.
 
 ```bash
 sudo apt install software-properties-common
@@ -180,52 +180,84 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y ros-humble-desktop ros-dev-tools
 ```
- 
+
+Once installation is complete, we want to source the ROS tools automatically, and we have a few extra ROS dependencies to install. Execute the following to automatically source the ROS installation and set CycloneDDS as the [default messaging middleware](https://docs.ros.org/en/iron/Installation/DDS-Implementations.html):
+
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Then, execute the following to install some remaining ROS dependencies using `apt`:
+
+```bash
+sudo apt install -y ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
+                    ros-${ROS_DISTRO}-ackermann-msgs \
+                    ros-${ROS_DISTRO}-control-toolbox \
+                    ros-${ROS_DISTRO}-nav-msgs \
+                    ros-${ROS_DISTRO}-gazebo-msgs \
+                    ros-${ROS_DISTRO}-vision-msgs \
+                    ros-${ROS_DISTRO}-ur-msgs \
+                    ros-${ROS_DISTRO}-moveit-servo \
+                    ros-${ROS_DISTRO}-moveit-visual-tools \
+                    ros-${ROS_DISTRO}-moveit ros-${ROS_DISTRO}-pilz-industrial-motion-planner \
+                    ros-${ROS_DISTRO}-controller-manager \
+                    ros-${ROS_DISTRO}-ur-client-library \
+                    ros-${ROS_DISTRO}-nav2-common \
+                    ros-${ROS_DISTRO}-navigation2 \
+                    python3-colcon-common-extensions \
+                    python3-vcstool \
+                    python3-rosdep2
+```
+
+The final ROS dependencies will come from the `rosdep` tool, but first we need to install O3DE and clone the source for the ROS code. 
+
 ## Installing O3DE
 
 ### Prerequisites
 
-Although there are other installation options, we require access to the ROS2 Gem that provides ROS2 integration. Therefore, we need to [compile it from source](https://docs.o3de.org/docs/welcome-guide/setup/setup-from-github/building-linux/). Before we can do that, we need to [install the Linux requirements](https://docs.o3de.org/docs/welcome-guide/requirements/#linux):
+If you want to install O3DE completely from source, there are [instructions available](https://docs.o3de.org/docs/welcome-guide/setup/setup-from-github/building-linux/). However, we're going to save this step by downloading a pre-built version of the O3DE SDK, which we can use to compile the sample application. To make it work, there are still a few more dependencies to install. Execute the following to [install the Linux prerequisites](https://docs.o3de.org/docs/welcome-guide/requirements/#linux):
 
 ```bash
-sudo apt install -y \
-    libstdc++-12-dev \
-    clang \
-    libglu1-mesa-dev \
-    libxcb-xinerama0 \
-    libxcb-xinput0 \
-    libxcb-xinput-dev \
-    libxcb-xfixes0-dev \
-    libxcb-xkb-dev \
-    libxkbcommon-dev \
-    libxkbcommon-x11-dev \
-    libfontconfig1-dev \
-    libpcre2-16-0 \
-    zlib1g-dev \
-    mesa-common-dev \
-    libunwind-dev \
-    libzstd-dev \
-    ninja-build \
-    git-lfs
+sudo apt install -y git \
+                    git-lfs \
+                    wget \
+                    cmake \
+                    libstdc++-12-dev \
+                    clang ninja-build \
+                    libglu1-mesa-dev libxcb-xinerama0 \
+                    libxcb-xinput0 libxcb-xinput-dev \
+                    libxcb-xfixes0-dev libxcb-xkb-dev \
+                    libxkbcommon-dev libxkbcommon-x11-dev \
+                    libfontconfig1-dev libpcre2-16-0 zlib1g-dev \
+                    mesa-common-dev libunwind-dev \
+                    libzstd-dev
 ```
 
-These are the tools required to download and compile the O3DE source code and assets.
+With this complete, we can now download and install O3DE.
 
-### Build
+### Download O3DE
 
-Next, we will follow the [build instructions](https://github.com/RobotecAI/ROSCon2023Demo?tab=readme-ov-file#o3de) from the sample repository. Execute the instructions below:
+Execute the following to download a stable build of O3DE and install it:
+
+```bash
+cd ~/Downloads
+wget https://o3debinaries.org/stabilization-2409/Latest/Linux/o3de_latest.deb
+sudo dpkg -i o3de_latest.deb
+```
+
+With the engine itself installed, we also want to download some optional gems, which are supplementary packages for the engine. Some of these can be downloaded directly from the O3DE UI itself, but given that some packages do need to be cloned from Github, we can install all of the dependencies with a set of commands.
+
+First, we define a work directory to clone our repositories into:
 
 ```bash
 echo 'export WORKDIR=$HOME/o3de-workdir' >> ~/.bashrc
 source ~/.bashrc
-mkdir -p $WORKDIR && cd $WORKDIR
-git clone --branch stabilization/2409 --single-branch https://github.com/o3de/o3de.git
-cd o3de
-git lfs install
-git lfs pull
-python/get_python.sh
-scripts/o3de.sh register --this-engine
 ```
+
+Then, we clone the `o3de-extras` repository and a few extra repositories, then register them with the engine. This makes them available for use in any O3DE projects. To download and register the extras, execute the following commands:
+
 
 This obtains the source code and assets for O3DE itself, then installs many dependencies for it, ready for us to build. Before we build, we will also check out O3DE extras and gems. Gems are software bundles that add functionality to O3DE, and will allow us to access ROS2, the Warehouse simulation, and Universal Robotics robots, among other extras.
 
@@ -239,9 +271,9 @@ cd $WORKDIR
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-extras/Gems/ROS2
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-extras/Gems/WarehouseAssets
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-extras/Gems/WarehouseAutomation
-git clone https://github.com/RobotecAI/o3de-humanworker-gem.git
-git clone https://github.com/RobotecAI/o3de-ur-robots-gem.git
-git clone https://github.com/RobotecAI/o3de-otto-robots-gem
+git clone --branch development https://github.com/RobotecAI/o3de-humanworker-gem.git
+git clone --branch development https://github.com/RobotecAI/o3de-ur-robots-gem.git
+git clone --branch development https://github.com/RobotecAI/o3de-otto-robots-gem
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-humanworker-gem
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-ur-robots-gem
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-otto-robots-gem
@@ -261,18 +293,9 @@ git lfs install
 git lfs pull
 ```
 
-Once complete, we can set up our terminal to automatically source ROS2 and set CycloneDDS as the [default messaging middleware](https://docs.ros.org/en/iron/Installation/DDS-Implementations.html) as follows:
+With the download complete, we can use `rosdep` to automatically install any final dependencies that we didn't install in the [Installing ROS2](#installing-ros2) section:
 
 ```bash
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc
-source ~/.bashrc
-```
-
-With that configuration complete, there are a few more dependencies that need to be installed for the full sample application build:
-
-```bash
-sudo apt install -y ros-${ROS_DISTRO}-rmw-cyclonedds-cpp ros-${ROS_DISTRO}-ackermann-msgs ros-${ROS_DISTRO}-control-toolbox ros-${ROS_DISTRO}-nav-msgs ros-${ROS_DISTRO}-gazebo-msgs ros-${ROS_DISTRO}-vision-msgs ros-${ROS_DISTRO}-ur-msgs ros-${ROS_DISTRO}-moveit-servo ros-${ROS_DISTRO}-moveit-visual-tools ros-${ROS_DISTRO}-moveit ros-${ROS_DISTRO}-pilz-industrial-motion-planner ros-${ROS_DISTRO}-controller-manager ros-${ROS_DISTRO}-ur-client-library ros-${ROS_DISTRO}-nav2-common ros-${ROS_DISTRO}-navigation2 ninja-build libunwind-dev libxcb-xkb-dev libxcb-xfixes0-dev libxkbcommon-x11-dev libxcb-xinput-dev python3-colcon-common-extensions python3-vcstool python3-rosdep2
 cd ${WORKDIR}/ROSCon2023Demo/ros2_ws
 ./setup_submodules.bash
 rosdep update
@@ -287,24 +310,28 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-The next step requires compiling the project. It will take a long time to complete, so this is a good point to grab a coffee!
+All of our dependencies are now installed, and all that remains is importing and building the project. Use the `o3de` command from this terminal view to open the UI:
 
 ```bash
-cd ${WORKDIR}/ROSCon2023Demo/Project
-cmake -B build/linux -G "Ninja Multi-Config" -DLY_DISABLE_TEST_MODULES=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DLY_STRIP_DEBUG_SYMBOLS=ON -DAZ_USE_PHYSX5:=ON
-cmake --build build/linux --config profile --target Editor ROSCon2023Demo.Assets ROSCon2023Demo.GameLauncher
+o3de
 ```
 
-With the project built, we can now run the simulator in our terminal:
+This will open a project selection screen. We need to use the top right button to open an existing project, then navigate to our sample application directory at `/home/ubuntu/o3de-workdir/ROSCon2023Demo/Project` and open the `project.json` file inside.
 
-```bash
-cd ${WORKDIR}/ROSCon2023Demo/Project
-./build/linux/bin/profile/Editor
-```
+This step should say that the project was successfully imported. We can now tell O3DE to build the project. It will take a long time to complete, so this is a good point to grab a coffee!
 
-This should launch a full UI window. We can now select the DemoLevel1 project and load it into the simulator.
+<!-- TODO -->
 
-![Project Selection Menu in O3DE](./img/select-demo1-project.png)
+With the project built, we can open it up using O3DE:
+
+<!-- TODO -->
+
+With the project built, we can now select Open Editor on the front of the project.
+
+This will open a level selection menu. Again, click open existing, then expand Levels and select DemoLevel1. It's fine to ignore the 
+error log here, as all the entries are warnings that won't affect the level.
+
+<!-- TODO -->
 
 Once loaded, we should be able to view the simulation and control it using DCV. We can click the play button in the top right to start the simulation.
 
