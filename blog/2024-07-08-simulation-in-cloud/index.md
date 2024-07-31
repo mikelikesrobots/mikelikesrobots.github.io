@@ -5,27 +5,27 @@ authors: mike
 tags: [robotics, simulation, aws, ec2]
 ---
 
-Robotics development is a slow and expensive process. Simulators are great tools to be able to speed up development, if the particular simulation is close enough to real life. Thankfully, there are some great options available, such as [Gazebo](https://gazebosim.org/home), [NVIDIA Isaac Sim](https://developer.nvidia.com/isaac/sim), and our simulator today: [O3DE](https://o3de.org/).
+Simulators such as [Gazebo](https://gazebosim.org/home), [NVIDIA Isaac Sim](https://developer.nvidia.com/isaac/sim), and [O3DE](https://o3de.org/) are incredibly helpful tools when it comes to robotics development. Robots are very slow and expensive to develop, and a large part of the reason is not being able to test how the robot works for real because of how slow it is to set up and run tests. With simulations, we can repeatedly run a robot through exactly the same setup every time to see how it behaves, allowing us to more quickly modify the robot software and run it again.
 
 There's one issue - the more realistic the simulation, the more powerful the computer needed to run it. That's where the cloud comes in; instead of buying the hardware outright and running the computer in-house, you can run simulations _on demand_ in the cloud, and only pay for the server while you're using it!
 
 In this post, I'll show you how to run a multi-robot sample simulation using O3DE in the cloud, using an on-demand EC2 instance with graphics hardware available. If you'd like to follow along, this post is also available in video form using the link below:
 
-<!-- TODO add video link -->
+<iframe class="youtube-video" src="https://www.youtube.com/embed/GOcf0bCtINM?si=qJfoIAos1G7UIfzK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## O3DE
 
-[O3DE](https://o3de.org/) is the world's first high-fidelity, real-time open source 3D engine. High fidelity means that the simulation it runs is close to the real world in behaviour. Simulation generally has a trade-off between speed and fidelity - the more accurately you simulate the world, the more effort and time it takes for the computer to do so.
+[O3DE](https://o3de.org/) is the world's first high-fidelity, real-time open source 3D engine - and the engine we will be using today. High fidelity means that the simulation it runs is close to the real world in behaviour. Simulation generally has a trade-off between speed and fidelity - the more accurately you simulate the world, the more effort and time it takes for the computer to do so.
 
-O3DE does not require any payment or account setup to be able to use it, which makes it a great candidate for this tutorial - by removing the signup steps, we can get to a full simulation more quickly.
+O3DE does not require any payment or account setup to be able to use it, which makes it a great candidate for this tutorial. By removing the signup steps, we can get to a full simulation more quickly.
 
-O3DE also has ROS2 integration, which is a huge benefit for us, as a lot of the tutorials on this site use ROS2. We can use O3DE to _simulate_ robots running instead of running them for real in a lab, which is incredibly useful for testing our behaviour without the slow loop of manually setting up a real robot and testing. In fact, O3DE received a lot of attention in the last ROSCon, and is co-sponsoring the only platinum sponsor for the [upcoming ROSCon 2024](https://o3de.org/events/roscon-2024/) along with its member company, [Robotec.AI](https://robotec.ai/). The demo that O3DE and Robotec.AI showed is [available online](https://github.com/RobotecAI/ROSCon2023Demo), and it's the demo we will be running today!
+O3DE also has ROS2 integration, which is a huge benefit for us, as a lot of the tutorials I write use ROS2. We can use O3DE to _simulate_ robots running instead of running them for real in a lab, which is incredibly useful for testing our behaviour without the slow loop of manually setting up a real robot and testing. In fact, O3DE received a lot of attention in the last ROSCon, and is co-sponsoring the only platinum sponsor for the [upcoming ROSCon 2024](https://o3de.org/events/roscon-2024/) along with its member company, [Robotec.AI](https://robotec.ai/). The demo that O3DE and Robotec.AI showed is [available online](https://github.com/RobotecAI/ROSCon2023Demo), and it's the demo we will be running today!
 
-This tutorial is showing how to set up an EC2 instance capable of running the ROSCon 2023 Demo sample simulation, then going through the setup steps from that sample. By the end, we will have a fully working simulator, visible through a remote desktop, running on hardware in the cloud. We will interact with the simulation using a desktop viewer that will allow us to install, run, and control the demo.
+This tutorial shows how to set up an EC2 instance for the simulation, then working through the rest of the setup steps for the application. By the end, we will have a fully working simulator, visible through a remote desktop, running on hardware in the cloud. We will interact with the simulation using a desktop viewer that will allow us to install, run, and control the demo.
 
 ## Amazon EC2
 
-EC2 is a service that allows a user to launch virtual machines in the cloud. I frequently use this service for my tutorials, as it provides a clean installation for running demos on, to make sure that the setup steps work for everyone.
+EC2 is a service that allows a user to launch virtual machines in the cloud. I frequently use this service for my tutorials, as it provides a clean installation for running demos on, making sure that the setup steps work for everyone.
 
 In this case, we will use EC2 to launch a virtual machine with access to a graphics card and a reasonable size of hard disk for running simulations. Generally, you only pay for the instance while it's running. When the instance is offline, you pay a small amount for the virtual hard disk not currently in use. It is possible to reduce even this cost by storing files in S3, but that's beyond the scope of this tutorial. This would be a good stretch goal for learning EC2!
 
@@ -89,7 +89,7 @@ EC2 provides licensing for [DCV](https://aws.amazon.com/hpc/dcv/) at no extra co
 
 :::info
 
-Using DCV with a full license on the EC2 instance does require that the instance has permission to retrieve the license from an S3 bucket, which I've skipped over to keep the AWS setup portion shorter. You can read more in the [licensing documentation](https://docs.aws.amazon.com/dcv/latest/adminguide/setting-up-license.html).
+Using DCV with a full license on the EC2 instance does require that the instance has permission to retrieve the license from an S3 bucket, which I've skipped over to keep the AWS setup portion shorter. You can read more in the [licensing documentation](https://docs.aws.amazon.com/dcv/latest/adminguide/setting-up-license.html). This setup isn't needed for the initial installation.
 
 :::
 
@@ -217,7 +217,7 @@ The final ROS dependencies will come from the `rosdep` tool, but first we need t
 
 ### Prerequisites
 
-If you want to install O3DE completely from source, there are [instructions available](https://docs.o3de.org/docs/welcome-guide/setup/setup-from-github/building-linux/). However, we're going to save this step by downloading a pre-built version of the O3DE SDK, which we can use to compile the sample application. To make it work, there are still a few more dependencies to install. Execute the following to [install the Linux prerequisites](https://docs.o3de.org/docs/welcome-guide/requirements/#linux):
+If you want to install O3DE completely from source, there are [instructions available here](https://docs.o3de.org/docs/welcome-guide/setup/setup-from-github/building-linux/). However, we're going to save this step by downloading a pre-built version of the O3DE SDK, which we can use to compile the sample application. To make it work, there are still a few more dependencies to install. Execute the following to [install the Linux prerequisites](https://docs.o3de.org/docs/welcome-guide/requirements/#linux):
 
 ```bash
 sudo apt install -y git \
@@ -239,7 +239,7 @@ With this complete, we can now download and install O3DE.
 
 ### Download O3DE
 
-Execute the following to download a stable build of O3DE and install it:
+Execute the following to download and install a stable build of O3DE:
 
 ```bash
 cd ~/Downloads
@@ -247,7 +247,7 @@ wget https://o3debinaries.org/stabilization-2409/Latest/Linux/o3de_latest.deb
 sudo dpkg -i o3de_latest.deb
 ```
 
-With the engine itself installed, we also want to download some optional gems, which are supplementary packages for the engine. Some of these can be downloaded directly from the O3DE UI itself, but given that some packages do need to be cloned from Github, we can install all of the dependencies with a set of commands.
+With the engine itself installed, we also want to download some optional gems, which are supplementary packages for the O3DE engine. Some of these can be downloaded directly from the O3DE User Interface (UI) itself, but given that some packages do need to be cloned from Github, we will install all of the dependencies using the command line to simplify the process.
 
 First, we define a work directory to clone our repositories into:
 
@@ -258,22 +258,22 @@ source ~/.bashrc
 
 Then, we clone the `o3de-extras` repository and a few extra repositories, then register them with the engine. This makes them available for use in any O3DE projects. To download and register the extras, execute the following commands:
 
-
-This obtains the source code and assets for O3DE itself, then installs many dependencies for it, ready for us to build. Before we build, we will also check out O3DE extras and gems. Gems are software bundles that add functionality to O3DE, and will allow us to access ROS2, the Warehouse simulation, and Universal Robotics robots, among other extras.
-
 ```bash
-cd $WORKDIR
+# Clone repositories
+mkdir $WORKDIR && cd $WORKDIR
+git clone --branch development https://github.com/RobotecAI/o3de-humanworker-gem.git
+git clone --branch development https://github.com/RobotecAI/o3de-ur-robots-gem.git
+git clone --branch development https://github.com/RobotecAI/o3de-otto-robots-gem.git
 git clone --branch stabilization/2409 --single-branch https://github.com/o3de/o3de-extras
 cd o3de-extras
 git lfs install
 git lfs pull
+
+# Register all gems
 cd $WORKDIR
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-extras/Gems/ROS2
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-extras/Gems/WarehouseAssets
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-extras/Gems/WarehouseAutomation
-git clone --branch development https://github.com/RobotecAI/o3de-humanworker-gem.git
-git clone --branch development https://github.com/RobotecAI/o3de-ur-robots-gem.git
-git clone --branch development https://github.com/RobotecAI/o3de-otto-robots-gem
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-humanworker-gem
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-ur-robots-gem
 /opt/O3DE/24.09/scripts/o3de.sh register --gem-path o3de-otto-robots-gem
@@ -283,12 +283,13 @@ Once complete, we have all the dependencies for the sample application. The next
 
 ### ROSCon 2023 Demo Setup
 
-The following commands will download the source code and assets for the sample demonstration.
+The following commands will download the source code and assets for the sample application:
 
 ```bash
 cd $WORKDIR
 git clone --branch development https://github.com/RobotecAI/ROSCon2023Demo
 cd ROSCon2023Demo
+git checkout 3f90b36
 git lfs install
 git lfs pull
 ```
@@ -302,7 +303,7 @@ rosdep update
 rosdep install --ignore-src --from-paths src/Universal_Robots_ROS2_Driver -y
 ```
 
-With that complete, we can build the ROS2 workspace supplied by the demo. This contains all of the packages needed to run multiple robots in the simulation, including the launch files and scripts to easily get them running.
+Now that **all** ROS dependencies are installed, we can build the ROS2 workspace supplied by the demo. This contains all of the packages needed to run multiple robots in the simulation, including the launch files and scripts to easily get them running.
 
 ```bash
 cd ${WORKDIR}/ROSCon2023Demo/ros2_ws
@@ -310,7 +311,16 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
+:::warning
+
+For the next few steps, you may have issues launching the simulator, such as it not responding or responding very slowly, or just showing a grey screen. If this is the case, try rebooting the EC2 instance and attempting the steps again. Only one reboot should be required.
+
+:::
+
 All of our dependencies are now installed, and all that remains is importing and building the project. Use the `o3de` command from this terminal view to open the UI:
+
+<!-- Reboot before launching -->
+
 
 ```bash
 o3de
@@ -318,24 +328,21 @@ o3de
 
 This will open a project selection screen. We need to use the top right button to open an existing project, then navigate to our sample application directory at `/home/ubuntu/o3de-workdir/ROSCon2023Demo/Project` and open the `project.json` file inside.
 
-This step should say that the project was successfully imported. We can now tell O3DE to build the project. It will take a long time to complete, so this is a good point to grab a coffee!
+![Opening existing project within O3DE](./img/o3de-select-project.png)
 
-<!-- TODO -->
+This step should say that the project was successfully imported. However, you may have the issue that the HumanWorker gem version is not available. This issue will stop the project from building correctly. You can fix this by using any text editor to open the `/home/ubuntu/o3de-workdir/ROSCon2023Demo/Project/project.json` file and changing the required version from `==2.0.0` to `>=2.0.0`. Once complete, repeat the step of importing the project and it should work correctly.
 
-With the project built, we can open it up using O3DE:
+We can now tell O3DE to build the project. This step may take some time, so be prepared!
 
-<!-- TODO -->
+![O3DE menu with option to build project](./img/o3de-build-project.png)
 
-With the project built, we can now select Open Editor on the front of the project.
+With the project built, we can now select Open Editor on the front of the project. This will open a level selection menu. Again, click open existing, then expand Levels and select DemoLevel1. It's fine to ignore the error log here, as all the entries are warnings that won't affect the level.
 
-This will open a level selection menu. Again, click open existing, then expand Levels and select DemoLevel1. It's fine to ignore the 
-error log here, as all the entries are warnings that won't affect the level.
-
-<!-- TODO -->
+![Select DemoLevel1 level from sample project](./img/o3de-select-level.png)
 
 Once loaded, we should be able to view the simulation and control it using DCV. We can click the play button in the top right to start the simulation.
 
-Finally, let's launch some robots! We can use the launch script supplied by the demo as follows:
+Finally, let's launch some robots! Switch windows back to Terminal and open a new tab. We can use the launch script supplied by the demo in this tab as follows:
 
 ```bash
 cd ${WORKDIR}/ROSCon2023Demo/ros2_ws
@@ -355,6 +362,6 @@ Now that we have finished with our simulation, we could stop the instance until 
 
 ## Conclusion
 
-In this post, I showed you how to provision an EC2 instance with a graphics card that can be turned on and off on demand, where you only pay for the instance while using it. I showed how to install O3DE, a modern real-time open source simulation engine, along with a ROS2 sample application showing a warehouse with robot arms and mobile robots running in real time. In the future, you could use this setup for robotics development, or even build the simulation into a Docker image for automated testing.
+This post showed how to provision an EC2 instance with a graphics card that can be started and stopped on demand, and used to run robotics simulations _on demand_. I showed how to install O3DE, a modern real-time open source simulation engine, along with a ROS2 sample application showing a warehouse with robot arms and mobile robots running in real time. In the future, you could use this setup for robotics development, or even build the simulation into a Docker image for automated testing.
 
-See if you can build the simulation for yourself, then go one step further and enable 32 robots running at once!
+See if you can build the simulation for yourself, then go one step further and enable 32 robots running at once using DemoLevel2!
