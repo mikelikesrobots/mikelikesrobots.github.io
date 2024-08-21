@@ -38,7 +38,9 @@ const config: Config = {
           sidebarPath: './sidebars.ts'
         },
         blog: {
-          showReadingTime: true
+          showReadingTime: true,
+          blogSidebarTitle: 'All posts',
+          blogSidebarCount: 'ALL'
         },
         theme: {
           customCss: './src/css/custom.css',
