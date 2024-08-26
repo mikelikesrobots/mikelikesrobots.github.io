@@ -11,6 +11,8 @@ This post is also available in video form, if you want to follow along:
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/kyW57FHPU6k?si=ymx0QDSke0fYjB8m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## Methods of Connecting to IoT Core
 
 ### ROS2 Conversion by Robot

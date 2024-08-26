@@ -11,6 +11,8 @@ If you prefer a video format, or you want to see the samples in action, check ou
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/Hsa1wPpJA_Q?si=WXyIVy1k1_gGd0V0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## Boston Dynamics Spot SDK
 
 Boston Dynamics released the Spot robot, and I was able to get my hands on one in the lab. I also released the video below to show the basics of getting it unpacked and moving around.

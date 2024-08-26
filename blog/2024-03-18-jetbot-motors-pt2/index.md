@@ -13,6 +13,8 @@ This post is also available in video form - check the video link below if you wa
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/2JJApj-PNVk?si=_nkaaluuLeg8ggnS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## ROS2 Control Concepts
 
 First, before talking about any of these concepts, there's an important distinction to make: [ROS Control](http://wiki.ros.org/ros_control) and [ROS2 Control](https://control.ros.org/master/index.html) are *different frameworks*, and are not compatible with one another. This post is focused on ROS2 Control - or as their documentation calls it, ros2_control.

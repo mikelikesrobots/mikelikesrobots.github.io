@@ -11,6 +11,8 @@ If you prefer a video format, check out my YouTube video below:
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/tkYZmw8x-SM?si=bisw0KJiTccKzEGg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## Who is this post for?
 
 This post is aimed at absolute beginners. If you've seen Boston Dynamics robots [running through assault courses](https://bostondynamics.com/atlas/) or [automated drone deliveries](https://www.aboutamazon.com/news/tag/prime-air) and thought, "this is the kind of stuff that I want to work on my whole career" - this post is for you.

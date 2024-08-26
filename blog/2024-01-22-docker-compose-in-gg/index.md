@@ -15,6 +15,8 @@ This post is also available in video form - check the video link below if you wa
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/7lA-CDG22oo?si=F0fY2dIyqO40HpP3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## What is Docker?
 
 Docker is very widely known in the DevOps world, but if you haven't heard of it, it's a way of taking a software application and bundling it up with all its dependencies so it can be easily moved around and run as an application. For example, if you have a Python application, you have two options:

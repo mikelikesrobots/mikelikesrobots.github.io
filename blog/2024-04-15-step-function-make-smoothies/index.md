@@ -13,6 +13,8 @@ This post is also available in video form - check the video link below if you wa
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/zFPx83DiFG8?si=vyYbWDy1K2GmfNja" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## AWS Step Functions Service
 
 [AWS Step Functions](https://aws.amazon.com/step-functions/) is an AWS service that allows users to build serverless workflows. Serverless came up in [my post on Lambda functions](/blog/coordinating-with-lambda) - it means that you can run applications in the cloud without provisioning any servers or contantly-running resources. That in turns means you only pay for the time that something is executing in the cloud, which is often much cheaper than provisioning a server, but with the same performance.

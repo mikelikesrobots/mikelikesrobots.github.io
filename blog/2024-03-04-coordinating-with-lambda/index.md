@@ -11,6 +11,8 @@ This post is also available in video form - check the video link below if you wa
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/AVfk8ICQK9o?si=68mtXaVTU65VI6BE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## What is AWS Lambda?
 
 AWS Lambda is a service for executing serverless functions. That means you don't need to provision any virtual machines or clusters in the cloud - just trigger the Lambda with some kind of event, and your pre-built function will run. It runs on inputs from the event and could give you some outputs, make changes in the cloud (like database modifications), or both.
