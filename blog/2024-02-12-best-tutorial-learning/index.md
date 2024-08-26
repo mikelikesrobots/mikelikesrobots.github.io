@@ -15,6 +15,8 @@ If you'd prefer to follow along, I've built a video demonstrating everything in 
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/Isk6Uh_i-8s?si=dkFYHbCkgh6CE70c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 To understand the tutorial code, we'll be using the following resources:
 1. [Version control (git)](#using-source-control-to-your-advantage) - to check the differences between versions and understand what's changed
 1. [Explaining the code](#try-to-explain-the-code) - try to explain as much of the code as you can, either in comments or out loud to someone or something else.

@@ -1,7 +1,9 @@
 import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useLocation } from '@docusaurus/router';
-import { useBlogPost, useColorMode } from '@docusaurus/theme-common/internal'
+import { useColorMode } from '@docusaurus/theme-common/internal';
+import { useBlogPost } from '@docusaurus/plugin-content-blog/client';
+
 import BlogPostItem from '@theme-original/BlogPostItem'
 import Giscus from "@giscus/react";
 
@@ -10,6 +12,7 @@ export default function BlogPostItemWrapper(props) {
   const { metadata } = useBlogPost()
   const { colorMode } = useColorMode()
   const { frontMatter } = metadata
+
   const { comments = true, slug, title } = frontMatter
 
   const { pathname } = useLocation();

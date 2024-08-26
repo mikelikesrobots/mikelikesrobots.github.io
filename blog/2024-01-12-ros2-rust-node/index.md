@@ -12,6 +12,8 @@ This post is also available in video form - check the video link below if you wa
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/U5wHiZpNdvg?si=sOkqQglS_wBYwRLu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## Why Rust?
 
 The first thing to talk about is, why Rust in particular over other programming languages? Especially given that ROS2 has strong support for C++ and Python, we should think carefully about whether it's worth travelling off the beaten path.

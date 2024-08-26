@@ -13,6 +13,8 @@ In this post, I'll show you how to run a multi-robot sample simulation using O3D
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/GOcf0bCtINM?si=qJfoIAos1G7UIfzK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## O3DE
 
 [O3DE](https://o3de.org/) is the world's first high-fidelity, real-time open source 3D engine - and the engine we will be using today. High fidelity means that the simulation it runs is close to the real world in behaviour. Simulation generally has a trade-off between speed and fidelity - the more accurately you simulate the world, the more effort and time it takes for the computer to do so.

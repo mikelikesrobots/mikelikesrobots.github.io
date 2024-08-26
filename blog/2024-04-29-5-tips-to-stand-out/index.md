@@ -11,6 +11,8 @@ If you prefer a video format, check out my YouTube video below:
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/wEQqo-Exmd0?si=xXkjKOR0XdJkP5bf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## Knowing When to Ask Questions
 
 My first tip is knowing when to ask questions. The phrasing of this title sounds like you need to ask fewer questions, but mostly likely you need to ask _more_ questions. The truth is that when you start on a new team, that team is expecting you to ask a lot of questions. This is especially true when you're just starting out, so my advice to you is this:

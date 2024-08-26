@@ -19,6 +19,8 @@ This post is also available in video form - check the video link below if you wa
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/MdHeETllDN8?si=WKEe2Ti-hzN871fM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## Inter-Integrated Circuit (IIC/I<sup>2</sup>C)
 
 I<sup>2</sup>C can get complicated! If you want to really dive deep into the timings and circuitry needed to make it work, [this article](https://www.design-reuse.com/articles/54776/i2c-interface-timing-specifications-and-constraints.html) has great diagrams and explanations. The image I use here is from the same site.

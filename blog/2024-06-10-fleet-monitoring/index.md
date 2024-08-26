@@ -15,6 +15,8 @@ This guide is also available in video form - see the link below!
 
 <iframe class="youtube-video" src="https://www.youtube.com/embed/IbCCwTWp0ec?si=7N-uGh6eO16yJE0_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+<!-- truncate -->
+
 ## Fleet Indexing
 
 [Fleet Indexing](https://docs.aws.amazon.com/iot/latest/developerguide/iot-indexing.html) is a feature of IoT Device Management that allows you to index, search, and aggregate your device data from multiple AWS IoT sources. Once the index has been enabled and built, you would be able to run queries such as:
