@@ -143,6 +143,10 @@ const config: Config = {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
             },
+            {
+              label: 'Business Enquiries',
+              href: 'mailto:mikelikesrobots@outlook.com',
+            },
           ],
         },
       ],
