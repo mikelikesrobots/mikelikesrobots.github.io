@@ -73,13 +73,13 @@ const config: Config = {
           href: 'https://www.youtube.com/channel/UCAdis20vFM97syzwG1YlacQ',
           'aria-label': 'YouTube',
           position: 'right',
-          html: '<i class="fa fa-youtube-play fa-lg"></i>',
+          html: '<i class="fab fa-youtube fa-lg"></i>',
           className: 'header-link',
         },
         {
           href: 'https://github.com/mikelikesrobots',
           'aria-label': 'GitHub',
-          html: '<i class="fa fa-github fa-lg small-pad-right"></i>',
+          html: '<i class="fab fa-github fa-lg"></i>',
           position: 'right',
           className: 'header-link',
         },
@@ -87,14 +87,21 @@ const config: Config = {
           href: 'https://www.linkedin.com/in/michael-hart-a7614262/',
           'aria-label': 'LinkedIn',
           position: 'right',
-          html: '<i class="fa fa-linkedin fa-lg small-pad-right"></i>',
+          html: '<i class="fab fa-linkedin fa-lg"></i>',
           className: 'header-link',
         },
         {
           href: 'https://www.reddit.com/user/mikelikesrobots',
           'aria-label': 'Reddit',
           position: 'right',
-          html: '<i class="fa fa-reddit fa-lg small-pad-right"></i>',
+          html: '<i class="fab fa-reddit fa-lg"></i>',
+          className: 'header-link',
+        },
+        {
+          href: 'https://bsky.app/profile/mikelikesrobots.bsky.social',
+          'aria-label': 'Bluesky',
+          position: 'right',
+          html: '<i class="fab fa-bluesky fa-lg small-pad-right"></i>',
           className: 'header-link',
         },
       ],
@@ -130,6 +137,10 @@ const config: Config = {
               href: 'https://www.linkedin.com/in/michael-hart-a7614262/',
               label: 'LinkedIn',
             },
+            {
+              href: 'https://bsky.app/profile/mikelikesrobots.bsky.social',
+              label: 'Bluesky',
+            },
           ],
         },
         {
@@ -157,6 +168,12 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+  scripts: [
+    {
+      src: '/js/fontawesome-all.min.js',
+      defer: true,
+    }
+  ],
 };
 
 export default config;
