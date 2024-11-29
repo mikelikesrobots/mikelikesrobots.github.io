@@ -4,6 +4,11 @@
  * work well for content-centric websites.
  */
 
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/Rubik-VariableFont_wght.ttf");
+}
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #20659E;
@@ -15,6 +20,8 @@
   --ifm-color-primary-lightest: #3FA8FF;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Rubik';
+  --ifm-heading-font-weight: 700;
 }
 
 article {
