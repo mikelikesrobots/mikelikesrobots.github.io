@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Mike Likes Robots',
-  tagline: 'A place for tutorials and sharing information so everyone can build better robots!',
+  tagline: 'Where we share knowledge to accelerate robotics.',
   favicon: 'favicon.ico',
 
   // Set the production url of your site here
