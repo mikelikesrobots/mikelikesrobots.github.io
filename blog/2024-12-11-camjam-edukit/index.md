@@ -9,21 +9,23 @@ If you want a cheap robot kit, it's hard to do better than the CamJam EduKit #3.
 
 I have recorded videos that cover all of the exercises given by the repository and uploaded them to YouTube. This post goes through each video and briefly explains what it shows, so you can follow along if you choose to buy the kit. I also use the box as the chassis!
 
+<!-- truncate -->
+
 Next, I'm planning on getting ROS2 running on the robot, and using that to run collision avoidance and line following software at the same time. I will write a post on how to do that here, but if you want to see the video form, you can also [subscribe](https://www.youtube.com/@mikelikesrobots?sub_confirmation=1) to my [YouTube channel](https://www.youtube.com/@mikelikesrobots) to be notified about it.
 
 ## Parts Required
 
 To be able to follow along, you will need to buy the robot kit and a few extra parts. You can use substitutes for any of these except for the robot kit; these links are to the parts that I used for my videos.
 
-- [CamJam Edukit #3](https://thepihut.com/products/- camjam-edukit-3-robotics)
-- A Raspberry Pi
+- [CamJam Edukit #3](https://thepihut.com/products/camjam-edukit-3-robotics)
+- A Raspberry Pi:
   - [Raspberry Pi Zero 2 W](https://thepihut.com/products/raspberry-pi-zero-2) OR
-  - [Raspberry Pi 4](https://www.amazon.co.uk/Raspberry-Pi-Model-4GB/dp/B09TTNF8BT?)
+  - [Raspberry Pi 4](https://www.amazon.co.uk/Raspberry-Pi-Model-4GB/dp/B09TTNF8BT?) OR
   - [Raspberry Pi 5](https://www.amazon.co.uk/Raspberry-Pi-SC1112-5-8GB/dp/B0CK3L9WD3)
-- [Power Bank](https://thepihut.com/products/- ansmann-10-000mah-type-c-18w-pd-power-bank)
+- [Power Bank](https://thepihut.com/products/-ansmann-10-000mah-type-c-18w-pd-power-bank)
   - *Note: this is too large to fit in the robot! You should consider buying a slightly smaller power bank.*
-- [AA batteries](https://www.amazon.co.uk/- Duracell-Plus-Alkaline-Batteries-MN1500/dp/B093LVB4P7)
-- [MicroSD Card](https://www.amazon.co.uk/- SanDisk-128GB-microSDXC-adapter-Performance/dp/B0B7NTY2S6)
+- [AA batteries](https://www.amazon.co.uk/-Duracell-Plus-Alkaline-Batteries-MN1500/dp/B093LVB4P7)
+- [MicroSD Card](https://www.amazon.co.uk/-SanDisk-128GB-microSDXC-adapter-Performance/dp/B0B7NTY2S6)
 
 Once you have all the parts, you can begin assembly!
 
