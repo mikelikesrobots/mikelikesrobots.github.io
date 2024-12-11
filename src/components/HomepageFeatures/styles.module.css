@@ -1,4 +1,8 @@
-.features {
+.homepageFeatures {
+  background-color: rgb(250, 255, 228);
+}
+
+/* .features {
   display: flex;
   align-items: center;
   padding: 2rem 0;
@@ -35,4 +39,4 @@
   transition-duration: 0.1s;
   transform: scale(1.0);
   transform-origin: center;
-}
+} */

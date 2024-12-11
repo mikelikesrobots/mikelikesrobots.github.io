@@ -1,0 +1,27 @@
+.featuredBlogs {
+    background-color: rgb(224, 231, 255);
+    width: 100%;
+}
+
+.featureCardRow {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.featureCardWrapper {
+    background-color: blue;
+    flex-grow: 1;
+    flex-basis: 8rem;
+}
+
+.featureCard {
+    background-color: rgb(240, 239, 254);
+    height: 100%;
+    min-width: 4rem;
+    flex-basis: 5rem;
+}
