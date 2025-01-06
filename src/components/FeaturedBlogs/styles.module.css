@@ -19,9 +19,15 @@
     flex-basis: 8rem;
 }
 
+.featureCardGrow {
+    flex-grow: 1;
+}
+
 .featureCard {
     background-color: rgb(240, 239, 254);
     height: 100%;
     min-width: 4rem;
     flex-basis: 5rem;
+    display: flex;
+    flex-direction: column;
 }

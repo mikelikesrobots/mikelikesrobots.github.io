@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
-import ThemedImage from '@theme/ThemedImage';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 
@@ -10,24 +9,21 @@ type FeatureItem = {
   description: JSX.Element;
 };
 
-// TODO: consider fixed size cards with ellipsis to show there's more content
-// 
-
 const FeatureList: FeatureItem[] = [
     {
         title: "Why would I connect my robots to the cloud?",
         title_href: '/blog/why-use-cloud-robotics',
-        description: <p>Why connect my robots to the cloud at all? What benefits does it bring me, and what trade-offs am I making in order to use the cloud?</p>,
+        description: <p>Why connect my robots to the cloud at all? What benefits does it bring me, and what trade-offs...</p>,
     },
     {
         title: "Simulating Robots in the Cloud with EC2 and O3DE",
         title_href: '/blog/simulation-in-cloud',
-        description: <p>With simulations, we can repeatedly run a robot through exactly the same setup every time to see how it behaves, allowing us to more quickly modify the robot software and run it again.</p>,
+        description: <p>With simulations, we can repeatedly run a robot through exactly the same setup every...</p>,
     },
     {
         title: "Building a ros2_control System",
         title_href: '/blog/jetbot-motors-pt2',
-        description: <p>The next step in making ros2_control work with the WaveShare JetBot, with example code, blog, and video.</p>,
+        description: <p>The next step in making ros2_control work with the WaveShare JetBot...</p>,
     },
 ];
 
@@ -36,13 +32,11 @@ function FeaturedBlog({title, title_href, description}: FeatureItem) {
     <Heading as="h2"><Link to={title_href}>{title}</Link></Heading> :
     <Heading as="h2">{title}</Heading>;
   return (
-    // <div className={clsx('col col--6')}>
     <div className={clsx(styles.featureCardWrapper)}>
-      {/* <div className="text--center padding-horiz--md"> */}
       <div className={clsx("padding--md item shadow--md", styles.featureCard)}>
         {titleElement}
-        <p>{description}</p>
-        <div className={clsx("text--center")}>
+        <p className={styles.featureCardGrow}>{description}</p>
+        <div className={clsx("text--center ")}>
           <Link
               className="button button--secondary button--sm item shadow--md text--center"
               to={title_href}>
