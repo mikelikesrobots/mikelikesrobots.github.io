@@ -14,7 +14,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: 'Blog',
-    title_href: '/docs/getting-started/intro',
+    title_href: '/blog',
     Svg: require('@site/static/img/blog.svg').default,
     description: (
       <>
@@ -25,7 +25,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'YouTube Channel',
-    title_href: '/blog',
+    title_href: 'https://www.youtube.com/@mikelikesrobots',
     Icon: <i className={clsx("fab fa-youtube fa-lg", styles.featureSvg)}></i>,
     description: (
       <>
@@ -36,7 +36,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Github',
-    title_href: '/blog',
+    title_href: 'https://github.com/mikelikesrobots',
     Icon: <i className={clsx("fab fa-github fa-lg", styles.featureSvg)}></i>,
     description: (
       <>

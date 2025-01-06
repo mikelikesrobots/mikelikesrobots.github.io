@@ -70,7 +70,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://www.youtube.com/channel/UCAdis20vFM97syzwG1YlacQ',
+          href: 'https://www.youtube.com/@mikelikesrobots',
           'aria-label': 'YouTube',
           position: 'right',
           html: '<i class="fab fa-youtube fa-lg"></i>',
