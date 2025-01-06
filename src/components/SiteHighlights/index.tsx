@@ -3,7 +3,7 @@ import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 
-type FeatureItem = {
+type Highlight = {
   title: string;
   title_href?: string;
   Svg?: React.ComponentType<React.ComponentProps<'svg'>>;
@@ -11,7 +11,7 @@ type FeatureItem = {
   description: JSX.Element;
 };
 
-const FeatureList: FeatureItem[] = [
+const HighlightList: Highlight[] = [
   {
     title: 'Blog',
     title_href: '/blog',
@@ -57,7 +57,7 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, title_href, Svg, Icon, description}: FeatureItem) {
+function SiteHighlight({title, title_href, Svg, Icon, description}: Highlight) {
   const titleElement = title_href ?
     <Heading as="h2" className={styles.pad_top}><Link to={title_href}>{title}</Link></Heading> :
     <Heading as="h2" className={styles.pad_top}>{title}</Heading>;
@@ -77,13 +77,13 @@ function Feature({title, title_href, Svg, Icon, description}: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function SiteHighlights(): JSX.Element {
   return (
     <section className={clsx("container", "padding-vert--lg", styles.homepageFeaturesWrapper)}>
-      <Heading as="h1" className="text--center padding-vert--sm">Site Features</Heading>
+      <Heading as="h1" className="text--center padding-vert--sm">Site Highlights</Heading>
       <div className={clsx("row", styles.homepageFeatures)}>
-        {FeatureList.map((props, idx) => (
-          <Feature key={idx} {...props} />
+        {HighlightList.map((props, idx) => (
+          <SiteHighlight key={idx} {...props} />
         ))}
       </div>
     </section>
