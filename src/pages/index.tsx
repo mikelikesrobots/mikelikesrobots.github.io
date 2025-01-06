@@ -33,11 +33,14 @@ export default function Home(): JSX.Element {
     <Layout
       title={`Home`}
       description="Tutorials and resources for connecting robots to the cloud">
+      
       <HomepageHeader />
       <main>
         <FeaturedBlogs />
+        <div className="padding--md" />
         <SiteHighlights />
-      </main>
+        <div className="padding--md" />
+        </main>
     </Layout>
   );
 }
