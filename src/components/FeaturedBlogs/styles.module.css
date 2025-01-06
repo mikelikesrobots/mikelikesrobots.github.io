@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+[data-theme='dark'] .featuredBlogs {
+  background-color: #003865;
+}
+
 .featureCardRow {
     display: flex;
     flex-direction: row;
@@ -14,7 +18,6 @@
 }
 
 .featureCardWrapper {
-    background-color: blue;
     flex-grow: 1;
     flex-basis: 8rem;
 }
@@ -30,4 +33,8 @@
     flex-basis: 5rem;
     display: flex;
     flex-direction: column;
+}
+
+[data-theme='dark'] .featureCard {
+    background-color: rgb(8, 13, 61);;
 }

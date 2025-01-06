@@ -2,8 +2,16 @@
   display: flex;
   flex-direction: row;
 }
+
+:root {
+  --site-highlights-background-colour: #ffe2dc;
+}
+[data-theme='dark'] {
+  --site-highlights-background-colour: #000e55;
+}
+
 .homepageFeaturesWrapper {
-  background-color: #ffe2dc;
+  background-color: var(--site-highlights-background-colour);
 }
 
 .features {
@@ -16,8 +24,18 @@
   aspect-ratio: 1 / 1;
   color: white;
 }
+[data-theme='dark'] .featureSvg {
+  color: var(--site-highlights-background-colour);  
+}
 .featureSvg > g > path {
   stroke: white;
+}
+[data-theme='dark'] .featureSvg > g > path {
+  stroke: var(--site-highlights-background-colour);  
+}
+
+.homepageFeaturesWrapper {
+  background-color: var(--site-highlights-background-colour);
 }
 
 .svg_background {
