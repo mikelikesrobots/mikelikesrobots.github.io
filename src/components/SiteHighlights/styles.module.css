@@ -1,0 +1,65 @@
+.homepageFeatures {
+  display: flex;
+  flex-direction: row;
+}
+
+:root {
+  --site-highlights-background-colour: #ffe2dc;
+}
+[data-theme='dark'] {
+  --site-highlights-background-colour: #000e55;
+}
+
+.homepageFeaturesWrapper {
+  background-color: var(--site-highlights-background-colour);
+}
+
+.features {
+  padding: 2rem 0;
+}
+
+.featureSvg {
+  width: 65%;
+  height: 65%;
+  aspect-ratio: 1 / 1;
+  color: white;
+}
+[data-theme='dark'] .featureSvg {
+  color: var(--site-highlights-background-colour);  
+}
+.featureSvg > g > path {
+  stroke: white;
+}
+[data-theme='dark'] .featureSvg > g > path {
+  stroke: var(--site-highlights-background-colour);  
+}
+
+.homepageFeaturesWrapper {
+  background-color: var(--site-highlights-background-colour);
+}
+
+.svg_background {
+  width: 15rem;
+  aspect-ratio: 1 / 1;
+  background-color: var(--ifm-color-primary-light);
+  border-radius: 150px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pad_top {
+  padding-top: 20px;
+}
+
+.hover_expand > div > svg:hover {
+  transition-duration: 0.1s;
+  transform: scale(1.2);
+  transform-origin: center;
+}
+.hover_expand > div > svg {
+  transition-duration: 0.1s;
+  transform: scale(1.0);
+  transform-origin: center;
+}

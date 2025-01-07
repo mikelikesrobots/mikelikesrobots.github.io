@@ -1,0 +1,40 @@
+.featuredBlogs {
+    background-color: rgb(224, 231, 255);
+    width: 100%;
+}
+
+[data-theme='dark'] .featuredBlogs {
+  background-color: #003865;
+}
+
+.featureCardRow {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.featureCardWrapper {
+    flex-grow: 1;
+    flex-basis: 8rem;
+}
+
+.featureCardGrow {
+    flex-grow: 1;
+}
+
+.featureCard {
+    background-color: rgb(240, 239, 254);
+    height: 100%;
+    min-width: 4rem;
+    flex-basis: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+[data-theme='dark'] .featureCard {
+    background-color: rgb(8, 13, 61);;
+}
