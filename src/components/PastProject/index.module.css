@@ -1,0 +1,38 @@
+.projectBox {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--description-grey-background-colour);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+  
+[data-theme='dark'] .projectBox {
+    box-shadow: 0 2px 6px rgba(248, 248, 242, 0.1)
+}
+
+.projectBox > details > summary {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.projectDetails {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.projectTextDetails {
+    padding: 0.5rem;
+    flex: 3;
+    min-width: 12rem;
+}
+
+.projectImage {
+    min-width: 10rem;
+    padding: 1rem;
+    flex: 1;
+}

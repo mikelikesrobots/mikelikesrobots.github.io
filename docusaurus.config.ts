@@ -7,24 +7,16 @@ const config: Config = {
   tagline: 'Where we share knowledge to accelerate robotics.',
   favicon: 'favicon.ico',
 
-  // Set the production url of your site here
   url: 'https://mikelikesrobots.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
   organizationName: 'mikelikesrobots', // Usually your GitHub org/user name.
   projectName: 'mikelikesrobots.github.io', // Usually your repo name.
   deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -53,7 +45,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
       title: 'Mike Likes Robots',
@@ -69,6 +60,7 @@ const config: Config = {
           label: 'Getting Started',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/hireme', label: 'Hire Me', position: 'left'},
         {
           href: 'https://www.youtube.com/@mikelikesrobots',
           'aria-label': 'YouTube',
@@ -121,10 +113,6 @@ const config: Config = {
         {
           title: 'Community',
           items: [
-            {
-              href: 'https://community.aws/@mikelikesrobots',
-              label: 'AWS Community',
-            },
             {
               href: 'https://www.youtube.com/channel/UCAdis20vFM97syzwG1YlacQ',
               label: 'YouTube',
