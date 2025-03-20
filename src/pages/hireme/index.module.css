@@ -1,0 +1,54 @@
+:root {
+    --description-grey-background-colour: #dfdfdf;
+}
+
+[data-theme='dark'] {
+    --description-grey-background-colour: #303030;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.collapsiblePadding {
+    flex-grow: 1;
+    min-width: 1.5rem;
+    max-width: 10rem;
+}
+
+.descriptionBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px auto;
+    width: 100%;
+    color: rgb(57, 58, 52);
+    background-color: var(--description-grey-background-colour);
+}
+
+[data-theme='dark'] .descriptionBox {
+    color: rgb(248, 248, 242);
+    box-shadow: 0 4px 6px rgba(248, 248, 242, 0.1);
+}
+
+.linkButtons {
+    display: flex;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.capabilityCardRow {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

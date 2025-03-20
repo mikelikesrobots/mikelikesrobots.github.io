@@ -1,0 +1,22 @@
+.testimonialBox {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    border-left: 5px solid var(--ifm-color-primary); /* Accent color */
+    background-color: var(--description-grey-background-colour);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .testimonialBox {
+    box-shadow: 0 2px 6px rgba(248, 248, 242, 0.1)
+}
+  
+.testimonialText {
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.testimonialAuthor {
+    color: #949494;
+    text-align: right;
+    padding-bottom: 1rem;
+}
