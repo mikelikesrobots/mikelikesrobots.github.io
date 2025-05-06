@@ -2,7 +2,7 @@
 title: "ROS2 Control with the JetBot Part 1: Using I2C to control PWM"
 slug: jetbot-motors-pt1
 authors: mike
-tags: [aws, robotics, communication, embedded, serial, i2c, pwm, jetbot]
+tags: [aws, robotics, communication, embedded, serial, i2c, pwm, jetbot, ros2control]
 ---
 
 Welcome to a new series - setting up the JetBot to work with [ROS2 Control](https://control.ros.org) interfaces! Previously, I showed how to set up the JetBot to work from ROS commands, but that was a very basic motor control method. It didn't need to be advanced because a human was remote controlling it. However, if we want autonomous control, we need to be able to travel a specific distance or follow a defined path, like a [spline](https://en.wikipedia.org/wiki/Spline_(mathematics)). A better way of moving a robot using ROS is by using the ROS Control interfaces; if done right, this means your robot can autonomously follow a path sent by the ROS navigation stack. That's our goal for this series: move the JetBot using RViz!
