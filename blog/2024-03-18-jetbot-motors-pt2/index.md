@@ -2,7 +2,7 @@
 title: "ROS2 Control with the JetBot Part 2: Building a ros2_control System"
 slug: jetbot-motors-pt2
 authors: mike
-tags: [aws, robotics, communication, embedded, jetbot, ros2, control]
+tags: [aws, robotics, communication, embedded, jetbot, ros2, control, ros2control]
 ---
 
 This is the second part of the "ROS2 Control with the JetBot" series, where I show you how to get a JetBot working with ROS2 Control! This is a sequel to the [part 1 blog post](/blog/jetbot-motors-pt2), where I showed how to drive the JetBot's motors using I<sup>2</sup>C and PWM with code written in C++.

@@ -21,9 +21,9 @@ const FeatureList: BlogDetails[] = [
         description: <>With simulations, we can repeatedly run a robot through exactly the same setup every...</>,
     },
     {
-        title: "Building a ros2_control System",
-        title_href: '/blog/jetbot-motors-pt2',
-        description: <>The next step in making ros2_control work with the WaveShare JetBot...</>,
+        title: "Controlling a 6DOF Robot Arm with ros2_control",
+        title_href: '/blog/6dof-arm-ros2-control',
+        description: <>Understand the ros2_control example code for a 6DOF robot arm, and how to adapt it...</>,
     },
 ];
 
