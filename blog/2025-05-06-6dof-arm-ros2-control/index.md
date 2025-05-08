@@ -258,7 +258,7 @@ We have taken a look at the example controller and system and skimmed over the s
 - We need to change the robot description to match our real robot, so that when we calculate joint positions for a tool position, it matches the robot correctly.
 - Most significantly, we need to define how to actually communicate with the robot. 
 
-The controller class has `on_init`, `on_configure`, `read`, and `write` methods, which we need to rewrite to initialise, configure, and read/write to our real motors. This might be with I2C, as in the JetBot post, or another method of communication. This is where we will focus our efforts when it comes to writing a system for a real robot arm.
+The system class has `on_init`, `on_configure`, `read`, and `write` methods, which we need to rewrite to initialise, configure, and read/write to our real motors. This might be with I2C, as in the JetBot post, or another method of communication. This is where we will focus our efforts when it comes to writing a system for a real robot arm.
 
 ## Conclusion
 
