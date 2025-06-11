@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import './PIDController.css';
 
 interface PIDControllerProps {
   initialKp?: number;
@@ -29,7 +30,6 @@ const PIDController: React.FC<PIDControllerProps> = ({
   setpoint = 1.0,
   initialValue = 0,
 }) => {
-  const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
   const [kp, setKp] = useState(initialKp);
   const [ki, setKi] = useState(initialKi);
   const [kd, setKd] = useState(initialKd);
@@ -41,6 +41,25 @@ const PIDController: React.FC<PIDControllerProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const animationRef = useRef<number>();
   const svgRef = useRef<SVGSVGElement>(null);
+  const [themeChangeTrigger, setThemeChangeTrigger] = useState(0);
+
+  // Watch for theme changes
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-theme') {
+          setThemeChangeTrigger(prev => prev + 1);
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Mass-spring-damper system parameters
   const mass = 1.0; // kg
@@ -142,6 +161,11 @@ const PIDController: React.FC<PIDControllerProps> = ({
     // Clear previous content
     svg.selectAll("*").remove();
 
+    // Get current theme
+    const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+    const textColor = isDarkTheme ? '#fff' : '#000';
+    const lineColor = isDarkTheme ? '#fff' : '#000';
+
     // Create scales
     const xScale = d3.scaleLinear()
       .domain([0, d3.max(time) || 20])
@@ -186,14 +210,14 @@ const PIDController: React.FC<PIDControllerProps> = ({
 
     svg.append("path")
       .datum(currentData)
-      .attr("fill", isDarkTheme ? "rgba(75, 192, 192, 0.2)" : "rgba(75, 192, 192, 0.2)")
+      .attr("fill", "rgba(75, 192, 192, 0.2)")
       .attr("d", area);
 
     // Draw the main line
     svg.append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", isDarkTheme ? "rgb(75, 192, 192)" : "rgb(75, 192, 192)")
+      .attr("stroke", "rgb(75, 192, 192)")
       .attr("stroke-width", 2)
       .attr("d", line);
 
@@ -201,7 +225,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
     svg.append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", isDarkTheme ? "rgb(255, 99, 132)" : "rgb(255, 99, 132)")
+      .attr("stroke", "rgb(255, 99, 132)")
       .attr("stroke-width", 2)
       .attr("stroke-dasharray", "5,5")
       .attr("d", setpointLine);
@@ -213,7 +237,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
       .attr("y1", margin.top)
       .attr("x2", currentX)
       .attr("y2", height - margin.bottom)
-      .attr("stroke", isDarkTheme ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)")
+      .attr("stroke", lineColor)
       .attr("stroke-width", 2);
 
     // Add current values text
@@ -245,7 +269,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
       textGroup.append("text")
         .attr("x", 0)
         .attr("y", i * 20)
-        .attr("fill", isDarkTheme ? "#fff" : "#000")
+        .attr("fill", textColor)
         .attr("text-anchor", textAnchor)
         .style("font-size", "12px")
         .text(`${item.label}: ${item.value}`);
@@ -264,7 +288,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
         .attr("y1", yScale(data[currentTimeIndex] - slope * left))
         .attr("x2", xScale(time[currentTimeIndex] + right))
         .attr("y2", yScale(data[currentTimeIndex] + slope * right))
-        .attr("stroke", isDarkTheme ? "rgb(153, 102, 255)" : "rgb(153, 102, 255)")
+        .attr("stroke", "rgb(153, 102, 255)")
         .attr("stroke-width", 2);
     }
 
@@ -272,71 +296,40 @@ const PIDController: React.FC<PIDControllerProps> = ({
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
 
+    // Style the axes
+    const axisStyle = {
+      color: textColor,
+      'font-size': '12px'
+    };
+
     svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(xAxis)
-      .attr("color", isDarkTheme ? "#fff" : "#000");
+      .attr("color", textColor)
+      .style("font-size", "12px");
 
     svg.append("g")
       .attr("transform", `translate(${margin.left},0)`)
       .call(yAxis)
-      .attr("color", isDarkTheme ? "#fff" : "#000");
+      .attr("color", textColor)
+      .style("font-size", "12px");
 
-  }, [data, time, currentTimeIndex, pidTerms, isDarkTheme, setpoint]);
+    // Add grid lines
+    svg.append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(d3.axisBottom(xScale)
+        .tickSize(-height + margin.top + margin.bottom)
+        .tickFormat(() => ""))
+      .attr("color", isDarkTheme ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)");
 
-  const sliderStyle = {
-    width: '100%',
-    margin: '5px 0',
-  };
+    svg.append("g")
+      .attr("transform", `translate(${margin.left},0)`)
+      .call(d3.axisLeft(yScale)
+        .tickSize(-width + margin.left + margin.right)
+        .tickFormat(() => ""))
+      .attr("color", isDarkTheme ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)");
 
-  const controlPanelStyle = {
-    backgroundColor: isDarkTheme ? '#2d2d2d' : '#f5f5f5',
-    padding: '15px',
-    borderRadius: '8px',
-    marginBottom: '10px',
-    color: isDarkTheme ? '#fff' : '#000',
-  };
-
-  const timeSliderContainerStyle = {
-    backgroundColor: isDarkTheme ? '#2d2d2d' : '#f5f5f5',
-    padding: '15px 30px',
-    borderRadius: '8px',
-    marginBottom: '10px',
-    color: isDarkTheme ? '#fff' : '#000',
-  };
-
-  const sliderContainerStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: '10px',
-    marginBottom: '10px',
-  };
-
-  const sliderGroupStyle = {
-    marginBottom: '5px',
-    minWidth: '0', // Prevents overflow
-  };
-
-  const labelStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '5px',
-    fontSize: '14px',
-    whiteSpace: 'nowrap',
-    gap: '8px',
-  };
-
-  const labelTextStyle = {
-    flex: '1',
-    minWidth: '0',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  };
-
-  const valueStyle = {
-    flex: '0 0 auto',
-  };
+  }, [data, time, currentTimeIndex, pidTerms, setpoint, themeChangeTrigger]);
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -354,33 +347,14 @@ const PIDController: React.FC<PIDControllerProps> = ({
     setKff(initialKff);
   };
 
-  const buttonStyle = {
-    padding: '8px 16px',
-    margin: '0 8px',
-    borderRadius: '4px',
-    border: 'none',
-    backgroundColor: isDarkTheme ? '#4d4d4d' : '#e5e5e5',
-    color: isDarkTheme ? '#fff' : '#000',
-    cursor: 'pointer',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-  };
-
-  const buttonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: '10px',
-  };
-
   return (
-    <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>
-      <div style={controlPanelStyle}>
-        <div style={sliderContainerStyle}>
-          <div style={sliderGroupStyle}>
-            <div style={labelStyle}>
-              <span style={labelTextStyle}>Proportional Gain (Kp):</span>
-              <span style={valueStyle}>{kp.toFixed(2)}</span>
+    <div className="pid-container">
+      <div className="control-panel">
+        <div className="slider-container">
+          <div className="slider-group">
+            <div className="label">
+              <span className="label-text">Proportional Gain (Kp):</span>
+              <span className="value">{kp.toFixed(2)}</span>
             </div>
             <input
               type="range"
@@ -390,13 +364,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
               step="0.1"
               value={kp}
               onChange={(e) => setKp(parseFloat(e.target.value))}
-              style={sliderStyle}
+              className="slider"
             />
           </div>
-          <div style={sliderGroupStyle}>
-            <div style={labelStyle}>
-              <span style={labelTextStyle}>Integral Gain (Ki):</span>
-              <span style={valueStyle}>{ki.toFixed(2)}</span>
+          <div className="slider-group">
+            <div className="label">
+              <span className="label-text">Integral Gain (Ki):</span>
+              <span className="value">{ki.toFixed(2)}</span>
             </div>
             <input
               type="range"
@@ -406,13 +380,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
               step="0.1"
               value={ki}
               onChange={(e) => setKi(parseFloat(e.target.value))}
-              style={sliderStyle}
+              className="slider"
             />
           </div>
-          <div style={sliderGroupStyle}>
-            <div style={labelStyle}>
-              <span style={labelTextStyle}>Derivative Gain (Kd):</span>
-              <span style={valueStyle}>{kd.toFixed(2)}</span>
+          <div className="slider-group">
+            <div className="label">
+              <span className="label-text">Derivative Gain (Kd):</span>
+              <span className="value">{kd.toFixed(2)}</span>
             </div>
             <input
               type="range"
@@ -422,13 +396,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
               step="0.1"
               value={kd}
               onChange={(e) => setKd(parseFloat(e.target.value))}
-              style={sliderStyle}
+              className="slider"
             />
           </div>
-          <div style={sliderGroupStyle}>
-            <div style={labelStyle}>
-              <span style={labelTextStyle}>Feed Forward Gain (Kff):</span>
-              <span style={valueStyle}>{kff.toFixed(2)}</span>
+          <div className="slider-group">
+            <div className="label">
+              <span className="label-text">Feed Forward Gain (Kff):</span>
+              <span className="value">{kff.toFixed(2)}</span>
             </div>
             <input
               type="range"
@@ -438,36 +412,30 @@ const PIDController: React.FC<PIDControllerProps> = ({
               step="0.1"
               value={kff}
               onChange={(e) => setKff(parseFloat(e.target.value))}
-              style={sliderStyle}
+              className="slider"
             />
           </div>
         </div>
-        <div style={buttonContainerStyle}>
-          <button onClick={handlePlayPause} style={buttonStyle}>
+        <div className="button-container">
+          <button onClick={handlePlayPause} className="button">
             {isPlaying ? '⏸ Pause' : '▶ Play'}
           </button>
-          <button onClick={handleReset} style={buttonStyle}>
+          <button onClick={handleReset} className="button">
             ⏮ Reset
           </button>
-          <button onClick={handleResetPID} style={buttonStyle}>
+          <button onClick={handleResetPID} className="button">
             ↺ Reset PID
           </button>
         </div>
       </div>
       <svg
         ref={svgRef}
-        width="100%"
-        height="400"
-        style={{
-          backgroundColor: isDarkTheme ? '#1a1a1a' : '#ffffff',
-          borderRadius: '8px',
-          marginBottom: '10px',
-        }}
+        className="graph"
       />
-      <div style={timeSliderContainerStyle}>
-        <div style={labelStyle}>
-          <label htmlFor="time">Time:</label>
-          <span>{time[currentTimeIndex]?.toFixed(1)}s</span>
+      <div className="time-slider-container">
+        <div className="label">
+          <span className="label-text">Time:</span>
+          <span className="value">{time[currentTimeIndex]?.toFixed(1)}s</span>
         </div>
         <input
           type="range"
@@ -477,7 +445,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
           step="1"
           value={currentTimeIndex}
           onChange={(e) => setCurrentTimeIndex(parseInt(e.target.value))}
-          style={sliderStyle}
+          className="slider"
         />
       </div>
     </div>
