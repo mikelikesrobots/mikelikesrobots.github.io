@@ -5,6 +5,7 @@ interface PIDControllerProps {
   initialKp?: number;
   initialKi?: number;
   initialKd?: number;
+  initialKff?: number;
   setpoint?: number;
   initialValue?: number;
 }
@@ -24,6 +25,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
   initialKp = 4.0,
   initialKi = 0.0,
   initialKd = 0.0,
+  initialKff = 0.0,
   setpoint = 1.0,
   initialValue = 0,
 }) => {
@@ -31,6 +33,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
   const [kp, setKp] = useState(initialKp);
   const [ki, setKi] = useState(initialKi);
   const [kd, setKd] = useState(initialKd);
+  const [kff, setKff] = useState(initialKff);
   const [data, setData] = useState<number[]>([]);
   const [time, setTime] = useState<number[]>([]);
   const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
@@ -68,7 +71,8 @@ const PIDController: React.FC<PIDControllerProps> = ({
         const pTerm = kp * error;
         const iTerm = ki * integral;
         const dTerm = kd * derivative;
-        const controlForce = pTerm + iTerm + dTerm;
+        const ffTerm = currentSetpoint * kff;
+        const controlForce = pTerm + iTerm + dTerm + ffTerm;
 
         // Calculate spring and damping forces
         const springForce = springConstant * position;
@@ -101,7 +105,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
     };
 
     simulateSystem();
-  }, [kp, ki, kd, setpoint, initialValue]);
+  }, [kp, ki, kd, kff, setpoint, initialValue]);
 
   // Animation effect
   useEffect(() => {
@@ -131,7 +135,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
     if (!svgRef.current || data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 800;
+    const width = svgRef.current.clientWidth;
     const height = 400;
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
@@ -178,9 +182,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
       .curve(d3.curveMonotoneX);
 
     // Draw the integral area (only up to current time)
-    const currentTime = time[currentTimeIndex];
     const currentData = data.slice(0, currentTimeIndex + 1);
-    const currentTimePoints = time.slice(0, currentTimeIndex + 1);
 
     svg.append("path")
       .datum(currentData)
@@ -214,9 +216,43 @@ const PIDController: React.FC<PIDControllerProps> = ({
       .attr("stroke", isDarkTheme ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)")
       .attr("stroke-width", 2);
 
+    // Add current values text
+    const currentTerms = pidTerms[currentTimeIndex] || {
+      error: 0,
+      pTerm: 0,
+      iTerm: 0,
+      dTerm: 0,
+      integral: 0,
+      derivative: 0,
+      position: 0,
+      velocity: 0,
+    };
+
+    const currentValues = [
+      { label: "Error", value: currentTerms.error.toFixed(2) },
+      { label: "Integral", value: currentTerms.integral.toFixed(2) },
+      { label: "Derivative", value: currentTerms.derivative.toFixed(2) }
+    ];
+
+    // Determine if we should show text on the left or right of the line
+    const textXOffset = currentX > width - 150 ? -10 : 10;
+    const textAnchor = currentX > width - 150 ? "end" : "start";
+
+    const textGroup = svg.append("g")
+      .attr("transform", `translate(${currentX + textXOffset}, ${margin.top + 10})`);
+
+    currentValues.forEach((item, i) => {
+      textGroup.append("text")
+        .attr("x", 0)
+        .attr("y", i * 20)
+        .attr("fill", isDarkTheme ? "#fff" : "#000")
+        .attr("text-anchor", textAnchor)
+        .style("font-size", "12px")
+        .text(`${item.label}: ${item.value}`);
+    });
+
     // Draw the tangent line
     if (currentTimeIndex > 0 && currentTimeIndex < data.length - 1) {
-      const currentY = yScale(data[currentTimeIndex]);
       const slope = pidTerms[currentTimeIndex].velocity;
       const dx = 0.5;
       
@@ -248,28 +284,37 @@ const PIDController: React.FC<PIDControllerProps> = ({
 
   }, [data, time, currentTimeIndex, pidTerms, isDarkTheme, setpoint]);
 
-  const currentTerms = pidTerms[currentTimeIndex] || {
-    error: 0,
-    pTerm: 0,
-    iTerm: 0,
-    dTerm: 0,
-    integral: 0,
-    derivative: 0,
-    position: 0,
-    velocity: 0,
-  };
-
   const sliderStyle = {
     width: '100%',
-    margin: '10px 0',
+    margin: '5px 0',
   };
 
   const controlPanelStyle = {
     backgroundColor: isDarkTheme ? '#2d2d2d' : '#f5f5f5',
-    padding: '20px',
+    padding: '15px',
     borderRadius: '8px',
-    marginBottom: '20px',
+    marginBottom: '10px',
     color: isDarkTheme ? '#fff' : '#000',
+  };
+
+  const timeSliderContainerStyle = {
+    backgroundColor: isDarkTheme ? '#2d2d2d' : '#f5f5f5',
+    padding: '15px 30px',
+    borderRadius: '8px',
+    marginBottom: '10px',
+    color: isDarkTheme ? '#fff' : '#000',
+  };
+
+  const sliderContainerStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '10px',
+    marginBottom: '10px',
+  };
+
+  const sliderGroupStyle = {
+    marginBottom: '5px',
+    minWidth: '0', // Prevents overflow
   };
 
   const labelStyle = {
@@ -277,22 +322,20 @@ const PIDController: React.FC<PIDControllerProps> = ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '5px',
+    fontSize: '14px',
+    whiteSpace: 'nowrap',
+    gap: '8px',
   };
 
-  const termsPanelStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: '10px',
-    marginTop: '20px',
-    padding: '15px',
-    backgroundColor: isDarkTheme ? '#3d3d3d' : '#e5e5e5',
-    borderRadius: '8px',
+  const labelTextStyle = {
+    flex: '1',
+    minWidth: '0',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   };
 
-  const termStyle = {
-    padding: '5px',
-    borderRadius: '4px',
-    backgroundColor: isDarkTheme ? '#4d4d4d' : '#fff',
+  const valueStyle = {
+    flex: '0 0 auto',
   };
 
   const handlePlayPause = () => {
@@ -302,6 +345,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
   const handleReset = () => {
     setIsPlaying(false);
     setCurrentTimeIndex(0);
+  };
+
+  const handleResetPID = () => {
+    setKp(initialKp);
+    setKi(initialKi);
+    setKd(initialKd);
+    setKff(initialKff);
   };
 
   const buttonStyle = {
@@ -326,94 +376,70 @@ const PIDController: React.FC<PIDControllerProps> = ({
   return (
     <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>
       <div style={controlPanelStyle}>
-        <div>
-          <div style={labelStyle}>
-            <label htmlFor="kp">Proportional Gain (Kp):</label>
-            <span>{kp.toFixed(2)}</span>
+        <div style={sliderContainerStyle}>
+          <div style={sliderGroupStyle}>
+            <div style={labelStyle}>
+              <span style={labelTextStyle}>Proportional Gain (Kp):</span>
+              <span style={valueStyle}>{kp.toFixed(2)}</span>
+            </div>
+            <input
+              type="range"
+              id="kp"
+              min="0"
+              max="20"
+              step="0.1"
+              value={kp}
+              onChange={(e) => setKp(parseFloat(e.target.value))}
+              style={sliderStyle}
+            />
           </div>
-          <input
-            type="range"
-            id="kp"
-            min="0"
-            max="10"
-            step="0.1"
-            value={kp}
-            onChange={(e) => setKp(parseFloat(e.target.value))}
-            style={sliderStyle}
-          />
-        </div>
-        <div>
-          <div style={labelStyle}>
-            <label htmlFor="ki">Integral Gain (Ki):</label>
-            <span>{ki.toFixed(2)}</span>
+          <div style={sliderGroupStyle}>
+            <div style={labelStyle}>
+              <span style={labelTextStyle}>Integral Gain (Ki):</span>
+              <span style={valueStyle}>{ki.toFixed(2)}</span>
+            </div>
+            <input
+              type="range"
+              id="ki"
+              min="0"
+              max="20"
+              step="0.1"
+              value={ki}
+              onChange={(e) => setKi(parseFloat(e.target.value))}
+              style={sliderStyle}
+            />
           </div>
-          <input
-            type="range"
-            id="ki"
-            min="0"
-            max="10"
-            step="0.1"
-            value={ki}
-            onChange={(e) => setKi(parseFloat(e.target.value))}
-            style={sliderStyle}
-          />
-        </div>
-        <div>
-          <div style={labelStyle}>
-            <label htmlFor="kd">Derivative Gain (Kd):</label>
-            <span>{kd.toFixed(2)}</span>
+          <div style={sliderGroupStyle}>
+            <div style={labelStyle}>
+              <span style={labelTextStyle}>Derivative Gain (Kd):</span>
+              <span style={valueStyle}>{kd.toFixed(2)}</span>
+            </div>
+            <input
+              type="range"
+              id="kd"
+              min="0"
+              max="20"
+              step="0.1"
+              value={kd}
+              onChange={(e) => setKd(parseFloat(e.target.value))}
+              style={sliderStyle}
+            />
           </div>
-          <input
-            type="range"
-            id="kd"
-            min="0"
-            max="10"
-            step="0.1"
-            value={kd}
-            onChange={(e) => setKd(parseFloat(e.target.value))}
-            style={sliderStyle}
-          />
-        </div>
-        <div>
-          <div style={labelStyle}>
-            <label htmlFor="time">Time:</label>
-            <span>{time[currentTimeIndex]?.toFixed(1)}s</span>
-          </div>
-          <input
-            type="range"
-            id="time"
-            min="0"
-            max={time.length - 1}
-            step="1"
-            value={currentTimeIndex}
-            onChange={(e) => setCurrentTimeIndex(parseInt(e.target.value))}
-            style={sliderStyle}
-          />
-        </div>
-        <div style={termsPanelStyle}>
-          <div style={termStyle}>
-            <strong>Position:</strong> {currentTerms.position.toFixed(2)}
-          </div>
-          <div style={termStyle}>
-            <strong>Velocity:</strong> {currentTerms.velocity.toFixed(2)}
-          </div>
-          <div style={termStyle}>
-            <strong>Error:</strong> {currentTerms.error.toFixed(2)}
-          </div>
-          <div style={termStyle}>
-            <strong>Integral:</strong> {currentTerms.integral.toFixed(2)}
-          </div>
-          <div style={termStyle}>
-            <strong>P-term:</strong> {currentTerms.pTerm.toFixed(2)}
-          </div>
-          <div style={termStyle}>
-            <strong>I-term:</strong> {currentTerms.iTerm.toFixed(2)}
-          </div>
-          <div style={termStyle}>
-            <strong>D-term:</strong> {currentTerms.dTerm.toFixed(2)}
-          </div>
-          <div style={termStyle}>
-            <strong>Total Response:</strong> {(currentTerms.pTerm + currentTerms.iTerm + currentTerms.dTerm).toFixed(2)}
+          <div style={sliderGroupStyle}>
+            <div style={labelStyle}>
+              <span style={labelTextStyle}>Feed Forward Gain (Kff):</span>
+              <span style={valueStyle}>{kff.toFixed(2)}</span>
+            </div>
+            <input
+              type="range"
+              id="kff"
+              min="0"
+              max="10"
+              step="0.1"
+              value={kff}
+              onChange={(e) => setKff(parseFloat(e.target.value))}
+              style={sliderStyle}
+            />
           </div>
         </div>
         <div style={buttonContainerStyle}>
@@ -423,17 +449,37 @@ const PIDController: React.FC<PIDControllerProps> = ({
           <button onClick={handleReset} style={buttonStyle}>
             ⏮ Reset
           </button>
+          <button onClick={handleResetPID} style={buttonStyle}>
+            ↺ Reset PID
+          </button>
         </div>
       </div>
       <svg
         ref={svgRef}
-        width="800"
+        width="100%"
         height="400"
         style={{
           backgroundColor: isDarkTheme ? '#1a1a1a' : '#ffffff',
           borderRadius: '8px',
+          marginBottom: '10px',
         }}
       />
+      <div style={timeSliderContainerStyle}>
+        <div style={labelStyle}>
+          <label htmlFor="time">Time:</label>
+          <span>{time[currentTimeIndex]?.toFixed(1)}s</span>
+        </div>
+        <input
+          type="range"
+          id="time"
+          min="0"
+          max={time.length - 1}
+          step="1"
+          value={currentTimeIndex}
+          onChange={(e) => setCurrentTimeIndex(parseInt(e.target.value))}
+          style={sliderStyle}
+        />
+      </div>
     </div>
   );
 };
