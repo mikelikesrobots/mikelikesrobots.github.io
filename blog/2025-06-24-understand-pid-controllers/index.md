@@ -2,22 +2,25 @@
 title: "Understanding PID Controllers"
 slug: understand-pid-controllers
 authors: mike
-tags: [robotics, ros2, ros2control]
+tags: [robotics, control, ros2control]
 ---
 
 import PIDController from '@site/src/visualisations/PIDController';
+import { PIDControllerFields } from '@site/src/visualisations/PIDController';
 
-This post takes a look at the PID Controller, which is widely used in robotics for providing more accurate motions of any moving parts on a robot. It uses some basic control theory to give a better understanding of what the controller is, then looks at each of the P, I, and D terms for a more intuitive understanding of the controller, ready to use in your own projects.
+This post takes a look at the PID Controller, which is widely used in robotics for providing more accurate motions of any moving parts on a robot. We will go through some basic control theory to give a better understanding of what a PID controller is, then look at each of the P, I, and D terms to develop a more intuitive understanding of the controller. From there, you should be able to use the controller in your own projects.
 
 If you're interested in seeing this post in video form, check the YouTube link below:
 
-<!-- TODO: YouTube video link -->
+<iframe class="youtube-video" src="https://www.youtube.com/embed/z50ZXCzaVoI?si=5CC05dVpQS6ukz8K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <!-- truncate -->
 
 ## What is PID Control?
 
-The PID in PID control stands for **P**roportional **I**ntegral **D**erivative. It is a form of closed loop control with three parameters, used to control an output to be more stable and react to changes quickly. This makes it very useful in robotics, where moving as accurately as impossible improves the performance of the system. For example, moving wheels at the requested speed makes navigation more accurate, and moving joints accurately makes motions smoother and more reliable.
+The PID in PID control stands for **P**roportional **I**ntegral **D**erivative. It is a way for robots to control their movements to be smooth and accurate, which helps them carry out their tasks correctly. For example, PID control can help a robot arm move to pick up an object without hitting into it or missing it entirely. Another example is moving wheels at the requested speed to make navigation more accurate.
+
+PID control is used in many different fields, not just in robotics, but this post focuses on the use of PID control in robotics.
 
 <figure class="text--center">
 ![PID Controller Infographic](./img/pid_controller_infographic.webp)
@@ -30,7 +33,7 @@ To explain more about what PID control is and how it works, including the genera
 
 First, any kind of **control** is the process of adjusting an output to be at a required level, or **setpoint**. This could be the heat level of a tank of water, which can be controlled by burning gas to heat the water. Another type of control is controlling the speed of a motor to spin a wheel or move a robot arm's joint.
 
-A **controller** is the process responsible for controlling the output. In cars, the controller is a human, and the control process is to reach and maintain a certain speed by changing the acceleration of the car with an accelerator pedal. The controller should also respond to changes in speed as quickly as it can; if the desired speed increases, the controller should accelerate to the new setpoint, then maintain the speed there. Controllers should try to reach the setpoint quickly without overshooting or oscillating about the setpoint.
+A **controller** is a process responsible for controlling the output. In cars, the controller is a human, and the control process is to reach and maintain a certain speed by changing the acceleration of the car with an accelerator pedal. The controller should also respond to changes in speed as quickly as it can; if the desired speed increases, the controller should accelerate to the new setpoint, then maintain the speed there. Controllers should try to reach the setpoint quickly without overshooting or oscillating about the setpoint.
 
 The controller produces a **system input**, which is the signal it uses to adjust the system. In a car, the system input is the accelerator position. In turn, the **system response** or **system output** is how the system behaves based on the system input; in a car, the system response is to speed up. Finally, the **measured output** is the measured value of the system response, such as the reading on a speedometer.
 
@@ -65,7 +68,7 @@ With our control theory terms defined, we can now define PID control as a form o
 2. **Integral (I)**: tracks the total error over time, and multiplies this value by a constant **Ki** to get the integral term (**i-term**).
 3. **Derivative (D)**: calculates the change in error by comparing to the previous error, then multiplies this value by a constant **Kd** to get the derivative term (**d-term**).
 
-The controller sums these values together to form the system input.
+The controller adds these values together to form the system input.
 
 The parameters Kp, Ki, and Kd are the tuning parameters of the controller. These three values alone determine how a controller reacts to the measured input, so adjusting a controller to work for a system (**tuning** the controller) is the process of finding the parameters that get the most reliable output. This is generally done manually by running the system and adjusting parameters to get the best response from the controller.
 
@@ -76,17 +79,17 @@ The parameters Kp, Ki, and Kd are the tuning parameters of the controller. These
 
 ## Why use a PID Controller?
 
-A huge advantage of using a PID controller is that it can be used for any system. Instead of picking a controller that works well for a particular system, PID controllers are versatile enough to work for that system, even if they don't work quite as well as another controller. As they work very well in most applications, they are widely used in robotics.
+A huge advantage of using a PID controller is that it can be used for any system. Instead of modelling a system and building a controller that works only for that system, PID controllers are versatile enough to work for that system out of the box, even if they don't work quite as well as another controller. As they work very well in most applications, they are widely used in robotics.
 
-PID controllers are therefore used for controlling most moving parts on a robot. When the performance of a robot depends on how well it responds to input commands, PID controllers can help improve that performance, making the robot move in the desired paths much more closely or reach for an object more accurately. Some parts don't *need* PID controllers, or don't have the sensors necessary to provide feedback data; still, PID controllers are very commonly used, so it's worth understanding how they work.
+PID controllers are therefore used for controlling most moving parts on a robot. When the performance of a robot depends on how well it responds to input commands, PID controllers can help improve that performance, making the robot move along desired paths much more closely or reach for an object more accurately. Some parts don't *need* PID controllers, or don't have the sensors necessary to provide feedback data; still, PID controllers are very commonly used, so it's worth understanding how they work.
 
 ## Understanding PID Controllers
 
-So far, we've discussed what a PID controller is, and why we use them - particularly in robotics. Now, to give a more intuitive understanding of how they work, we will look at an example, then look at each of the P, I, and D terms to see the effect they have on the system input.
+So far, we've discussed what a PID controller is, and why we use them - particularly in robotics. Now, to give a more intuitive understanding of how they work, we will look at an example, then look at each of the P, I, and D terms in turn to see the effect they have on the system input.
 
 ### Driving a Car
 
-Let's take the example of a car with a human driver. The driver has one pedal to accelerate or brake the car; pushing the pedal further down accelerates more, and releasing the pedal slows the car down. The task of the driver is to keep the car at a steady speed in spite of winds, changes in the road, and so on. The driver should also speed up the car or slow it down to turn corners, drive through towns, and so on.
+Let's take the example of a car with a human driver. The driver has one pedal to accelerate or brake the car; pushing the pedal further down accelerates more, and releasing the pedal slows the car down. The task of the driver is to keep the car at a steady speed in spite of winds, changes in the road, and so on. The driver should also speed up the car or slow it down to turn corners, drive through towns, or any other changes needed.
 
 We're going to make the driver's job more difficult by saying that the pedal is *stiff*. Releasing the pedal means it slowly brakes, and pressing the pedal takes time because of its stiffness.
 
@@ -111,29 +114,27 @@ The driver decides to try a different method: releasing the pedal based on how c
 <figcaption>The driver releases the pedal as the error decreases, smoothly meeting the target speed.</figcaption>
 </figure>
 
-We can see that the car took longer to reach the target speed, but didn't overshoot at all. This is better behaviour for our system, but we could try different Kp values to reach the target speed faster - it depends on the system response, i.e. how stiff the accelerator pedal is and how fast the car can accelerate.
+We can see that the car took longer to reach the target speed, but didn't overshoot at all. This is better behaviour for our system, but we could try different Kp values to reach the target speed faster. The best value depends on how the system responds, which is in this is largely defined by how stiff the accelerator pedal is and how fast the car can accelerate.
 
 ### PID Visualisation Tool
 
-The car example shows the need for a closed loop controller, but it's a fairly simple system. To better examine how the different PID terms work, I've built the interactive tool below. (Cursor saved me a _lot_ of time building it - thanks, Cursor!)
+The car example is pretty simple, but already needs a closed loop controller. To better show how the different PID terms work, I've built the interactive tool below. ([Cursor](https://www.cursor.com/) saved me a _lot_ of time building it - thanks, Cursor!)
 
-The tool shows the response from a more complex system: a [mass-spring-damper system](https://en.wikipedia.org/wiki/Mass-spring-damper_model). Imagine a weight attached to a surface by a spring and a "damper" - something that resists the weight moving too quickly. The more force you apply to the weight, the more force the spring applies in the opposite direction. The setpoint is a particular distance from the surface you're moving the weight to.
+The tool shows how a robot arm joint behaves with different PID control parameters. The measured output is the robot joint velocity, and the system input is a desired velocity. However, because the robot arm joint has to move the arm and possibly a payload, it has to accelerate to the requested velocity. This is similar to the car's accelerator pedal being stiff, and causes a lot of oscillation.
 
-The tool is available here. Feel free to play with any of the sliders, but we'll be taking a look at each of them in the subsequent sections anyway! The time slider is used to show the values of the system at any point in time along the system response.
+The tool is available below. Feel free to play with the sliders for all of the PID components, but these will be discussed in more detail later in the article. The time slider shows the values of the system at any point in time along the system response, including the current integral value (highlighting the relevant area) and the current derivative value (shown as a purple tangent to the line).
 
-<PIDController initialKp={0.5} initialKi={0.0} initialKd={0.0} setpoint={1} initialValue={0} />
-
-Here, a Kp value of 0.5 struggles to meet the output. Unlike in our car example, the mass-spring-damper system resists our movement, which means we need to apply more force to be able to get to the setpoint. This shows that different systems need different parameters to perform well.
+<PIDController initialKp={0.5} setpoint={1} initialValue={0} />
 
 ### Proportional Term
 
-TODO: talk about the proportional term and the effect on the system response.
+The first term to look at is the proportional term. This is a multiplication of the error, so it's the simplest to calculate - and to understand! Decreasing Kp will move the system response down and to the right, while increasing it moves it up and to the left. Too large, and the system starts to oscillate.
 
-The first term to look at is the proportional term. This is a multiplication of the error, so it's the simplest to calculate - and to understand! Decreasing Kp will move the system response down and to the right, while increasing it moves it up and to the left. Too large, and the system starts to oscillate. This oscillation is from trying to reach the setpoint, but moving too far to either side. Try moving the Kp value from the very bottom to the very top, and see what happens.
+For this system, the oscillation happens for any amount of Kp. Try moving the Kp value from the very bottom to the very top, and see what happens.
 
-<PIDController initialKp={4.0} initialKi={0.0} initialKd={0.0} setpoint={1} initialValue={0} />
+<PIDController fields={[PIDControllerFields.Kp]} initialKp={4.0} setpoint={1} initialValue={0} />
 
-P controllers can work in isolation, but if the system needs it, we can improve the performance by adding just the I term, just the D term, or both the I and D terms.
+P controllers *can* work in isolation, depending on the system. It is also possible to add only the I term, only the D term, or both I and D terms.
 
 - P + I: PI controller
 - P + D: PD controller
@@ -143,29 +144,35 @@ Let's look at adding the derivative term to our controller.
 
 ### Derivative Term
 
-Our controller will now adjust the system input based on the *rate of change* of the measured output. This means that at each point in time, the measured output is subtracted from the previous output and multiplied by Kd, the derivative constant. Our controller is now a PD controller.
+Our controller will now adjust the system input based on the *rate of change* of the error. This means that at each point in time, the current error is subtracted from the previous error and multiplied by Kd, the derivative constant. Our controller is now a PD controller.
 
-Adding a derivative term effectively dampens the response, meaning that the output can't change as quickly. Take a look by adjust the P-term of the controller so that the output oscillates around the setpoint, then move the D-term until it is no longer oscillating. You should see that the gradient of the line changes as you move the time slider, shown by a purple line. This shows the gradient that is being multiplied by Kd.
+Adding a derivative term effectively dampens the response, meaning that the output can't change as quickly. Take a look at moving the D-term until the system has a smooth ramp up, then flattens out. You should see that the gradient of the line changes as you move the time slider, shown by a purple line. This shows the gradient that is being multiplied by Kd.
 
-<PIDController initialKp={4.0} initialKi={0.0} initialKd={0.0} setpoint={1} initialValue={0} />
+<PIDController fields={[PIDControllerFields.Kp, PIDControllerFields.Kd]} initialKp={1.8} initialKd={0.0} setpoint={1} initialValue={0} />
+
+:::tip
+
+I get a good response and no overshooting with Kp=1.80, Kd=0.90.
+
+:::
 
 You should see that the output is getting closer to the setpoint line. This is exactly the behaviour we want! In general, the d-term helps to dampen the system response to make it more stable, but tends be more sensitive to noise. Imagine your sensor is noisy and suddenly produces a false high value; the controller would give a very large response to the large gradient from the false reading.
 
-Still, the system response is not *that* close to the setpoint. We can do better, which is where we introduce the last letter of the PID Controller: the I-term.
+Still, the system response is not that close to the setpoint. There is a gap between the line and the set point, which we call a **steady-state error**, and can be corrected using the last component of the PID Controller: the I-term.
 
 ### Integral Term
 
-For the integral term, we're going to track the total error over time. This is a process called integration, and for our controller it means adding the error to a total error value, then using that total error to adjust our system input. The longer that there is a large error value, the more effort the controller puts in to reach the setpoint. This helps compensate for steady-state errors over time.
+For the integral term, the error is added up over time. This is a process called integration, and for our controller it means adding the error to a running total, then using that total error to adjust our system input. The larger the error, or the more time the error exists for, the larger the total error will grow, and the more effort the controller puts in to reach the setpoint. This helps compensate for steady-state errors over time.
 
 Just as with the other terms, we then multiply by a constant, Ki in this case, and add it to the total output of our controller. Increasing Ki to be too large can lead to oscillation and overshooting, but if it's small enough, it can compensate for errors over time and bring the output to the right setpoint.
 
 Try adjusting Ki in the tool below and see the effect on the output for very large and very small values. Then try to match the setpoint as closely as possible, including adjusting the Kp and Kd parameters. As you move the time slider along, you should see the area between the system response and the setpoint highlighted; this is added to the total error over time. You can also see the integral value, which is the total value at that point in time.
 
-<PIDController initialKp={4.0} initialKi={0.0} initialKd={4.0} setpoint={1} initialValue={0} />
+<PIDController fields={[PIDControllerFields.Kp, PIDControllerFields.Kd, PIDControllerFields.Ki]} initialKp={1.8} initialKi={0.0} initialKd={0.9} setpoint={1} initialValue={0} />
 
 :::tip
 
-I get a good response by using Kp=4.0, Ki=3.60, and Kd=7.20.
+I get a good response by using Kp=1.80, Ki=1.20, and Kd=0.90.
 
 :::
 
@@ -173,7 +180,7 @@ I get a good response by using Kp=4.0, Ki=3.60, and Kd=7.20.
 
 Our controller is looking pretty good! It doesn't exactly meet the setpoint when it changes, but in reality, it's not possible for a system to exactly match the setpoint like that. There will always be some delay, and likely some ramping to meet the setpoint. This is true of robots as much as other systems.
 
-Our final parameter to tune is feedforward. This isn't necessarily a part of PID controllers in general, but it *is* available in the `ros2_control` implementation of a PID controller. That's why I haven't mentioned it until now.
+Our final (optional) parameter to tune is feedforward. This isn't necessarily a part of PID controllers in general, but it *is* available in the `ros2_control` implementation of a PID controller. That's why I haven't mentioned it until now.
 
 The feedforward parameter **Kff** is multiplied by the input value, *not the error value*. This provides an initial value for the controller that it can change on top of, which means the P and I parameters don't need to work as hard to correct for error.
 
@@ -184,13 +191,15 @@ The feedforward parameter **Kff** is multiplied by the input value, *not the err
 
 Try modifying the constant Kff in the tool to see the change in output. If you can, get a system response even closer to the setpoint.
 
-<PIDController initialKp={4.0} initialKi={3.60} initialKd={7.20} setpoint={1} initialValue={0} />
+<PIDController initialKp={5.0} initialKi={0.00} initialKd={1.30} setpoint={1} initialValue={0} />
 
 :::tip
 
-The best response I can get is using Kp=9.50, Ki=0.00, Kd=20.00, and Kff=0.50. However, this is a very large value for Kd, which is sensitive to noise. I doubt that this controller would work well for a real system, which is why it's so important to tune on the real robot - your model for a system will never accurately represent real life.
+The best response I can get is using Kp=5.00, Ki=0.00, Kd=1.30, and Kff=0.50. This means we no longer need the i-term, which makes the controller simpler, and it should be more stable.
 
 :::
+
+With our controller tuned, you can now play with the sliders again to see what effect each slider has on the system response. This helps build intuition about how the different parameters work for the controller.
 
 ## PID Controllers with ROS 2
 
@@ -202,6 +211,6 @@ The [PID Controller](https://control.ros.org/rolling/doc/ros2_controllers/pid_co
 
 In this post, we took a look at PID control, which is a fundamental concept in robotics for achieving precise, responsive motion. It's a type of **closed loop control** that continuously adjusts a system's input based on the error between the measured output and the desired output. This error is used by the p-term, integrated for the i-term, and subtracted from the previous error value for the d-term, with each term multipled by a parameter **Kp**, **Ki**, and **Kd** respectively.
 
-We saw the need for a closed-loop controller with a car driving example, then looked at each term of the PID controller to see its effect on the system input, using an interactive visualisation of a mass-spring-damper system to do so. We also looked at feedforward control as used in ROS 2's implementation, and finally discussed how to implement a PID controller for real using `ros2_control`.
+We saw the need for a closed-loop controller with a car driving example, then looked at each term of the PID controller to see its effect on the system input, using an interactive visualisation of a robot arm joint model with payload to do so. We also looked at feedforward control as used in ROS 2's implementation, and finally discussed how to implement a PID controller for real using `ros2_control`.
 
 Having an intuitive understanding of PID controllers will help make your robots more accurate, stable, and effective. If you have a real robot with a feedback mechanism, see if you can use PID control to make the movement smoother and more effective. This is exactly what I hope to do in a future post!
