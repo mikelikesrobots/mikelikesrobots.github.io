@@ -16,9 +16,9 @@ const FeatureList: BlogDetails[] = [
         description: <>Why connect my robots to the cloud at all? What benefits does it bring me, and what...</>,
     },
     {
-        title: "Simulating Robots in the Cloud with EC2 and O3DE",
-        title_href: '/blog/simulation-in-cloud',
-        description: <>With simulations, we can repeatedly run a robot through exactly the same setup every...</>,
+        title: "Controlling Robots using a Large Language Model",
+        title_href: '/blog/llm-robot-control',
+        description: <>See how to use LLMs to control robots, with more flexible commands and feedback...</>,
     },
     {
         title: "Controlling a 6DOF Robot Arm with ros2_control",
