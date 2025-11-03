@@ -68,3 +68,9 @@ article {
 .small-pad-right {
   padding-right: 0.3rem;
 }
+
+table {
+  display: table;
+  width: initial;
+  margin: 0 auto;
+}
