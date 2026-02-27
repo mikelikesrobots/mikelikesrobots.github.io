@@ -166,7 +166,6 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
-<a id="botronics-ixi"></a>
 - [Simple, Safe, Open: Building Your First ROS 2 Rover with Rust and Pixi](https://fosdem.org/2026/schedule/event/3PBHXY-simple_safe_open_building_your_first_ros_2_rover_with_rust_and_pixi/) (10m) - [Christophe Simon](https://fosdem.org/2026/schedule/speaker/christophe_simon/), [Nicolas Daube](https://fosdem.org/2026/schedule/speaker/nicolas_daube/) of [Botronics](https://www.botronics.be/)
     
     **You should watch if:**
@@ -202,6 +201,8 @@ If any speakers would like their information updated, please contact me and let 
     - You want to build drones without using ROS
 
 ---
+
+<a id="botronics-ixi"></a>
 
 - [The Technical Stacks Behind Botronics' iXi Autonomous Golf Trolley](https://fosdem.org/2026/schedule/event/M38A3V-botronics-robotics-tech-stack/) (45m) - [Antoine Van Malleghem](https://fosdem.org/2026/schedule/speaker/antoine_van_malleghem/), [Enzo Ghisoni](https://fosdem.org/2026/schedule/speaker/enzo_ghisoni/), [David Moli](https://fosdem.org/2026/schedule/speaker/david_moli/) of [Botronics](https://www.botronics.be/)
     
