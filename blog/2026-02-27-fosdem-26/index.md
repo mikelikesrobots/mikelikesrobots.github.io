@@ -117,7 +117,7 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
-- [A Core Developer's insights on Gazebo's Future](https://fosdem.org/2026/schedule/event/8HTRVV-a_core_developers_insights_on_gazebos_future/) (45m) - [Jose Luis Rivero](https://fosdem.org/2026/schedule/speaker/jose_luis_rivero/), co-founder of [Honu Robotics](www.honurobotics.com) and Project Management Committee member of the Infrastructure and Gazebo project
+- [A Core Developer's insights on Gazebo's Future](https://fosdem.org/2026/schedule/event/8HTRVV-a_core_developers_insights_on_gazebos_future/) (45m) - [Jose Luis Rivero](https://fosdem.org/2026/schedule/speaker/jose_luis_rivero/), co-founder of [Honu Robotics](https://www.honurobotics.com) and Project Management Committee member of the Infrastructure and Gazebo project
     
     **You should watch if:**
     - You're interested in the history of Gazebo
