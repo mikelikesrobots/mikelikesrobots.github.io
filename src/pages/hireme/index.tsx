@@ -60,10 +60,23 @@ const CapabilityCardDefs: CapabilityCardProps[] = [
 
 const TestimonialDefs: CustomerTestimonialProps[] = [
   {
-    testimonial: `Mike has been a huge help getting our project moving forward and
+    testimonial: [
+      `I had the opportunity to work with Michael as our lead robotics engineer, and I can confidently say his contributions were exceptional.`,
+      `He consistently demonstrated a high level of professionalism, strong technical expertise, and a willingness to go above and beyond to ensure things were done right. Michael wasn’t just executing tasks; he brought thoughtful insight into how we should approach building systems, and his experience, particularly from his time at Amazon, showed in the way he led and collaborated with the team.`,
+      `One of the things I appreciated most was his reliability and work ethic. No matter the situation, he approached challenges with a level head and a solutions-oriented mindset. He also played a key role in helping me better understand both the technical and operational sides of what we were building.`,
+      `If we were still focused on robotics today, Michael would absolutely be someone I’d want on the team. I highly recommend him to anyone looking for a skilled and dependable robotics engineer.`,
+    ],
+    customerName: "Christopher Boggs",
+    position: "Founder and CEO",
+    company: "Modulr",
+  },
+  {
+    testimonial: [
+      `Mike has been a huge help getting our project moving forward and
        stabilized. He's fit right into our team and got right to work with
        helping us with our IoT project. We are happy with his work and thought
        process. Plan to continue working with Mike for the foreseeable future!`,
+    ],
     customerName: "Nicholas Aron",
     position: "CEO",
     company: "Aron Corp - CentralFlo",
@@ -206,7 +219,7 @@ export default function HireMe(): JSX.Element {
             <div
               className={clsx(
                 "text--center padding-vert--xs",
-                styles.linkButtons
+                styles.linkButtons,
               )}
             >
               <Link
