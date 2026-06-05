@@ -273,4 +273,4 @@ Taking the Viam Rover and converting it to use the Radxa X4 and Realsense D421 t
 
 In the end, this is a project you should be able to replicate for a relatively low price. It provides a way to study closed-loop feedback mechanisms with `ros2_control`, explore using the ROS 2 Nav2 stack, and operates using only depth data, where most exploration robots use some kind of lidar.
 
-The source code is all available on [GitHub](https://github.com/mikelikesrobots/viam-rover2), and I'll be publishing follow-up posts and videos covering the build process and the software in detail. Subscribe to my [YouTube channel](https://youtube.com/@mikelikesrobots) or check back here ([RSS feed](/blog/rss.xml)) to stay up to date.
+The source code is all available on [GitHub](https://github.com/mikelikesrobots/viam-rover2), and I'll be publishing follow-up posts and videos covering the build process and the software in detail. Subscribe to my [YouTube channel](https://youtube.com/@mikelikesrobots) or check back here ([RSS feed](https://mikelikesrobots.github.io/blog/rss.xml)) to stay up to date.
