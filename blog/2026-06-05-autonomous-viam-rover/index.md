@@ -2,7 +2,7 @@
 title: "Autonomously Mapping with Visual SLAM"
 slug: autonomous-viam-rover
 authors: mike
-tags: [robotics, ros2, slam, mapping, realsense]
+tags: [robotics, ros2, slam, mapping, realsense, viam]
 ---
 
 This project is about a low-cost robot that you can drop into a room, have it explore and map the entire space, then set navigating autonomously - all without GPS or lidar.
