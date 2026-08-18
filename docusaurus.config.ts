@@ -2,6 +2,9 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+
 const config: Config = {
   title: 'Mike Likes Robots',
   tagline: 'Where we share knowledge to accelerate robotics.',
@@ -15,7 +18,23 @@ const config: Config = {
   deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownImages: 'throw',
+      onBrokenMarkdownLinks: 'throw',
+    }
+  },
+
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-...', // Use the integrity value published for this exact version
+      crossorigin: 'anonymous',
+    },
+  ],
 
   i18n: {
     defaultLocale: 'en',
@@ -32,7 +51,9 @@ const config: Config = {
         blog: {
           showReadingTime: true,
           blogSidebarTitle: 'All posts',
-          blogSidebarCount: 'ALL'
+          blogSidebarCount: 'ALL',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex]
         },
         theme: {
           customCss: './src/css/custom.css',
