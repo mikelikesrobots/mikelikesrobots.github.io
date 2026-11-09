@@ -6,45 +6,338 @@
 
 @font-face {
   font-family: "Rubik";
+  font-weight: 300 900;
+  font-display: swap;
   src: url("/fonts/Rubik/Rubik-VariableFont_wght.ttf");
 }
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #20659E;
-  --ifm-color-primary-dark: #1A5586;
-  --ifm-color-primary-darker: #14466F;
-  --ifm-color-primary-darkest: #0F3758;
-  --ifm-color-primary-light: #2778BA;
-  --ifm-color-primary-lighter: #3490DB;
-  --ifm-color-primary-lightest: #3FA8FF;
+  --ifm-color-primary: #20659e;
+  --ifm-color-primary-dark: #1a5586;
+  --ifm-color-primary-darker: #14466f;
+  --ifm-color-primary-darkest: #0f3758;
+  --ifm-color-primary-light: #2778ba;
+  --ifm-color-primary-lighter: #3490db;
+  --ifm-color-primary-lightest: #3fa8ff;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --ifm-font-family-base: 'Rubik';
+  --ifm-font-family-base: "Rubik", system-ui, -apple-system, sans-serif;
   --ifm-heading-font-weight: 700;
+  --color-emphasis: #c46c5a;
+  --site-accent-hover: #d7998d;
+  --site-accent-soft: #f3d3ca;
+  --site-accent-contrast: #100909;
+  --site-section-bg: #edf0f1;
+  --site-card-bg: #ffffff;
+  --site-border: #c3cacc;
+  --site-surface-strong: #123e65;
 }
 
 article {
   --ifm-link-decoration: underline;
 }
 
+/* Make heading depth visible in article and guide overviews. */
+.table-of-contents,
+.table-of-contents ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.table-of-contents ul {
+  margin: 0.25rem 0 0.1rem;
+}
+
+.table-of-contents li {
+  padding-left: 0.1rem;
+}
+
+.table-of-contents li::marker {
+  color: var(--site-border);
+}
+
+.table-of-contents > li::marker {
+  color: var(--ifm-color-primary);
+}
+
+.table-of-contents ul > li::marker {
+  color: var(--color-emphasis);
+}
+
+.table-of-contents ul ul > li::marker {
+  color: var(--site-border);
+}
+
+/* Keep blog topics recognisable wherever Docusaurus renders a tag. */
+a[rel="tag"] {
+  --blog-tag-bg: #e5e7eb;
+  --blog-tag-border: #9ca3af;
+  --blog-tag-text: #374151;
+  --docusaurus-tag-list-border: var(--blog-tag-border);
+  background: var(--blog-tag-bg);
+  color: var(--blog-tag-text);
+}
+
+a[rel="tag"]::before {
+  background: var(--blog-tag-bg);
+}
+
+a[rel="tag"]:hover {
+  --docusaurus-tag-list-border: var(--blog-tag-text);
+  color: var(--blog-tag-text);
+}
+
+/* Robotics */
+a[rel="tag"]:is(
+    [href$="/tags/robotics"],
+    [href$="/tags/arm"],
+    [href$="/tags/spot"],
+    [href$="/tags/jetbot"],
+    [href$="/tags/viam"]
+  ) {
+  --blog-tag-bg: #dbeafe;
+  --blog-tag-border: #60a5fa;
+  --blog-tag-text: #1e3a8a;
+}
+
+/* ROS */
+a[rel="tag"]:is(
+    [href$="/tags/ros"],
+    [href$="/tags/ros-2"],
+    [href$="/tags/ros-2-control"],
+    [href$="/tags/moveit"]
+  ) {
+  --blog-tag-bg: #cffafe;
+  --blog-tag-border: #22d3ee;
+  --blog-tag-text: #155e75;
+}
+
+/* Cloud */
+a[rel="tag"]:is(
+    [href$="/tags/cloud"],
+    [href$="/tags/aws"],
+    [href$="/tags/ec-2"],
+    [href$="/tags/lambda"],
+    [href$="/tags/greengrass"],
+    [href$="/tags/stepfunctions"]
+  ) {
+  --blog-tag-bg: #ffedd5;
+  --blog-tag-border: #fb923c;
+  --blog-tag-text: #9a3412;
+}
+
+/* Hardware and IoT */
+a[rel="tag"]:is(
+    [href$="/tags/iot"],
+    [href$="/tags/embedded"],
+    [href$="/tags/i-2-c"],
+    [href$="/tags/pwm"],
+    [href$="/tags/serial"],
+    [href$="/tags/communication"]
+  ) {
+  --blog-tag-bg: #fef3c7;
+  --blog-tag-border: #f59e0b;
+  --blog-tag-text: #78350f;
+}
+
+/* AI and perception */
+a[rel="tag"]:is(
+    [href$="/tags/ai"],
+    [href$="/tags/llm"],
+    [href$="/tags/yolo"],
+    [href$="/tags/realsense"],
+    [href$="/tags/slam"],
+    [href$="/tags/mapping"]
+  ) {
+  --blog-tag-bg: #f3e8ff;
+  --blog-tag-border: #c084fc;
+  --blog-tag-text: #6b21a8;
+}
+
+/* Control and simulation */
+a[rel="tag"]:is(
+    [href$="/tags/control"],
+    [href$="/tags/simulation"],
+    [href$="/tags/calibration"],
+    [href$="/tags/monitoring"],
+    [href$="/tags/fleet"]
+  ) {
+  --blog-tag-bg: #dcfce7;
+  --blog-tag-border: #4ade80;
+  --blog-tag-text: #166534;
+}
+
+/* Learning and events */
+a[rel="tag"]:is(
+    [href$="/tags/educational"],
+    [href$="/tags/discussion"],
+    [href$="/tags/conference"],
+    [href$="/tags/fosdem"]
+  ) {
+  --blog-tag-bg: #ffe4e6;
+  --blog-tag-border: #fb7185;
+  --blog-tag-text: #9f1239;
+}
+
+/* Rust's familiar language color makes it useful as a distinct product tag. */
+a[rel="tag"][href$="/tags/rust"] {
+  --blog-tag-bg: #ffedd5;
+  --blog-tag-border: #c2410c;
+  --blog-tag-text: #7c2d12;
+}
+
+[data-theme="dark"] a[rel="tag"] {
+  --blog-tag-bg: #374151;
+  --blog-tag-border: #6b7280;
+  --blog-tag-text: #f3f4f6;
+}
+
+[data-theme="dark"]
+  a[rel="tag"]:is(
+    [href$="/tags/robotics"],
+    [href$="/tags/arm"],
+    [href$="/tags/spot"],
+    [href$="/tags/jetbot"],
+    [href$="/tags/viam"]
+  ) {
+  --blog-tag-bg: #172554;
+  --blog-tag-border: #3b82f6;
+  --blog-tag-text: #dbeafe;
+}
+
+[data-theme="dark"]
+  a[rel="tag"]:is(
+    [href$="/tags/ros"],
+    [href$="/tags/ros-2"],
+    [href$="/tags/ros-2-control"],
+    [href$="/tags/moveit"]
+  ) {
+  --blog-tag-bg: #164e63;
+  --blog-tag-border: #0891b2;
+  --blog-tag-text: #cffafe;
+}
+
+[data-theme="dark"]
+  a[rel="tag"]:is(
+    [href$="/tags/cloud"],
+    [href$="/tags/aws"],
+    [href$="/tags/ec-2"],
+    [href$="/tags/lambda"],
+    [href$="/tags/greengrass"],
+    [href$="/tags/stepfunctions"]
+  ) {
+  --blog-tag-bg: #7c2d12;
+  --blog-tag-border: #ea580c;
+  --blog-tag-text: #ffedd5;
+}
+
+[data-theme="dark"]
+  a[rel="tag"]:is(
+    [href$="/tags/iot"],
+    [href$="/tags/embedded"],
+    [href$="/tags/i-2-c"],
+    [href$="/tags/pwm"],
+    [href$="/tags/serial"],
+    [href$="/tags/communication"]
+  ) {
+  --blog-tag-bg: #713f12;
+  --blog-tag-border: #ca8a04;
+  --blog-tag-text: #fef3c7;
+}
+
+[data-theme="dark"]
+  a[rel="tag"]:is(
+    [href$="/tags/ai"],
+    [href$="/tags/llm"],
+    [href$="/tags/yolo"],
+    [href$="/tags/realsense"],
+    [href$="/tags/slam"],
+    [href$="/tags/mapping"]
+  ) {
+  --blog-tag-bg: #581c87;
+  --blog-tag-border: #a855f7;
+  --blog-tag-text: #f3e8ff;
+}
+
+[data-theme="dark"]
+  a[rel="tag"]:is(
+    [href$="/tags/control"],
+    [href$="/tags/simulation"],
+    [href$="/tags/calibration"],
+    [href$="/tags/monitoring"],
+    [href$="/tags/fleet"]
+  ) {
+  --blog-tag-bg: #14532d;
+  --blog-tag-border: #22c55e;
+  --blog-tag-text: #dcfce7;
+}
+
+[data-theme="dark"]
+  a[rel="tag"]:is(
+    [href$="/tags/educational"],
+    [href$="/tags/discussion"],
+    [href$="/tags/conference"],
+    [href$="/tags/fosdem"]
+  ) {
+  --blog-tag-bg: #881337;
+  --blog-tag-border: #e11d48;
+  --blog-tag-text: #ffe4e6;
+}
+
+[data-theme="dark"] a[rel="tag"][href$="/tags/rust"] {
+  --blog-tag-bg: #7c2d12;
+  --blog-tag-border: #f97316;
+  --blog-tag-text: #ffedd5;
+}
+
+.footer {
+  --ifm-footer-padding-vertical: 1.25rem;
+}
+
+.footer__links {
+  margin-bottom: 1rem;
+}
+.footer__title {
+  margin-bottom: 0.5rem;
+}
 .footer__link-item {
-  line-height: 2.5;
+  line-height: 1.65;
+}
+.footer-motto {
+  font-style: italic;
+  margin-bottom: 0;
+}
+.footer__copyright p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 996px) {
+  .footer__col {
+    margin-bottom: 1.25rem;
+  }
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #2174B8;
-  --ifm-color-primary-dark: #1e639c;
-  --ifm-color-primary-darker: #1b588a;
-  --ifm-color-primary-darkest: #143f63;
-  --ifm-color-primary-light: #2C8BD9;
-  --ifm-color-primary-lighter: #4397DC;
-  --ifm-color-primary-lightest: #54A2E2;
+[data-theme="dark"] {
+  --ifm-color-primary: #6cb6ed;
+  --ifm-color-primary-dark: #59a9e3;
+  --ifm-color-primary-darker: #489edc;
+  --ifm-color-primary-darkest: #4398d4;
+  --ifm-color-primary-light: #8bc8f5;
+  --ifm-color-primary-lighter: #a3d4f8;
+  --ifm-color-primary-lightest: #c6e5fc;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --ifm-link-color: var(--ifm-color-primary-lighter);
-  --ifm-breadcrumb-color-active: var(--ifm-color-primary-lighter);
-  --ifm-menu-color-active: var(--ifm-color-primary-lighter);
+  --ifm-link-color: var(--ifm-color-primary-light);
+  --ifm-breadcrumb-color-active: var(--ifm-color-primary-light);
+  --ifm-menu-color-active: var(--ifm-color-primary-light);
+  --ifm-background-color: #1a1f22;
+  --ifm-background-surface-color: #22282c;
+  --site-section-bg: #2b3236;
+  --site-card-bg: #22282c;
+  --site-border: #596a72;
+  --site-surface-strong: #123e65;
+  --site-accent-soft: #d7998d;
 }
 
 .youtube-video {
@@ -52,25 +345,178 @@ article {
   aspect-ratio: 16 / 9;
 }
 
-/* Add icons for social links */
-
-.header-img {
-  height: 1lh;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.header-link {
-  display: flex;
-  align-items: baseline;
-}
-
-.small-pad-right {
-  padding-right: 0.3rem;
-}
-
 table {
-  display: table;
-  width: initial;
-  margin: 0 auto;
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  width: 100%;
+}
+table th,
+table td {
+  min-width: 6rem;
+}
+
+.hero.hero--primary {
+  --ifm-hero-background-color: var(--ifm-color-primary);
+  --ifm-hero-text-color: #ffffff;
+}
+[data-theme="dark"] .hero.hero--primary {
+  --ifm-hero-background-color: #123e65;
+}
+[data-theme="dark"] .button--primary {
+  --ifm-button-color: #10283f;
+}
+.footer--dark {
+  --ifm-footer-background-color: #303846;
+  --ifm-footer-link-hover-color: #8bc8f5;
+}
+:focus-visible {
+  outline: 3px solid var(--ifm-link-color);
+  outline-offset: 4px;
+}
+.hero :focus-visible {
+  outline-color: white;
+}
+.topic-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0;
+}
+.topic-links a {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--site-border);
+  border-radius: 2rem;
+  background: var(--site-card-bg);
+  font-weight: 500;
+}
+.topic-links a:hover {
+  background: var(--site-section-bg);
+  color: var(--ifm-link-hover-color);
+  border-color: var(--color-emphasis);
+}
+.learning-path {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 20rem), 1fr)
+  );
+  gap: 1rem;
+  list-style: none;
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+}
+.learning-path > li {
+  background: var(--site-card-bg);
+  border: 1px solid var(--site-border);
+  border-top: 4px solid var(--ifm-color-primary);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+.learning-path h3 {
+  font-size: 1.2rem;
+  margin: 0.65rem 0 0.75rem;
+}
+.learning-path__number {
+  color: var(--ifm-color-primary-darkest);
+  background: color-mix(
+    in srgb,
+    var(--ifm-color-primary) 16%,
+    var(--site-card-bg)
+  );
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  text-transform: uppercase;
+}
+.learning-path__detail {
+  border-top: 1px solid var(--site-border);
+  font-size: 0.9rem;
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+}
+.learning-path__detail + .learning-path__detail {
+  border-top: 0;
+  margin-top: 0.4rem;
+  padding-top: 0;
+}
+.learning-path__note {
+  color: var(--ifm-font-color-secondary);
+  font-size: 0.82rem;
+  margin: 0.75rem 0 0;
+}
+.advanced-path {
+  background: var(--site-card-bg);
+  border: 1px solid var(--site-border);
+  border-left: 4px solid var(--color-emphasis);
+  border-radius: 8px;
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem 1.5rem;
+}
+.advanced-path__label {
+  color: var(--color-emphasis);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.advanced-path h3 {
+  font-size: 1.2rem;
+  margin: 0.35rem 0 0.75rem;
+}
+.advanced-path p:last-child {
+  margin-bottom: 0;
+}
+[data-theme="dark"] .learning-path__number {
+  color: var(--ifm-color-primary-lightest);
+}
+.social-link::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-inline-end: 0.4em;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  -webkit-mask: var(--social-icon) center / contain no-repeat;
+  mask: var(--social-icon) center / contain no-repeat;
+}
+.social-link--youtube {
+  --social-icon: url("/img/social/youtube.svg");
+}
+.social-link--github {
+  --social-icon: url("/img/social/github.svg");
+}
+.social-link--linkedin {
+  --social-icon: url("/img/social/linkedin.svg");
+}
+.social-link--reddit {
+  --social-icon: url("/img/social/reddit.svg");
+}
+.social-link--bluesky {
+  --social-icon: url("/img/social/bluesky.svg");
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

@@ -11,11 +11,13 @@ type CustomerTestimonialProps = {
 function CustomerTestimonial(props: CustomerTestimonialProps) {
   return (
     <div className={clsx(styles.testimonialBox)}>
-      {props.testimonial.map((p, i) => (
-        <p key={i} className={clsx(styles.testimonialText)}>
-          {p}
-        </p>
-      ))}
+      <blockquote className={styles.quote}>
+        <p className={styles.testimonialText}>{props.testimonial[0]}</p>
+        {props.testimonial.length > 1 && <details>
+          <summary>Read full testimonial<span className="sr-only"> from {props.customerName}</span></summary>
+          {props.testimonial.slice(1).map(paragraph => <p key={paragraph} className={styles.testimonialText}>{paragraph}</p>)}
+        </details>}
+      </blockquote>
       <p className={clsx(styles.testimonialAuthor)}>
         — <strong>{props.customerName}</strong>, {props.position},{" "}
         {props.company}

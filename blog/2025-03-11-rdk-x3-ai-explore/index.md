@@ -3,7 +3,16 @@ title: "Exploring AI on the RDK X3 Sunrise"
 slug: rdk-x3-ai-explore
 authors: mike
 tags: [robotics, rdk, x3, ai]
+youtube: EryAkkLAkmA
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+How well can a low-cost single-board computer handle AI for robotics? In this post, I test the RDK X3 Sunrise with three models: YOLOv5 object detection; skeleton tracking; and a large language model. I comment on their performance and potential in real robot applications.
+
+<!-- truncate -->
+
+<hr />
 
 We need robots to be able to react to change, to *perceive* their environment rather than just *sense* it, and to be able to make their own decisions when they can't follow the normal program. Giving robots these capabilities is known as **Artificial Intelligence (AI)**.
 
@@ -13,9 +22,7 @@ In this post, I'll show the performance of three different AI models running on 
 
 This post is also available in video form. If you'd prefer to watch, click the link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/EryAkkLAkmA?si=UOS2zOt4kYQPPNse" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## RDK X3 Sunrise
 

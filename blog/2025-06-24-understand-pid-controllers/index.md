@@ -3,18 +3,21 @@ title: "Understanding PID Controllers"
 slug: understand-pid-controllers
 authors: mike
 tags: [robotics, control, ros2control]
+youtube: z50ZXCzaVoI
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 import PIDController from '@site/src/visualisations/PIDController';
 import { PIDControllerFields } from '@site/src/visualisations/PIDController';
 
 This post takes a look at the PID Controller, which is widely used in robotics for providing more accurate motions of any moving parts on a robot. We will go through some basic control theory to give a better understanding of what a PID controller is, then look at each of the P, I, and D terms to develop a more intuitive understanding of the controller. From there, you should be able to use the controller in your own projects.
 
+<!-- truncate -->
+
 If you're interested in seeing this post in video form, check the YouTube link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/z50ZXCzaVoI?si=5CC05dVpQS6ukz8K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## What is PID Control?
 

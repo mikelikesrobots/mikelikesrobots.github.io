@@ -14,13 +14,15 @@ type PastProjectProps = {
 function PastProject(props: PastProjectProps) {
   const maybeImage = props.image ? (
     <div className={clsx(styles.projectImage)}>
-      <img alt={props.alt} src={props.image} />
+      <img alt={props.alt} src={props.image} loading="lazy" width="400" height="300" />
     </div>
   ) : null;
   return (
     <div className={clsx(styles.projectBox)}>
+      <h3>{props.title}</h3>
+      <p><strong>Outcome:</strong> {props.outcome}</p>
       <details>
-        <summary>{props.title}</summary>
+        <summary>Project details<span className="sr-only">: {props.title}</span></summary>
         <div className={clsx(styles.projectDetails)}>
           <div className={clsx(styles.projectTextDetails)}>
             <p>
@@ -33,13 +35,11 @@ function PastProject(props: PastProjectProps) {
             <h4>Project Details</h4>
             <ul>
               {props.details.map((x) => (
-                <li>{x}</li>
+                <li key={x}>{x}</li>
               ))}
             </ul>
 
-            <p>
-              <strong>Outcome:</strong> {props.outcome}
-            </p>
+
           </div>
           {maybeImage}
         </div>

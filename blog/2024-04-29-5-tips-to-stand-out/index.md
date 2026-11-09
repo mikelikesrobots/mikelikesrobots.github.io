@@ -2,16 +2,20 @@
 title: "5 tips on How to Stand Out as a Software Engineer"
 slug: stand-out-as-sw-eng
 authors: mike
-tags: [robotics, educational]
+tags: [educational]
+youtube: wEQqo-Exmd0
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 This post is to give you my five tops on how to stand out as a Software Engineer. These are tips that will help at any career level, not just when you're starting out.
 
+<!-- truncate -->
+
 If you prefer a video format, check out my YouTube video below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/wEQqo-Exmd0?si=xXkjKOR0XdJkP5bf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<BlogVideo />
 
-<!-- truncate -->
 
 ## Knowing When to Ask Questions
 

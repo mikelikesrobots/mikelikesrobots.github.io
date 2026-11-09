@@ -3,15 +3,18 @@ title: "Why would I connect my robots to the cloud?"
 slug: why-use-cloud-robotics
 authors: mike
 tags: [robotics, cloud, discussion]
+description: "Explore the benefits and trade-offs before connecting your robot fleet to the cloud."
 ---
+
+Should you connect your robots to the cloud? This post explores how cloud robotics can help you scale fleets, access powerful computing, and offload demanding workloads, along with the costs, connectivity, security, and integration trade-offs to consider.
+
+<!-- truncate -->
 
 This is a crucial question when deciding whether to use the cloud at all for robotics development, let alone how much to use it. Why connect my robots to the cloud at all? What benefits does it bring me, and what trade-offs am I making in order to use the cloud? This post is all about the *why*, rather than the *how*.
 
 If you want the short answer, here it is: you should use the cloud if you ever plan to scale your robot fleet past around 10 robots, and if you do intend to scale up, integrate with the cloud *as early as possible* to avoid integration pains. If you're never intending to scale that much, the cloud can still be of use, but it depends on your use case as to whether the benefits outweigh the costs.
 
 If you're not convinced, read on! The rest of this post is explaining my statement above.
-
-<!-- truncate -->
 
 ## What is Cloud Robotics?
 

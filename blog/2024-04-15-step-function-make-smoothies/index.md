@@ -2,18 +2,21 @@
 title: "Ordering Smoothies with AWS Step Functions and Robots"
 slug: step-function-make-smoothies
 authors: mike
-tags: [aws, robotics, communication, lambda, stepfunctions]
+tags: [aws, robotics, communication, lambda, stepfunctions, cloud]
+youtube: zFPx83DiFG8
 ---
 
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
 This post is about how to build an AWS Step Functions state machine and how you can use it to interact with IoT edge devices. In this case, we are sending a smoothie order to a "robot" and waiting for it to make that smoothie.
+
+<!-- truncate -->
 
 The state machine works by chaining together a series of Lambda functions and defining how data should be passed between them (if you're not sure about Lambda function, take a look at [this blog post](/blog/coordinating-with-lambda)!). There's also a step where the state machine needs to wait for the smoothie to be made, which is slightly more complicated - we'll cover that later in this post.
 
 This post is also available in video form - check the video link below if you want to follow along!
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/zFPx83DiFG8?si=vyYbWDy1K2GmfNja" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## AWS Step Functions Service
 
@@ -109,7 +112,7 @@ That's our state machine defined and tested. In the next section, we'll take a l
 
 To build the Step Functions state machine, we have a few options, but I would recommend using CDK for the definition and the visual designer in the console for prototyping. If you're not sure what the benefits of using CDK are, I invite you to watch my video on the benefits, where I discuss how to use CDK with SiteWise:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/9ZRZhrJFz7A?si=7A77hjIMlgYxKtbS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="9ZRZhrJFz7A" title="'From AWS IoT Core to SiteWise with CDK Magic!' by Mike Likes Robots" />
 
 The workflow goes something like this:
 

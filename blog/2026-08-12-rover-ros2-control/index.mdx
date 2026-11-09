@@ -2,16 +2,19 @@
 title: "Controlling the Viam Rover with ros2_control"
 slug: rover-ros2-control
 authors: mike
-tags: [robotics, ros2, ros2control, viam]
+tags: [robotics, ros2, ros2control, viam, control]
+youtube: FyVvHbA4nBs
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 This post is part of a series about the Autonomously Exploring Viam Rover (see [my previous blog post](/blog/autonomous-viam-rover)). The rover is my attempt to build an inexpensive rover that is easy to assemble, so that anyone can replicate it. In this series, I'm showing how both the hardware and the software for the rover work. 
 
+<!-- truncate -->
+
 This post in particular focuses on the control system of the rover, including motor control, sensor reading, and fusing data together to track the robot's position.
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/FyVvHbA4nBs?si=B4BPcqL-BAbgjYzP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 <figure class="text--center">
 ![Infographic summarising the Viam Rover control system](./img/viam_ros2control_infographic.webp)
@@ -55,7 +58,7 @@ At the lowest level, our hardware controller (later referred to as the hardware 
 
 :::tip PWM Signals
 
-More information on PWM can be seen in my [Pulse Width Modulation](/blog/jetbot-motors-pt1#pulse-width-modulation) blog post. In essence, PWM is turning the power to a motor on and off very quickly so that the average power reaching the motor makes it move at the desired velocity.
+More information on PWM can be seen in my [Pulse Width Modulation](/blog/jetbot-motors-pt1#pulse-width-modulation-pwm) blog post. In essence, PWM is turning the power to a motor on and off very quickly so that the average power reaching the motor makes it move at the desired velocity.
 
 :::
 

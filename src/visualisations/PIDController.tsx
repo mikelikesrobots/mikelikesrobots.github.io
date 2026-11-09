@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import * as d3 from "d3";
 import "./PIDController.css";
 
@@ -47,6 +47,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
   setpoint = 1.0,
   initialValue = 0,
 }) => {
+  const instanceId = useId();
   const hasKp = fields.includes(PIDControllerFields.Kp);
   const hasKi = fields.includes(PIDControllerFields.Ki);
   const hasKd = fields.includes(PIDControllerFields.Kd);
@@ -65,6 +66,12 @@ const PIDController: React.FC<PIDControllerProps> = ({
   const animationRef = useRef<number>();
   const svgRef = useRef<SVGSVGElement>(null);
   const [themeChangeTrigger, setThemeChangeTrigger] = useState(0);
+  useEffect(() => {
+    if (!svgRef.current) return;
+    const observer = new ResizeObserver(() => setThemeChangeTrigger(value => value + 1));
+    observer.observe(svgRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Watch for theme changes
   useEffect(() => {
@@ -151,7 +158,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
             return prevIndex;
           }
           // Skip every other frame to make it 2x faster
-          return prevIndex + 2;
+          return Math.min(prevIndex + 2, time.length - 1);
         });
         animationRef.current = requestAnimationFrame(animate);
       };
@@ -239,7 +246,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "rgb(75, 192, 192)")
+      .attr("stroke", isDarkTheme ? "#4bc0c0" : "#147878")
       .attr("stroke-width", 2)
       .attr("d", line);
 
@@ -248,7 +255,7 @@ const PIDController: React.FC<PIDControllerProps> = ({
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "rgb(255, 99, 132)")
+      .attr("stroke", isDarkTheme ? "#ff6384" : "#b7244b")
       .attr("stroke-width", 2)
       .attr("stroke-dasharray", "5,5")
       .attr("d", setpointLine);
@@ -390,13 +397,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
 
   const kpSlider = hasKp ? (
     <div className="slider-group">
-      <div className="label">
+      <label className="label" htmlFor={`${instanceId}-kp`}>
         <span className="label-text">Proportional Gain (Kp):</span>
         <span className="value">{kp.toFixed(2)}</span>
-      </div>
+      </label>
       <input
         type="range"
-        id="kp"
+        id={`${instanceId}-kp`}
         min="0"
         max="5"
         step="0.1"
@@ -409,13 +416,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
 
   const kiSlider = hasKi ? (
     <div className="slider-group">
-      <div className="label">
+      <label className="label" htmlFor={`${instanceId}-ki`}>
         <span className="label-text">Integral Gain (Ki):</span>
         <span className="value">{ki.toFixed(2)}</span>
-      </div>
+      </label>
       <input
         type="range"
-        id="ki"
+        id={`${instanceId}-ki`}
         min="0"
         max="5"
         step="0.1"
@@ -428,13 +435,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
 
   const kdSlider = hasKd ? (
     <div className="slider-group">
-      <div className="label">
+      <label className="label" htmlFor={`${instanceId}-kd`}>
         <span className="label-text">Derivative Gain (Kd):</span>
         <span className="value">{kd.toFixed(2)}</span>
-      </div>
+      </label>
       <input
         type="range"
-        id="kd"
+        id={`${instanceId}-kd`}
         min="0"
         max="5"
         step="0.1"
@@ -447,13 +454,13 @@ const PIDController: React.FC<PIDControllerProps> = ({
 
   const kffSlider = hasKff ? (
     <div className="slider-group">
-      <div className="label">
+      <label className="label" htmlFor={`${instanceId}-kff`}>
         <span className="label-text">Feed Forward Gain (Kff):</span>
         <span className="value">{kff.toFixed(2)}</span>
-      </div>
+      </label>
       <input
         type="range"
-        id="kff"
+        id={`${instanceId}-kff`}
         min="0"
         max="5"
         step="0.01"
@@ -485,17 +492,19 @@ const PIDController: React.FC<PIDControllerProps> = ({
           </button>
         </div>
       </div>
-      <svg ref={svgRef} className="graph" />
+      <p id={`${instanceId}-description`} className="pid-description">Robot joint velocity over time. The solid teal line shows measured velocity; the dashed pink line shows the target. Adjust the gains, then use the time slider to inspect the response.</p>
+      <svg ref={svgRef} className="graph" role="img" aria-label="PID controller response" aria-describedby={`${instanceId}-description`} />
+      <p>At {(time[currentTimeIndex] ?? 0).toFixed(1)} seconds: target {((time[currentTimeIndex] ?? 0) < 10 ? setpoint : 0).toFixed(2)}, measured velocity {(data[currentTimeIndex] ?? initialValue).toFixed(2)}, error {(pidTerms[currentTimeIndex]?.error ?? 0).toFixed(2)}.</p>
       <div className="time-slider-container">
-        <div className="label">
+        <label className="label" htmlFor={`${instanceId}-time`}>
           <span className="label-text">Time:</span>
-          <span className="value">{time[currentTimeIndex]?.toFixed(1)}s</span>
-        </div>
+          <span className="value">{(time[currentTimeIndex] ?? 0).toFixed(1)}s</span>
+        </label>
         <input
           type="range"
-          id="time"
+          id={`${instanceId}-time`}
           min="0"
-          max={time.length - 1}
+          max={Math.max(0, time.length - 1)}
           step="1"
           value={currentTimeIndex}
           onChange={(e) => setCurrentTimeIndex(parseInt(e.target.value))}

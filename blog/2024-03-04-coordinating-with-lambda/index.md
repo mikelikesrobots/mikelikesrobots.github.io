@@ -2,16 +2,21 @@
 title: "Co-ordinating Robot Fleets with AWS Lambda"
 slug: coordinating-with-lambda
 authors: mike
-tags: [robotics, aws, iot, lambda]
+tags: [robotics, aws, iot, lambda, cloud]
+youtube: AVfk8ICQK9o
 ---
 
-This post shows how to build two simple functions, running in the cloud, using AWS Lambda. The purpose of these functions is the same - to update the status of a given robot name in a database, allowing us to view the current statuses in the database or build tools on top of it. This is one way we could coordinate robots in one or more fleets - using the cloud to store the state and run the logic to co-ordinate those robots.
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+This post shows how to build two simple functions, running in the cloud, using AWS Lambda. The purpose of these functions is the same - to update the status of a given robot name in a database, allowing us to view the current statuses in the database or build tools on top of it.
+
+<!-- truncate -->
+
+This is one way we could coordinate robots in one or more fleets - using the cloud to store the state and run the logic to co-ordinate those robots.
 
 This post is also available in video form - check the video link below if you want to follow along!
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/AVfk8ICQK9o?si=68mtXaVTU65VI6BE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## What is AWS Lambda?
 
@@ -113,7 +118,7 @@ tracing::info!("Got response: {:#?}", response);
 
 To make it easier to build and deploy the functions, the sample repository contains a CDK stack. I've talked more about Cloud Development Kit (CDK) and the advantages of Infrastructure-as-Code (IaC) in my video "From AWS IoT Core to SiteWise with CDK Magic!":
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/9ZRZhrJFz7A?si=ZFBWN24xmXXWcDFH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="9ZRZhrJFz7A" title="'From AWS IoT Core to SiteWise with CDK Magic!' by Mike Likes Robots" />
 
 In this case, our CDK stack is building and deploying a few things:
 
@@ -179,7 +184,7 @@ There is only one extra entry, and that's because both functions executed on the
 
 If we wanted, we could set up the robot to call the Lambda function when it comes online - it could make an API call, or it could connect to AWS IoT Core and publish a message with its ONLINE status. We could also set up more Lambda functions to take customer orders, dispatch them to robots, and so on - the Lambda functions and accompanying AWS services allow us to build a completely serverless robot co-ordination system in the cloud. If you want to see more about connecting ROS2 robots to AWS IoT Core, take a look at my video here:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/OnVewSeayjI?si=tGqH8sE93w_CzHUF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="OnVewSeayjI" title="'How to send ROS2 Data to AWS IoT Core!' by Mike Likes Robots" />
 
 ## Lambda Function Cost
 

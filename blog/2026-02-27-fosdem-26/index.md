@@ -29,7 +29,7 @@ Conferences like FOSDEM are excellent for getting a view of what the robotics co
 
 The full talk list is below, but I wanted to highlight a few of the talks from the list.
 
-First, [Esteve's talk on `rclrs`](#rclrs) was great to see. I was familiar with a lot of the concepts and arguments, as I've covered `rclrs` in a couple of posts on this blog already (see [Comparing Rust Libraries for ROS Nodes](/blog/ros2-rust-comparison) and [Building a ROS2 node in Rust!](http://localhost:3000/blog/ros2-rust-node)). Still, it was great to hear from its creator about what went into it and how it will be officially supported in the ROS build farm soon. Thank you, Esteve!
+First, [Esteve's talk on `rclrs`](#rclrs) was great to see. I was familiar with a lot of the concepts and arguments, as I've covered `rclrs` in a couple of posts on this blog already (see [Comparing Rust Libraries for ROS Nodes](/blog/ros2-rust-comparison) and [Building a ROS2 node in Rust!](/blog/ros2-rust-node)). Still, it was great to hear from its creator about what went into it and how it will be officially supported in the ROS build farm soon. Thank you, Esteve!
 
 Next, the [longer talk from Botronics](#botronics-ixi) was excellent. Seeing the decisions and mistakes that went into a full robot system was fascinating and eye-opening. Not only that, but Botronics will be hosting ROSCon Belgium this year, so make sure to submit papers and buy tickets if you're interested! I'll update this post with links as soon as they're available.
 
@@ -54,7 +54,8 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
-<a id="calibrate-good-times"></a>
+#### Calibrate good times {#calibrate-good-times}
+
 - [Calibrate good times! The tools and methods to get top-quality robot data](https://fosdem.org/2026/schedule/event/DJK8WL-calibrate-good-times/) (25m) - [Roland Meertens](https://fosdem.org/2026/schedule/speaker/roland_meertens/) of [Wayve](https://wayve.ai/), [Sam Pfeiffer](https://fosdem.org/2026/schedule/speaker/sam_pfeiffer/) of [Humanoid](https://thehumanoid.ai/)
     
     **You should watch if:**
@@ -63,7 +64,8 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
-<a id="copper-rs"></a>
+#### Copper-rs {#copper-rs}
+
 - [Bridging robotics and systems programming: Why Copper-rs is a game changer](https://fosdem.org/2026/schedule/event/SK8EGJ-copper-rust-robotics-runtime/) (25m) - [Guillaume Binet](https://fosdem.org/2026/schedule/speaker/guillaume_binet/) of [Copper Robotics](https://www.copper-robotics.com/)
     
     **You should watch if:**
@@ -73,6 +75,8 @@ If any speakers would like their information updated, please contact me and let 
     - You like Rust!
 
 ---
+
+#### Apptainer {#apptainer}
 
 - [Apptainer: Easy Containerization for Robotics](https://fosdem.org/2026/schedule/event/PHRS33-apptainer-easy-containerization-for-robotics/) (5m) - [Malte Schrader](https://fosdem.org/2026/schedule/speaker/malte_schrader/)
     
@@ -117,6 +121,8 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
+#### A Core Developer's insights on Gazebo's Future {#a-core-developers-insights-on-gazebos-future}
+
 - [A Core Developer's insights on Gazebo's Future](https://fosdem.org/2026/schedule/event/8HTRVV-a_core_developers_insights_on_gazebos_future/) (45m) - [Jose Luis Rivero](https://fosdem.org/2026/schedule/speaker/jose_luis_rivero/), co-founder of [Honu Robotics](https://www.honurobotics.com) and Project Management Committee member of the Infrastructure and Gazebo project
     
     **You should watch if:**
@@ -127,7 +133,8 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
-<a id="rclrs"></a>
+#### rclrs {#rclrs}
+
 - [Introducing rclrs: the official ROS 2 client library for Rust](https://fosdem.org/2026/schedule/event/J8ZLKG-introducing_rclrs_the_official_ros_2_client_library_for_rust/) (25m) - [Esteve Fernández](https://fosdem.org/2026/schedule/speaker/esteve_fernandez/), an original author of ROS 2
     
     **You should watch if:**
@@ -137,7 +144,8 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
-<a id="upkie"></a>
+#### Upkie {#upkie}
+
 - [Open-Source Robotics in Practice: Lessons from Upkie Wheeled Bipeds](https://fosdem.org/2026/schedule/event/8PUMMD-open-source-robotics-practice-upkie-wheeled-bipeds/) (25m) - [Stéphane Caron](https://fosdem.org/2026/schedule/speaker/stephane_caron/)
     
     **You should watch if:**
@@ -184,6 +192,8 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
+#### Productionising ROS {#productionising-ros}
+
 - [Productionising ROS when you have no choice (with Bazel)](https://fosdem.org/2026/schedule/event/MUXVUK-prod-ros-bazel/) (10m) - [Ricardo Delfin](https://fosdem.org/2026/schedule/speaker/ricardo_delfin/) of [Humanoid](https://thehumanoid.ai/)
     
     **You should watch if:**
@@ -202,7 +212,7 @@ If any speakers would like their information updated, please contact me and let 
 
 ---
 
-<a id="botronics-ixi"></a>
+#### Botronics iXi {#botronics-ixi}
 
 - [The Technical Stacks Behind Botronics' iXi Autonomous Golf Trolley](https://fosdem.org/2026/schedule/event/M38A3V-botronics-robotics-tech-stack/) (45m) - [Antoine Van Malleghem](https://fosdem.org/2026/schedule/speaker/antoine_van_malleghem/), [Enzo Ghisoni](https://fosdem.org/2026/schedule/speaker/enzo_ghisoni/), [David Moli](https://fosdem.org/2026/schedule/speaker/david_moli/) of [Botronics](https://www.botronics.be/)
     
@@ -212,6 +222,8 @@ If any speakers would like their information updated, please contact me and let 
     - You want to hear about what went into the tech stack that the company settled on, including the mistakes they made
 
 ---
+
+#### ROS-Z {#ros-z}
 
 - [ROS-Z: A Rust/Zenoh-native stack, fully ROS 2-compliant](https://fosdem.org/2026/schedule/event/BQ8DVM-ros-z/) (25m) - [Julien Enoch](https://fosdem.org/2026/schedule/speaker/julien_enoch/), [Yuyuan Yuan](https://fosdem.org/2026/schedule/speaker/yuyuan_yuan/) of [ZettaScale](https://www.zettascale.tech/)
     

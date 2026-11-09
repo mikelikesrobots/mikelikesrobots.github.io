@@ -5,9 +5,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
+const motto = 'Where we share knowledge to accelerate robotics.';
+
 const config: Config = {
   title: 'Mike Likes Robots',
-  tagline: 'Where we share knowledge to accelerate robotics.',
+  tagline: motto,
   favicon: 'favicon.ico',
 
   url: 'https://mikelikesrobots.github.io',
@@ -26,20 +28,25 @@ const config: Config = {
     }
   },
 
-  stylesheets: [
-    {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/katex.min.css',
-      type: 'text/css',
-      integrity:
-        'sha384-...', // Use the integrity value published for this exact version
-      crossorigin: 'anonymous',
-    },
-  ],
 
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  plugins: ['./plugins/article-metadata'],
+
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        indexBlog: true,
+        indexDocs: true,
+        indexPages: true,
+      },
+    ],
+  ],
 
   presets: [
     [
@@ -56,7 +63,7 @@ const config: Config = {
           rehypePlugins: [rehypeKatex]
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: ['./src/css/custom.css', require.resolve('katex/dist/katex.min.css')],
         },
         gtag: {
           trackingID: "G-7X3VQWMTBV"
@@ -66,7 +73,12 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/social-card-mascot.png',
+    docs: {
+      sidebar: {
+        hideable: true,
+      },
+    },
     navbar: {
       title: 'Mike Likes Robots',
       logo: {
@@ -82,41 +94,8 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {to: '/hireme', label: 'Hire Me', position: 'left'},
-        {
-          href: 'https://www.youtube.com/@mikelikesrobots',
-          'aria-label': 'YouTube',
-          position: 'right',
-          html: '<i class="fab fa-youtube fa-lg"></i>',
-          className: 'header-link',
-        },
-        {
-          href: 'https://github.com/mikelikesrobots',
-          'aria-label': 'GitHub',
-          html: '<i class="fab fa-github fa-lg"></i>',
-          position: 'right',
-          className: 'header-link',
-        },
-        {
-          href: 'https://www.linkedin.com/in/michael-hart-a7614262/',
-          'aria-label': 'LinkedIn',
-          position: 'right',
-          html: '<i class="fab fa-linkedin fa-lg"></i>',
-          className: 'header-link',
-        },
-        {
-          href: 'https://www.reddit.com/user/mikelikesrobots',
-          'aria-label': 'Reddit',
-          position: 'right',
-          html: '<i class="fab fa-reddit fa-lg"></i>',
-          className: 'header-link',
-        },
-        {
-          href: 'https://bsky.app/profile/mikelikesrobots.bsky.social',
-          'aria-label': 'Bluesky',
-          position: 'right',
-          html: '<i class="fab fa-bluesky fa-lg small-pad-right"></i>',
-          className: 'header-link',
-        },
+        {href: 'https://www.youtube.com/@mikelikesrobots', label: 'YouTube', position: 'right', className: 'social-link social-link--youtube'},
+        {href: 'https://github.com/mikelikesrobots', label: 'GitHub', position: 'right', className: 'social-link social-link--github'},
       ],
     },
     footer: {
@@ -137,18 +116,22 @@ const config: Config = {
             {
               href: 'https://www.youtube.com/channel/UCAdis20vFM97syzwG1YlacQ',
               label: 'YouTube',
+              className: 'social-link social-link--youtube',
             },
             {
               href: 'https://www.reddit.com/user/mikelikesrobots',
               label: 'Reddit',
+              className: 'social-link social-link--reddit',
             },
             {
               href: 'https://www.linkedin.com/in/michael-hart-a7614262/',
               label: 'LinkedIn',
+              className: 'social-link social-link--linkedin',
             },
             {
               href: 'https://bsky.app/profile/mikelikesrobots.bsky.social',
               label: 'Bluesky',
+              className: 'social-link social-link--bluesky',
             },
           ],
         },
@@ -161,7 +144,8 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              className: 'social-link social-link--github',
+              href: 'https://github.com/mikelikesrobots',
             },
             {
               label: 'Business Enquiries',
@@ -170,19 +154,13 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Mike Likes Robots. Built with Docusaurus.`,
+      copyright: `<p class="footer-motto">${motto}</p><p>Copyright © ${new Date().getFullYear()} Mike Likes Robots. Built with Docusaurus.</p>`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
-  scripts: [
-    {
-      src: '/js/fontawesome-all.min.js',
-      defer: true,
-    }
-  ],
 };
 
 export default config;

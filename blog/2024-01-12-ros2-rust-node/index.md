@@ -3,16 +3,21 @@
 title: "Building a ROS2 node in Rust!"
 slug: ros2-rust-node
 authors: mike
-tags: [ros, robotics, aws, iot]
+tags: [ros, robotics, aws, iot, cloud, ros2]
+youtube: U5wHiZpNdvg
 ---
 
-This post shows how to build a Robot Operating System 2 node using Rust, a systems programming language built for safety, security, and performance. In the post, I'll tell you about [Rust](https://www.rust-lang.org/) - the programming language, not the video game! I'll tell you why I think it's useful in general, then specifically in robotics, and finally show you how to run a ROS2 node written entirely in Rust that will send messages to AWS IoT Core.
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+This post shows how to build a Robot Operating System 2 node using Rust, a systems programming language built for safety, security, and performance.
+
+<!-- truncate -->
+
+In the post, I'll tell you about [Rust](https://www.rust-lang.org/) - the programming language, not the video game! I'll tell you why I think it's useful in general, then specifically in robotics, and finally show you how to run a ROS2 node written entirely in Rust that will send messages to AWS IoT Core.
 
 This post is also available in video form - check the video link below if you want to follow along!
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/U5wHiZpNdvg?si=sOkqQglS_wBYwRLu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Why Rust?
 
@@ -22,11 +27,11 @@ There are much more in-depths articles and videos about the language itself, so 
 
 Rust is also steadily growing in traction. It is the only language other than C to make its way into the Linux kernel - and the Linux kernel was originally written in C! The Windows kernel is also rewriting some modules in Rust - check here to see what they have to say:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/1uAsA1hm52I?si=jX23v8UTqkCFf04z&amp;start=265" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="1uAsA1hm52I" title="'Ask the Expert: Rust at Microsoft' by Microsoft Developer" />
 
 The major tech companies are adopting Rust, including Google, Facebook, and Amazon. This recent 2023 keynote from Dr Wener Vogels, Vice President and CTO of Amazon.com, had some choice words to say about Rust. Take a look here to hear this expert in the industry:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/UTRBVPvzt9w?si=QsIxqpnwmpGowx0e&amp;start=3699" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="UTRBVPvzt9w" title="'AWS re:Invent 2023 - Keynote with Dr. Werner Vogel' by Amazon Web Services" start={3699} />
 
 ### Why isn't Rust used more?
 

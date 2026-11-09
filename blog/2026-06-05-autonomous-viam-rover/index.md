@@ -3,11 +3,14 @@ title: "Autonomously Mapping with Visual SLAM"
 slug: autonomous-viam-rover
 authors: mike
 tags: [robotics, ros2, slam, mapping, realsense, viam]
+youtube: QPRefVvoB8o
 ---
 
-This project is about a low-cost robot that you can drop into a room, have it explore and map the entire space, then set navigating autonomously - all without GPS or lidar.
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
-In this post, I walk through how I built an autonomous indoor mapping robot using the [Viam Rover](https://www.viam.com/resources/rover) as a base, swapping out the webcam for an [RealSense Depth Module D421](https://www.realsenseai.com/products/stereo-depth-camera-module-d421/) and using a [Radxa X4](https://radxa.com/products/x/x4/) as the central compute (instead of the already-supported Raspberry Pi or Jetson Orin). The robot runs a full [ROS 2](https://www.ros.org/) stack, including Visual SLAM for map building and Nav2 for autonomous navigation. 
+In this post, I walk through how I built an autonomous indoor mapping robot using the [Viam Rover](https://www.viam.com/resources/rover) as a base, swapping out the webcam for an [RealSense Depth Module D421](https://www.realsenseai.com/products/stereo-depth-camera-module-d421/) and using a [Radxa X4](https://radxa.com/products/x/x4/) as the central compute (instead of the already-supported Raspberry Pi or Jetson Orin). The robot runs a full [ROS 2](https://www.ros.org/) stack, including Visual SLAM for map building and Nav2 for autonomous navigation.
+
+<!-- truncate -->
 
 While building this robot out, I ran into some interesting challenges around encoder noise and calibration, which I cover in detail. If you want to build one yourself, there's a [parts list](#can-i-build-this-robot) at the bottom, and all the source code is on [GitHub](https://github.com/mikelikesrobots/viam-rover2).
 
@@ -16,6 +19,10 @@ While building this robot out, I ran into some interesting challenges around enc
 This project was built using hardware provided by Intel - thank you, Intel! The choice of hardware was my own, and the purpose of the project was also my idea.
 
 :::
+
+This post is also available in video form. If you'd prefer to watch, click the link below:
+
+<BlogVideo />
 
 <!-- truncate -->
 

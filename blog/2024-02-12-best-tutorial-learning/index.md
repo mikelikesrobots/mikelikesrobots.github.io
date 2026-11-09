@@ -3,9 +3,16 @@ title: "The Best Way for Beginners to Learn from Tutorials!"
 slug: best-tutorial-learning
 authors: mike
 tags: [educational]
+youtube: Isk6Uh_i-8s
 ---
 
-This post is about how beginners can make the most out of every tutorial by digging deep into the code to understand it. This is the best foundation you can give yourself for continuing to work on the code and making your own modifications. It follows on from [Getting Started as a Robotics Software Engineer!](/blog/getting-started-robot-sw-eng/), where I give the advice: 
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+This post is about how beginners can make the most out of every tutorial by digging deep into the code to understand it. This is the best foundation you can give yourself for continuing to work on the code and making your own modifications.
+
+<!-- truncate -->
+
+It follows on from [Getting Started as a Robotics Software Engineer!](/blog/getting-started-robot-sw-eng/), where I give the advice: 
 
 > First, look for and use every resource you have available to you. Look online, ask people, work in the field; anything you can to make your journey easier.
 
@@ -13,9 +20,7 @@ Following on from that, I wanted to show how to take a tutorial and use various 
 
 If you'd prefer to follow along, I've built a video demonstrating everything in this article, available here:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/Isk6Uh_i-8s?si=dkFYHbCkgh6CE70c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 To understand the tutorial code, we'll be using the following resources:
 1. [Version control (git)](#using-source-control-to-your-advantage) - to check the differences between versions and understand what's changed

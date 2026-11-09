@@ -10,9 +10,9 @@ function CapabilityCard({ title, description }: CapabilityCardProps) {
   return (
     <div className={clsx(styles.capabilityCardWrapper)}>
       <div
-        className={clsx("padding--md item shadow--md", styles.capabilityCard)}
+        className={clsx("padding--md", styles.capabilityCard)}
       >
-        <h2>{title}</h2>
+        <h3>{title}</h3>
         <p>{description}</p>
       </div>
     </div>

@@ -3,15 +3,17 @@ title: "Getting Started as a Robotics Software Engineer!"
 slug: getting-started-robot-sw-eng
 authors: mike
 tags: [robotics, educational]
+youtube: tkYZmw8x-SM
 ---
 
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
 This post is all about my advice on getting started as a Robotics Software Engineer. I want to tell you a little of my journey to get to this point, then what you should do to practise and give yourself the best start possible.
+<!-- truncate -->
 
 If you prefer a video format, check out my YouTube video below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/tkYZmw8x-SM?si=bisw0KJiTccKzEGg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Who is this post for?
 

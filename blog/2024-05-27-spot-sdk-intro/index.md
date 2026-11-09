@@ -3,21 +3,24 @@ title: "How to use the Boston Dynamics Spot SDK"
 slug: spot-sdk-intro
 authors: mike
 tags: [robotics, educational, spot]
+youtube: Hsa1wPpJA_Q
 ---
 
-This post is to show how to set up the Boston Dynamics Spot SDK.
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+This post is to show how to set up the Boston Dynamics Spot SDK. It goes from installing the Python examples and connecting the robot to understanding authentication, time synchronisation, leases, and movement commands.
+
+<!-- truncate -->
 
 If you prefer a video format, or you want to see the samples in action, check out my YouTube video below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/Hsa1wPpJA_Q?si=WXyIVy1k1_gGd0V0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Boston Dynamics Spot SDK
 
 Boston Dynamics released the Spot robot, and I was able to get my hands on one in the lab. I also released the video below to show the basics of getting it unpacked and moving around.
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/lNwuCiZdzQE?si=xi9WZHcZkkRjIUI1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="lNwuCiZdzQE" title="How to use the Boston Dynamics Spot SDK — supporting video" />
 
 This post is about showing examples from the Boston Dynamics Spot SDK, including mapping its environment and moving autonomously to key waypoints in the map, or detecting and following a person around. Unfortunately, it's hard to demonstrate the samples working in this post! I'll talk about the setup of the SDK and using it to connect to the robot, then leave it to the video for showing the samples themselves.
 
