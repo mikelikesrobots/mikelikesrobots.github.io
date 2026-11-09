@@ -3,13 +3,16 @@ title: "Deploying Ultralytics YOLO26 Using ROS 2"
 slug: ultralytics-yolo26-computer-vision
 authors: mike
 tags: [robotics, ros2, ai, yolo]
+youtube: jZtmxtWO3Dk
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 Computer Vision (CV) is when a machine processes visual data to perceive its environment, just as humans can. Robots using CV can operate on single images or continuous video data, which allows them to recognise objects, detect obstacles, track movements over time, and navigate in complex space. For instance, autonomous vehicles can use camera data for safety systems or even fully autonomous driving.
 
 This post walks through building a simple ROS 2 node that detects objects in real time using a robot's webcam and the Ultralytics YOLO26 model. The purpose is to show how simple it is to deploy Ultralytics models on a robot using the `ultralytics` Python package, as well as walking through a simple ROS 2 node for CV.
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/jZtmxtWO3Dk?si=q6LPSO1TcJ2WlSfO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<BlogVideo />
 
 <!-- truncate -->
 

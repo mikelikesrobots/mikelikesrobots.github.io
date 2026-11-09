@@ -2,18 +2,25 @@
 title: "Constructing Tasks with MoveIt"
 slug: moveit-task-constructor
 authors: mike
-tags: [robotics, arm, ros2, moveit]
+tags: [robotics, arm, ros2, moveit, control]
+youtube: yIVc5Xq0Xm4
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+In this post, I'll go through the [tutorials available from the MoveIt website](https://moveit.picknik.ai/main/doc/tutorials/tutorials.html) for MoveIt 2. I have a few notes to add for the first few tutorials, but the majority of my focus is on the final tutorial, [Pick and Place with MoveIt Task Constructor](/blog/moveit-task-constructor#pick-and-place-with-moveit-task-constructor). I'll explain more about how it works and the underlying principles so you can get started building your own task set for MoveIt.
+
+<!-- truncate -->
+
+<hr />
 
 How are complex robot arm motions actually planned and executed? Robot arms are usually mounted within an enclosure or with some kind of environment that restricts their movement, and their task is rarely as simple as picking a simple object from above. How can we plan arm movements that avoid colliding with anything and reliably accomplish their tasks? There's more than one answer, of course, but one excellent answer is to use MoveIt.
 
 [MoveIt](https://moveit.picknik.ai/main/index.html) is a powerful and widely used framework for motion planning in robotics. It helps robots figure out how to get from one point to another while avoiding obstacles, respecting joint limits, and following physical constraints.
 
-In this post, I'll go through the [tutorials available from the MoveIt website](https://moveit.picknik.ai/main/doc/tutorials/tutorials.html) for MoveIt 2. I have a few notes to add for the first few tutorials, but the majority of my focus is on the final tutorial, [Pick and Place with MoveIt Task Constructor](#pick-and-place-with-moveit-task-constructor). I'll explain more about how it works and the underlying principles so you can get started building your own task set for MoveIt.
-
 This post is also available in video form. I work through all the tutorials on camera so you can see every step. If you'd prefer to watch, click the link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/yIVc5Xq0Xm4?si=MjV4Us6Wn_L2XPJU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<BlogVideo />
 
 <!-- truncate -->
 

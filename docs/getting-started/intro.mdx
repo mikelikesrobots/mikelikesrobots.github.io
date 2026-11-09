@@ -4,21 +4,84 @@ toc_max_heading_level: 4
 ---
 
 import GuideGroup from '@site/src/components/GuideGroup';
-import GuideItem from '@site/src/components/GuideItem';
+import GuideItem, {ResourceKey} from '@site/src/components/GuideItem';
 
 # Getting Started with Cloud Robotics
 
-This guide is designed to help you use the cloud - and AWS in particular - to design and build a robot, from coming up with the initial idea all the way through to supporting your robots out in the wild! This guide will be updated over time as I'm able to build and upload new content, so keep checking back.
+Build a robot you can control, connect it to the cloud, and learn how to keep it running. These tutorials combine written guides, videos, and example code.
 
-## How to use this guide
+## Choose your starting point
 
-Each category shows how a different technology can be supported using the cloud, both in development and in production. Resources in each category will link to blog posts, YouTube videos, and any other content that will help with that category, including providing guidance on AWS services that can assist.
+The physical-robot path below is sequential: each practical stage builds on the previous one. If you already have equivalent hardware or a working ROS 2 robot, you can start later in the path after checking the listed prerequisites.
 
-If you use all of the knowledge here, you could end up with a scalable management system in the cloud for onboarding, monitoring, and controlling robots anywhere in the world (with an internet connection!).
+<ol className="learning-path">
+  <li>
+    <span className="learning-path__number">Step 1</span>
+    <h3>Understand the ROS 2 fundamentals</h3>
+    <p>Begin with [Getting Started with ROS 2](/blog/getting-started-ros-2) before attempting the robot software.</p>
+    <p className="learning-path__detail"><strong>Before:</strong> Basic programming and terminal familiarity.</p>
+    <p className="learning-path__detail"><strong>Outcome:</strong> Understand nodes, messaging, packages, and the main command-line tools.</p>
+  </li>
+  <li>
+    <span className="learning-path__number">Step 2</span>
+    <h3>Build and test the CamJam robot</h3>
+    <p>Follow [Your First Robot Kit: CamJam EduKit #3](/blog/camjam-edukit) and its video series in order.</p>
+    <p className="learning-path__detail"><strong>Before:</strong> The kit, a Raspberry Pi, power supplies, a microSD card, and another computer.</p>
+    <p className="learning-path__detail"><strong>Outcome:</strong> A complete Ubuntu-based robot with tested motors and sensors.</p>
+  </li>
+  <li>
+    <span className="learning-path__number">Step 3</span>
+    <h3>Install ROS 2 on the robot</h3>
+    <p>[ROS 2 on a Raspberry Pi Robot](/blog/raspi-camjam-ros2) starts with the CamJam robot already assembled, running Ubuntu, and tested. Complete step 2 first unless you have prepared equivalent hardware yourself.</p>
+    <p className="learning-path__detail"><strong>Before:</strong> Steps 1 and 2, with the completed robot accessible over SSH.</p>
+    <p className="learning-path__detail"><strong>Outcome:</strong> ROS 2 nodes combining line following and obstacle avoidance.</p>
+  </li>
+  <li>
+    <span className="learning-path__number">Step 4</span>
+    <h3>Make the first cloud connection</h3>
+    <p>Complete [AWS account and budget setup](#getting-started-with-aws), learn [AWS IoT Core](#aws-iot-core), then follow [Send ROS 2 data to AWS IoT Core](#connecting-to-the-cloud).</p>
+    <p className="learning-path__detail"><strong>Before:</strong> ROS 2, an AWS account with a budget alert, and the AWS CLI.</p>
+    <p className="learning-path__detail"><strong>Outcome:</strong> An IoT Thing securely sending ROS 2 data with an X.509 certificate.</p>
+    <p className="learning-path__note">The sample uses Ubuntu 22.04 and ROS 2 Humble, so it can run on a separate development machine.</p>
+  </li>
+  <li>
+    <span className="learning-path__number">Step 5</span>
+    <h3>Build a fleet overview</h3>
+    <p>Reuse the direct-IoT sample in [Build a Fleet Overview with AWS IoT Fleet Indexing](/blog/robot-fleet-overview).</p>
+    <p className="learning-path__detail"><strong>Before:</strong> The stage 4 sample, AWS credentials, and working IoT certificates.</p>
+    <p className="learning-path__detail"><strong>Outcome:</strong> Queryable connectivity and Device Shadow data across simulated robots.</p>
+  </li>
+</ol>
 
-## Categories
+<aside className="advanced-path">
+  <div className="advanced-path__label">Optional advanced path</div>
+  <h3>Manage software with AWS IoT Greengrass</h3>
+  <p>First learn [Greengrass concepts and components](/blog/greengrass-concepts-components), then attempt [automatic ROS 2-to-IoT conversion](/blog/automatic-ros2-greengrass-conversion).</p>
+  <p><strong>Requires:</strong> a Docker-capable Greengrass server or EC2 instance, AWS CLI credentials, the Greengrass Development Kit, ECR repositories, and a reachable ROS 2 network.</p>
+</aside>
 
-Take a look at the following categories to find more resources for each.
+:::tip Prefer a specific topic?
+Use [tutorial search](/search) to find ROS 2, robot control, cloud, or embedded projects.
+:::
+
+## Resource library
+
+Browse by service or stage of development. Each card includes a video and links to the written guide or code where available.
+
+<ResourceKey />
+
+### Why Cloud Robotics?
+
+<GuideGroup>
+
+<GuideItem
+    headingLevel={4}
+    title="Why would I connect my robots to the cloud?"
+    summary="Understand the benefits, costs, and trade-offs of cloud connectivity before choosing how to manage your robot fleet."
+    local_blog="/blog/why-use-cloud-robotics"
+/>
+
+</GuideGroup>
 
 ### AWS Services
 
@@ -80,7 +143,7 @@ Take a look at the following categories to find more resources for each.
 
 <GuideItem
     title="Automatically Sending ROS2 Data to IoT Core with Greengrass"
-    summary="Connect ROS2 robots to the cloud with no changes to robot firmware using a custom Greengrass component."
+    summary="After learning Greengrass concepts, connect a ROS 2 network to IoT Core through a Docker-capable Greengrass server. This advanced project also requires AWS CLI credentials, the Greengrass Development Kit, and ECR repositories."
     local_blog="/blog/automatic-ros2-greengrass-conversion"
     aws_community="https://community.aws/content/2kwFkW1VNiA4593UkSmCHO2MqYw/automatic-ros2-greengrass-conversion"
     github="https://github.com/mikelikesrobots/gg-ros2-mqtt-converter"
@@ -93,8 +156,7 @@ Take a look at the following categories to find more resources for each.
 
 <GuideItem
     title="How to Build a Fleet Overview with AWS IoT Fleet Indexing"
-    summary="See how to set up Fleet Indexing from IoT Device Management, which
-             is a tool for collecting select information from across your IoT devices."
+    summary="Continue from the direct ROS 2-to-IoT Core sample to create simulated robots, index their connectivity and Device Shadows, and query an overall fleet view."
     local_blog="/blog/robot-fleet-overview"
     github="https://github.com/mikelikesrobots/aws-iot-robot-connectivity-samples-ros2"
     youtube="https://www.youtube.com/embed/IbCCwTWp0ec?si=7N-uGh6eO16yJE0_"
@@ -111,7 +173,6 @@ Take a look at the following categories to find more resources for each.
     title="Collect and Filter Robot Logs with Amazon CloudWatch!"
     summary="Send ROS2 log messages into Amazon CloudWatch using IoT Rules, and see what useful information can be pulled out from those logs. Also includes how to spot and fix a few common mistakes."
     youtube="https://www.youtube.com/embed/cCZwQfaE6Jc?si=8Nc7w03TaCjSeQYb"
-    aws_community="https://community.aws/content/"
 />
 
 </GuideGroup>
@@ -177,12 +238,22 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
+    title="Your First Robot Kit: CamJam EduKit #3"
+    summary="Explore an inexpensive Raspberry Pi robot kit and the hardware you need to start building and programming a robot."
+    local_blog="/blog/camjam-edukit"
+    youtube="https://www.youtube.com/embed/dH0sKmp1DMw"
+/>
+
+<GuideItem
+    headingLevel={4}
     title="Initial Setup of Waveshare Jetbot AI Robot!"
     summary="Initial setup of a Waveshare Jetbot AI Robot kit, minus the kit assembly. Show the parts up close and the installation steps to get the robot moving."
     youtube="https://www.youtube.com/embed/GdUGegYUOpM?si=iT9rizx1ENx7S4rx"
 />
 
 <GuideItem
+    headingLevel={4}
     title="Using I2C to control PWM"
     summary="Part 1 of a new series to control a JetBot using ROS Control. This entry uses I2C from a Jetson Nano to control the PWM from an AdaFruit FeatherWing board controlling the motors."
     local_blog="/blog/jetbot-motors-pt1"
@@ -192,12 +263,14 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Boston Dynamics Spot Robot: Going for a Walk!"
     summary="I show some of the basics of getting a Boston Dynamics Spot robot up and running. I show how it's packaged, how to connect the tablet, and how to get it moving around. In the future, I'll show how to use the Spot SDK and run some of the examples."
     youtube="https://www.youtube.com/embed/lNwuCiZdzQE?si=xi9WZHcZkkRjIUI1"
 />
 
 <GuideItem
+    headingLevel={4}
     title="How to use the Boston Dynamics Spot SDK"
     summary="I show how to download and set up the Boston Dynamics Spot SDK, talk through one of the examples, and show a few of the examples in action. The examples are to stand the robot up, have a virtual e-stop button, and build up a map that the robot can be moved around by specifying waypoints."
     youtube="https://www.youtube.com/embed/Hsa1wPpJA_Q?si=WXyIVy1k1_gGd0V0"
@@ -205,8 +278,9 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="ROS 2 on a Raspberry Pi Robot"
-    summary="I show how to install and run my own ROS 2 application on a CamJam EduKit #3 using a Raspberry Pi Zero. I show installation steps, how to build and run the code, and go over the code in detail."
+    summary="This tutorial assumes the CamJam robot is already assembled, running Ubuntu, and tested. It then installs ROS 2 and builds nodes that combine line following with obstacle avoidance."
     youtube="https://www.youtube.com/embed/JxhMEpHXym4?si=tzme7QR86opYRF7K"
     local_blog="/blog/raspi-camjam-ros2"
 />
@@ -218,6 +292,7 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
     title="How to send ROS2 Data to AWS IoT Core!"
     summary="See how to create X.509 certificates for connecting your robot to IoT Core,
           a great first step in writing your data to the cloud."
@@ -225,6 +300,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="From AWS IoT Core to SiteWise with CDK Magic!"
     summary="See how to use Rules to ingest data from IoT Core into SiteWise. Set up
     performed manually, then automated with CDK."
@@ -237,6 +313,7 @@ Take a look at the following categories to find more resources for each.
 ### Deployment
 
 <GuideItem
+    headingLevel={4}
     title="Deploying Docker Compose with Greengrass!"
     summary="Find out how to build custom Docker images and deploy them into ECR, then reference them in Docker Compose files deployed as custom Greengrass components."
     youtube="https://www.youtube.com/embed/7lA-CDG22oo?si=F0fY2dIyqO40HpP3"
@@ -250,6 +327,7 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
     title="Estimating Battery Health with SiteWise!"
     summary="Connect your robots to AWS IoT SiteWise to enable graphing of key metrics
           and other visualization!"
@@ -258,6 +336,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Streaming JetBot Webcam data to Amazon KVS!"
     summary="Set up two different ways of streaming data into KVS from the JetBot - direct ingestion and streaming using WebRTC."
     github="https://github.com/mikelikesrobots/amazon-kinesis-video-streams-webrtc-sdk-c"
@@ -271,6 +350,7 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
     title="Turning off a robot from the cloud!"
     summary="Configure your ROS2 node to only operate if the AWS IoT Device Shadow says
           it's enabled for a simple remote on/off button."
@@ -278,6 +358,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="JetBot Gamepad Control with ROS2!"
     summary="Move the JetBot around using a PlayStation controller over ROS2."
     github="https://github.com/mikelikesrobots/jetbot-joy-teleop"
@@ -285,6 +366,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="How to Build Gamepad Control in ROS2 for the Jetbot!"
     summary="Deep dive of the previous video, with more detail on setting
       up the workspaces from scratch, including Docker development in VSCode."
@@ -293,6 +375,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Using a phone to move a JetBot using an AWS Amplify Webapp!"
     summary="Deploy a webapp that will listen for messages and forward them to a
       ROS2 robot. Includes arrow keys so a cell phone can be used as a remote control!"
@@ -307,6 +390,15 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
+    title="ROS2 Control with the JetBot Part 2: Building a ros2_control System"
+    summary="Continue from the I2C and PWM tutorial by wrapping the JetBot motor driver in a ros2_control hardware system."
+    local_blog="/blog/jetbot-motors-pt2"
+    youtube="https://www.youtube.com/embed/2JJApj-PNVk"
+/>
+
+<GuideItem
+    headingLevel={4}
     title="Get an intuitive understanding of PID Control"
     summary="Understanding PID control is an important part of robotics, because the control method is so widely used. Get an intuitive understand of all the components with this post/video."
     youtube="https://www.youtube.com/embed/z50ZXCzaVoI?si=5CC05dVpQS6ukz8K"
@@ -320,6 +412,7 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
     title="Getting Started with ROS 2"
     summary="Entry level video of what ROS 2 is, and why you might want to learn it. It goes over three major concepts of ROS 2 before giving a few ideas of how to proceed learning more on your own."
     youtube="https://www.youtube.com/embed/8aoFndU7jos?si=G2xnuD40pkLY8PpZ"
@@ -327,6 +420,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Building a ROS2 Node using Rust!"
     summary="Hear about the benefits of Rust, and why it's useful in many areas, including robotics. Then build a sample repository and use it to push data to AWS IoT Core."
     youtube="https://www.youtube.com/embed/U5wHiZpNdvg?si=NEjZGSBtOsK3KGEv"
@@ -336,6 +430,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Controlling a 6DOF Robot Arm with ros2_control"
     summary="I show the ros2_control example code for a 6DOF robot arm running in simulation, then deep dive into the code to explain how it works. I also talk about what needs to change from the example to adapt it to a real robot arm, as I plan to do in a future video or blog post."
     youtube="https://www.youtube.com/embed/ZRrC6Hss01Y?si=WesFazz_tXGJIkdl"
@@ -343,6 +438,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Getting Started with MoveIt"
     summary="The video shows the full set of tutorials from MoveIt, running through each step and explaining it for a full introduction to MoveIt. The blog post focuses on a few key tips and explains the tasks and stages from the MoveIt Task Constructor, otherwise leaving details to the source tutorials."
     youtube="https://www.youtube.com/embed/yIVc5Xq0Xm4?si=MjV4Us6Wn_L2XPJU"
@@ -350,6 +446,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Comparing Rust Libraries for ROS Nodes"
     summary="Learn more about Rust in Robotics by comparing two Rust ROS 2 client libraries."
     youtube="https://www.youtube.com/embed/ZOuJ2qmd1dc?si=WCxfYYQmr-WmW1m2"
@@ -364,10 +461,53 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
+    title="Deploying Ultralytics YOLO26 Using ROS 2"
+    summary="Build a ROS 2 node that uses a webcam and Ultralytics YOLO26 to detect objects in real time."
+    local_blog="/blog/ultralytics-yolo26-computer-vision"
+    youtube="https://www.youtube.com/embed/jZtmxtWO3Dk"
+/>
+
+<GuideItem
+    headingLevel={4}
     title="Exploring AI on the RDK X3 Sunrise"
     summary="Trying 3 AI models on the RDK X3 board."
     local_blog="/blog/rdk-x3-ai-explore"
     youtube="https://www.youtube.com/embed/EryAkkLAkmA?si=UOS2zOt4kYQPPNse"
+/>
+
+</GuideGroup>
+
+### Autonomous Mapping and Navigation
+
+Start with the project overview, then explore its control system and calibration steps. These articles describe the Viam Rover modified with a Radxa X4 and RealSense depth camera; the calibration guide assumes the robot is assembled and its computer is set up.
+
+<GuideGroup>
+
+<GuideItem
+    headingLevel={4}
+    title="Autonomously Mapping with Visual SLAM"
+    summary="Explore the hardware, parts list, and ROS 2 architecture for an indoor rover that maps and navigates using depth data, Visual SLAM, and Nav2."
+    local_blog="/blog/autonomous-viam-rover"
+    github="https://github.com/mikelikesrobots/viam-rover2"
+/>
+
+<GuideItem
+    headingLevel={4}
+    title="Controlling the Viam Rover with ros2_control"
+    summary="Understand the rover's motor control, encoder readings, and sensor fusion for tracking its position."
+    local_blog="/blog/rover-ros2-control"
+    youtube="https://www.youtube.com/embed/FyVvHbA4nBs"
+    github="https://github.com/mikelikesrobots/viam-rover2"
+/>
+
+<GuideItem
+    headingLevel={4}
+    title="Setting Up and Calibrating the Autonomous Viam Rover"
+    summary="Install the remaining software, calibrate the wheel encoders, and generate a motor lookup table to prepare the rover for mapping and navigation."
+    local_blog="/blog/viam-rover-calibration"
+    youtube="https://www.youtube.com/embed/KgZdrtvqItI"
+    github="https://github.com/mikelikesrobots/viam-rover2"
 />
 
 </GuideGroup>
@@ -377,6 +517,7 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
     title="Simulating Robots in the Cloud with EC2 and O3DE"
     summary="With simulations, we can repeatedly run a robot through exactly the same setup every time. This tutorial shows how to set up O3DE, a powerful open source robotics simulator, on a cloud-hosted machine with a graphics card, hosted on Amazon EC2."
     youtube="https://www.youtube.com/embed/GOcf0bCtINM?si=HoQxmNi39SQTfMcg"
@@ -384,6 +525,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Controlling Robots using a Large Language Model"
     summary="Shows how to set up a demo project to control a simulated robot using an LLM (Claude, specifically). Discusses the pros and cons of LLMs to control robots, shows the project in action, then shows how to set it up and explains the code."
     youtube="https://www.youtube.com/embed/Lr-LjwPR1hM?si=CwY2vn-VHDPKB4Pv"
@@ -392,6 +534,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="Cost-Effective Robotics Simulation in the Cloud"
     summary="See how to run O3DE, Ignition Gazebo, and NVIDIA Isaac Sim in the cloud, using EC2 Spot Instances to save on costs, and deployed using CDK."
     github="https://github.com/mikelikesrobots/spot_instance_sims"
@@ -406,6 +549,7 @@ Take a look at the following categories to find more resources for each.
 <GuideGroup>
 
 <GuideItem
+    headingLevel={4}
     title="Getting Started as a Robotics Software Engineer!"
     summary="Learn how to get started as a robotics engineer - what to buy, and what to practise. I talk about hardware, your first programming language, and some robot kits to get going."
     youtube="https://www.youtube.com/embed/tkYZmw8x-SM?si=9bA8wxOiRPhr-8uG"
@@ -413,6 +557,7 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="The Best Way for Beginners to Learn from Tutorials!"
     summary="Learn how to get the most out of every tutorial by explaining every line, checking online resources, and digging through the code with a debugger and testing."
     youtube="https://www.youtube.com/embed/Isk6Uh_i-8s?si=dkFYHbCkgh6CE70c"
@@ -421,10 +566,24 @@ Take a look at the following categories to find more resources for each.
 />
 
 <GuideItem
+    headingLevel={4}
     title="5 Tips on How to Stand Out as a Software Engineer"
     summary="I tell you my 5 top tips on how to advance in your career and interact with your manager and team, and I end with some actions you can take today to start getting ahead."
     youtube="https://www.youtube.com/embed/wEQqo-Exmd0?si=xXkjKOR0XdJkP5bf"
     local_blog="/blog/stand-out-as-sw-eng"
+/>
+
+</GuideGroup>
+
+### Community and Further Reading
+
+<GuideGroup>
+
+<GuideItem
+    headingLevel={4}
+    title="FOSDEM Robotics Dev Room Summary"
+    summary="Browse the 2026 Robotics and Simulation talks, with notes on ROS, Rust, robot software infrastructure, and open source projects to explore next."
+    local_blog="/blog/fosdem-robotics-2026"
 />
 
 </GuideGroup>

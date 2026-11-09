@@ -2,10 +2,17 @@
 title: "ROS2 Control with the JetBot Part 1: Using I2C to control PWM"
 slug: jetbot-motors-pt1
 authors: mike
-tags: [aws, robotics, communication, embedded, serial, i2c, pwm, jetbot, ros2control]
+tags: [aws, robotics, communication, embedded, serial, i2c, pwm, jetbot, ros2control, control, ros2]
+youtube: MdHeETllDN8
 ---
 
-Welcome to a new series - setting up the JetBot to work with [ROS2 Control](https://control.ros.org) interfaces! Previously, I showed how to set up the JetBot to work from ROS commands, but that was a very basic motor control method. It didn't need to be advanced because a human was remote controlling it. However, if we want autonomous control, we need to be able to travel a specific distance or follow a defined path, like a [spline](https://en.wikipedia.org/wiki/Spline_(mathematics)). A better way of moving a robot using ROS is by using the ROS Control interfaces; if done right, this means your robot can autonomously follow a path sent by the ROS navigation stack. That's our goal for this series: move the JetBot using RViz!
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+Learn how to control the JetBot's motors from C++ using I<sup>2</sup>C and PWM, which is the first step towards integrating the robot with [`ros2_control`](https://control.ros.org) and autonomous navigation.
+
+<!-- truncate -->
+
+Welcome to a new series - setting up the JetBot to work with [`ros2_control`](https://control.ros.org) interfaces! Previously, I showed how to set up the JetBot to work from ROS commands, but that was a very basic motor control method. It didn't need to be advanced because a human was remote controlling it. However, if we want autonomous control, we need to be able to travel a specific distance or follow a defined path, like a [spline](https://en.wikipedia.org/wiki/Spline_(mathematics)). A better way of moving a robot using ROS is by using the ROS Control interfaces; if done right, this means your robot can autonomously follow a path sent by the ROS navigation stack. That's our goal for this series: move the JetBot using RViz!
 
 The first step towards this goal is giving ourselves the ability to control the motors using C++. That's because the controllers in ROS Control requires extending C++ classes. Unfortunately, the existing drivers are in Python, meaning we'll need to rewrite them in C++ - which is a good opportunity to learn how the serial control works. We use I<sup>2</sup>C to talk to the motor controller chip, an [AdaFruit DC Motor + Stepper FeatherWing](https://www.adafruit.com/product/2927), which sets the PWM duty cycle that makes the motors move. I'll refer to this chip as the FeatherWing for the rest of this article.
 
@@ -17,9 +24,7 @@ The stage after this will be in another article in this series, so stay tuned!
 
 This post is also available in video form - check the video link below if you want to follow along!
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/MdHeETllDN8?si=WKEe2Ti-hzN871fM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Inter-Integrated Circuit (IIC/I<sup>2</sup>C)
 
@@ -277,7 +282,7 @@ While the `Motor` class only has the ability to turn fully on or fully off, it h
 
 If you want to give it a try, and you have a JetBot to do it with, you can follow my setup guide in this video:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/GdUGegYUOpM?si=ro3p8F5YnbNUno_e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="GdUGegYUOpM" title="'ROS2 Control with the JetBot Part 1: Using I2C to control PWM' by Mike Likes Robots" />
 
 Once this is done, follow the [instructions in the README](https://github.com/mikelikesrobots/jetbot-ros-control/blob/jetbot-motors-pt1/README.md) to get set up. This means cloning the code onto the JetBot, opening the folder inside the dev container, and then running:
 

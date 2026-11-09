@@ -3,17 +3,22 @@ title: "Cost-Effective Robotics Simulation in the Cloud"
 slug: ec2-spot-sims
 authors: mike
 tags: [robotics, cloud, aws, ec2, simulation]
+youtube: 62QHXpeWVqw
 ---
 
-This post shows how to deploy an EC2 Spot Instance on AWS capable of running [O3DE](https://o3de.org/), [Ignition Gazebo](https://gazebosim.org/home), and [NVIDIA Isaac Sim](https://developer.NVIDIA.com/isaac/sim) at a reduced cost. This Spot Instance is part of a system that uses an Amazon S3 bucket to store project data, such as robot environment levels, and scripts to automate starting up and shutting down instances to save on costs when the simulation instance is not in use; the whole system is deployed using CDK, except for a few manual setup steps.
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+This post shows how to deploy an EC2 Spot Instance on AWS capable of running [O3DE](https://o3de.org/), [Ignition Gazebo](https://gazebosim.org/home), and [NVIDIA Isaac Sim](https://developer.NVIDIA.com/isaac/sim). We’ll use AWS CDK, Amazon S3, and automated start/stop scripts to create an on-demand GPU simulation environment that preserves project data while keeping compute and storage costs under control.
+
+<!-- truncate -->
+
+This Spot Instance is part of a system that uses an Amazon S3 bucket to store project data, such as robot environment levels, and scripts to automate starting up and shutting down instances to save on costs when the simulation instance is not in use; the whole system is deployed using CDK, except for a few manual setup steps.
 
 By the end of this post, you’ll have a fully automated system to spin up high-end GPU simulation machines for a fraction of the usual cost. What's more, you'll have ROS 2 access, remote desktop viewing, and one-line start/stop scripts to manage the instances.
 
 This post is also available in video form. If you'd prefer to watch, click the link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/62QHXpeWVqw?si=-NuLQnrSHlrC6rI3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Running Simulations in the Cloud
 
@@ -284,7 +289,7 @@ To access the instance, you need to find the IP address. Unfortunately, CDK can'
 
 Another option is to use one of the provided scripts:
 
-<span id="get-sim-ip"></span>
+##### Get the simulation IP {#get-sim-ip}
 
 ```bash
 # Windows
@@ -396,11 +401,9 @@ Either option will have the desired effect, but destroying the stack takes a lot
 
 To make this easier, I've set up tags on the fleet request using the CDK stack, and written a couple of scripts to update the target capacity. These scripts are as follows:
 
-**Stopping the Instance**
+##### Stopping the instance {#stop-sim}
 
 This will stop a running instance in a couple of minutes. If the target capacity is already 0, it has no effect.
-
-<span id="stop-sim"></span>
 
 ```bash
 # Windows
@@ -436,7 +439,7 @@ cdk destroy --all
 
 This will make sure there are no outstanding costs on your AWS account. Still, it is up to you to check that there are no outstanding expenses! If you want help tracking costs and usage on AWS, take a look at my video on the subject below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/LreFpJDXZs0?si=SF8vhMUs2AfCSMeK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="LreFpJDXZs0" title="'AWS: Signup, Budgets, and Costs!' by Mike Likes Robots" />
 
 ## Popping the CDK stacks
 

@@ -2,8 +2,18 @@
 title: "Controlling a 6DOF Robot Arm with ros2_control"
 slug: 6dof-arm-ros2-control
 authors: mike
-tags: [robotics, 6dof, arm, ros2, ros2control]
+tags: [robotics, 6dof, arm, ros2, ros2control, control]
+youtube: ZRrC6Hss01Y
+description: "Understand the ros2_control example controller and adapt it for your own robot arm."
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+Learn how `ros2_control` can move a six degrees of freedom (DOF) robot arm by working through an example simulation. I'll show how joint trajectories, controllers, and hardware interfaces fit together, plus identify what you need to change when adapting the example for a real arm.
+
+<!-- truncate -->
+
+<hr />
 
 Moving and manipulating objects are one of the most common tasks in robotics. Examples include moving objects, folding clothes, or solving Rubik's cubes. Robots that perform these tasks are often called manipulators, and they tend to be arms with some kind of gripper on the end - in my experience, a pinch or suction gripper.
 
@@ -11,9 +21,7 @@ One method of controlling the movement of a robot arm to a given pose is using `
 
 This post is also available in video form. If you'd prefer to watch, click the link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/ZRrC6Hss01Y?si=WesFazz_tXGJIkdl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Controlling a Simulated Robot Arm with `ros2_control`
 

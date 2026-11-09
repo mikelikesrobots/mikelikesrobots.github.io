@@ -2,16 +2,21 @@
 title: "Automatically Sending ROS2 Data to IoT Core with Greengrass"
 slug: automatic-ros2-greengrass-conversion
 authors: mike
-tags: [robotics, aws, iot, greengrass]
+tags: [robotics, aws, iot, greengrass, cloud]
+youtube: kyW57FHPU6k
 ---
 
-This post is about connecting ROS2 robots to the cloud with a quick and simple Greengrass setup. I'll guide you through building a sample component that can be hosted on a server connected to your robot fleet, which will connect the robots to AWS IoT Core without modifying the robot software in any way. Setup requires installing only a few prerequisites. Let's see how it works!
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+This post is about connecting ROS2 robots to the cloud with a quick and simple Greengrass setup. I'll guide you through building a sample component that can be hosted on a server connected to your robot fleet, which will connect the robots to AWS IoT Core without modifying the robot software in any way. Setup requires installing only a few prerequisites. 
+
+<!-- truncate -->
+
+Let's see how it works!
 
 This post is also available in video form, if you want to follow along:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/kyW57FHPU6k?si=ymx0QDSke0fYjB8m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Methods of Connecting to IoT Core
 
@@ -19,11 +24,11 @@ This post is also available in video form, if you want to follow along:
 
 A reliable way of connecting robots to the cloud is to provision a Thing for each robot. In AWS, this means registering a Thing in your AWS account and downloading a certificate for each robot, which is then used for authentication and authorization. I have a video on how to set this up, including sample code that you can run through, available here:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/OnVewSeayjI?si=8y7LNwpuSrOHUvSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="OnVewSeayjI" title="'How to send ROS2 Data to AWS IoT Core!' by Mike Likes Robots" />
 
 I also have another video which extends this setup by connecting all the robots to a single server with AWS IoT Greengrass installed on it, acting as a single connection point to the public internet. This is a hub-and-spoke model where all robots connect to the Greengrass server and the server connects to the cloud. It has the advantage of being easier to manage remotely, offering the ability to download more Greengrass components to the server, and managing a single connection to AWS IoT Core, which reduces costs. I have a video on setting this up as well:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/3FHvtxQ62nY?si=1d-hZUaqueBLMroa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="3FHvtxQ62nY" title="'Connecting ROS2 Robots to a Greengrass Gateway' by Mike Likes Robots" />
 
 With this method, the individual robots are responsible for converting any messages destined for the cloud into JSON blocks that could be sent as MQTT messages, which requires coding manually and setting up each robot individually with its own certificate and conversion nodes.
 
@@ -255,7 +260,7 @@ To set up Greengrass, including with a deployment of our new component, we only 
 
 If you would like to learn more about Greengrass and see a more thorough guide on installing it, take a look at my video linked below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/2VXIILtiMiU?si=R47FbTkgP4nh3scq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="2VXIILtiMiU" title="'AWS IoT Greengrass: Concepts and Components' by Mike Likes Robots" />
 
 The components and config are defined in the `scripts/greengrass_deployment_config.json` file. This defines a few components with some configuration:
 

@@ -1,6 +1,5 @@
 import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
-import clsx from "clsx";
 import styles from "./index.module.css";
 import Link from "@docusaurus/Link";
 import {
@@ -161,113 +160,70 @@ const PastProjectDefs: PastProjectProps[] = [
   },
 ];
 
+function ContactLinks() {
+  return <div className={styles.linkButtons}>
+    <Link className={`button button--primary ${styles.discussButton}`} to="mailto:mikelikesrobots@outlook.com">Discuss your project</Link>
+    <Link className="button button--secondary" to="https://www.linkedin.com/in/michael-hart-a7614262/">Connect on LinkedIn</Link>
+  </div>;
+}
+
 export default function HireMe(): JSX.Element {
-  return (
-    <Layout
-      title={`Hire Me`}
-      description="How I can help you with your robotics project"
-    >
-      <div className={clsx("hero hero--primary", styles.heroBanner)}>
-        <div className={clsx(styles.collapsiblePadding)}></div>
-        <div className={clsx(styles.flexColumn)}>
-          <Heading as="h1" className={clsx("hero__title")}>
-            Robotics & IoT Software
-          </Heading>
-          <p className={clsx("hero__subtitle")}>
-            I can help you build custom software for smart robots and IoT
-            systems.
-          </p>
+  return <Layout title="Hire Me" description="Robotics and IoT software consulting, from embedded systems and ROS 2 to cloud infrastructure.">
+    <main>
+      <header className={`hero hero--primary ${styles.heroBanner}`}>
+        <div className="container">
+          <Heading as="h1" className="hero__title">Robotics &amp; IoT Software</Heading>
+          <p className="hero__subtitle">Bring your robot idea to life, or improve the system you already have.</p>
+          <p>I’m Michael Hart, a robotics software consultant, educator, and former senior SDE at AWS. I help teams build and refine embedded, ROS 2, and cloud systems.</p>
+          <div className={styles.heroActions}>
+            <Link className={`button button--primary button--lg ${styles.discussButton}`} to="mailto:mikelikesrobots@outlook.com">Discuss your project</Link>
+            <Link to="#selected-projects" className={styles.heroLink}>Explore my work →</Link>
+          </div>
         </div>
-      </div>
+      </header>
 
-      <main>
-        <section className={clsx("container padding-vert--md")}>
-          <div className={clsx(styles.descriptionBox)}>
-            <h3>About Me</h3>
-            <p>
-              I am an educator, leader of the{" "}
-              <a href="https://cloudroboticshub.github.io/">
-                Cloud Robotics Working Group
-              </a>
-              , and a specialist in writing software for{" "}
-              <a href="/blog/why-use-cloud-robotics">
-                connecting robots to the cloud
-              </a>
-              . I help my clients to bring their robot ideas to life or improve
-              their existing designs. My experience is primarily in research &
-              development and prototyping, helping clients build and refine
-              their robotic systems. However, while my focus is on early-stage
-              development, I also have the skills to support production
-              workloads.
-            </p>
-            <p>
-              Over my 12 year career, I have worked as a consultant and as a
-              senior SDE at AWS, all with a focus on robotics. This required me
-              to work on various projects (including non-robotics projects),
-              meaning that I am able to work with many different technologies -
-              those required to build robot software and those required to
-              support them. Hence, I am able to work with electronic and
-              embedded systems, all the way through to leveraging the cloud.
-            </p>
-            <p>
-              To find out more, you can read more below, take a look at my{" "}
-              <a href="/blog">blog</a> and&nbsp;
-              <a href="https://youtube.com/@mikelikesrobots">YouTube channel</a>
-              , or contact me using one of the following methods:
-            </p>
+      <section className="container padding-vert--lg">
+        <Heading as="h2" id="selected-projects">Selected projects</Heading>
+        <p>Examples of my work across connected devices, autonomous robots, and perception.</p>
+        <div className={styles.projectList}>
+          {PastProjectDefs.map(project => <PastProject key={project.title} {...project} />)}
+        </div>
+      </section>
 
-            <div
-              className={clsx(
-                "text--center padding-vert--xs",
-                styles.linkButtons,
-              )}
-            >
-              <Link
-                className="button button--secondary button--md item shadow--md"
-                to="https://www.linkedin.com/in/michael-hart-a7614262/"
-              >
-                <i className="fab fa-linkedin fa-lg padding-right--sm"></i>
-                LinkedIn
-              </Link>
-              <Link
-                className="button button--secondary button--md item shadow--md"
-                to="mailto:mikelikesrobots@outlook.com"
-              >
-                <i className="fa fa-envelope fa-lg padding-right--sm"></i>
-                mikelikesrobots@outlook.com
-              </Link>
-            </div>
+      <section className="container padding-vert--lg">
+        <h2>How I can help</h2>
+        <div className={styles.capabilityCardRow}>
+          {CapabilityCardDefs.map(capability => <CapabilityCard key={capability.title} {...capability} />)}
+        </div>
+      </section>
+
+      <section className="container padding-vert--lg">
+        <h2>What clients say</h2>
+        {TestimonialDefs.map(testimonial => <CustomerTestimonial key={testimonial.customerName} {...testimonial} />)}
+      </section>
+
+      <section className="container padding-vert--lg">
+        <div className={styles.descriptionBox}>
+          <h2>About me</h2>
+          <div>
+            <img className={styles.portrait} src="/img/headshot-cropped.JPG" alt="Michael Hart" width="192" height="192" loading="lazy" decoding="async" />
+            <p className={styles.profileName}>Michael Hart</p>
+            <p className={styles.profileRole}>Robotics &amp; IoT software consultant</p>
           </div>
-        </section>
-
-        {/* Capabilities */}
-        <section className={clsx("container padding-vert--md")}>
-          <hr></hr>
-          <div className={clsx(styles.capabilityCardRow)}>
-            {CapabilityCardDefs.map((x) => (
-              <CapabilityCard {...x} />
-            ))}
+          <div>
+            <p>I am an educator, leader of the <Link to="https://cloudroboticshub.github.io/">Cloud Robotics Working Group</Link>, and a specialist in <Link to="/blog/why-use-cloud-robotics">connecting robots to the cloud</Link>. My experience spans consulting and a senior software development role at AWS, with a focus on robotics.</p>
+            <p>My primary focus is research, development, and prototyping: helping teams test ideas, build working systems, and improve existing designs. I can also support production workloads, from embedded devices through to cloud infrastructure.</p>
+            <p>You can explore my approach through the <Link to="/blog">blog</Link> and <Link to="https://youtube.com/@mikelikesrobots">YouTube channel</Link>.</p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Customer Testimonials */}
-        <section className={clsx("container padding-vert--md")}>
-          <hr></hr>
-          <h2>Customer Testimonials</h2>
-          {TestimonialDefs.map((x) => (
-            <CustomerTestimonial {...x} />
-          ))}
-        </section>
-
-        {/* Previous Projects */}
-        <section className={clsx("container padding-vert--md")}>
-          <hr></hr>
-          <h2>Previous Projects</h2>
-          {PastProjectDefs.map((x) => (
-            <PastProject {...x} />
-          ))}
-        </section>
-      </main>
-    </Layout>
-  );
+      <section className={`container padding-vert--lg ${styles.contactSection}`}>
+        <h2>Tell me what you’re building</h2>
+        <p>Email a short description of your project, where you need help, and your timeline.</p>
+        <ContactLinks />
+        <p className="margin-top--md">Prefer to email directly? Send your project details to <Link to="mailto:mikelikesrobots@outlook.com">mikelikesrobots@outlook.com</Link>.</p>
+      </section>
+    </main>
+  </Layout>;
 }

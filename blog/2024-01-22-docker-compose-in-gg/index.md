@@ -2,20 +2,23 @@
 title: "Deploying Docker Compose with Greengrass!"
 slug: docker-compose-in-gg
 authors: mike
-tags: [aws, iot, greengrass]
+tags: [aws, iot, greengrass, cloud]
+youtube: 7lA-CDG22oo
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 In this post, I'll show how to use two major concepts together:
 1. [Docker](https://docs.docker.com/) images that can be privately hosted in [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/); and
 1. [AWS IoT Greengrass](https://aws.amazon.com/greengrass/) components containing [Docker Compose](https://docs.docker.com/compose/) files.
 
+<!-- truncate -->
+
 These Docker Compose files can be used to run public Docker components, or pull private images from ECR. This means that you can deploy your own system of microservices to any platform compatible with AWS Greengrass.
 
-This post is also available in video form - check the video link below if you want to follow along!
+This article also includes a video walkthrough.
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/7lA-CDG22oo?si=F0fY2dIyqO40HpP3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## What is Docker?
 
@@ -182,7 +185,7 @@ With the images and component pushed, you can now use the component in a Greengr
 
 First, make sure you have Greengrass running on a system. If you don't, you can follow the guide in the video below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/2VXIILtiMiU?si=_Wnp2PDX6dCS5EN0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="2VXIILtiMiU" title="AWS IoT Greengrass Concepts and Components!" />
 
 Once you have Greengrass set up, you can navigate to the core device in the console. Open the [Greengrass console](https://us-west-2.console.aws.amazon.com/iot/home), select core devices, and then select your device.
 
@@ -220,7 +223,7 @@ From these logs, we can see both "Successfully published" messages and "Received
 
 This isn't the only way to check the component is running! We could also use the Local Debug Console, a locally-hosted web UI, to publish/subscribe to local topics. Take a look at this excellent video if you want to set this method up for yourself:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/adx3zUGRoWw?si=pkuzWSUErByqiJsb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="adx3zUGRoWw" title="'Greengrass V2 Component Development with Local Debug Console' by Michael" />
 
 :::info[Congratulations!]
 

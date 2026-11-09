@@ -3,17 +3,20 @@ title: "ROS2 Control with the JetBot Part 2: Building a ros2_control System"
 slug: jetbot-motors-pt2
 authors: mike
 tags: [aws, robotics, communication, embedded, jetbot, ros2, control, ros2control]
+youtube: 2JJApj-PNVk
 ---
 
-This is the second part of the "ROS2 Control with the JetBot" series, where I show you how to get a JetBot working with ROS2 Control! This is a sequel to the [part 1 blog post](/blog/jetbot-motors-pt2), where I showed how to drive the JetBot's motors using I<sup>2</sup>C and PWM with code written in C++.
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 In this post, I show the next step in making ROS2 Control work with the WaveShare JetBot - wrapping the motor control code in a System. I'll walk through some concepts, show the example repository for ROS2 Control implementations, and then show how to implement the System for JetBot and see it running.
 
+<!-- truncate -->
+
+This is the second part of the "ROS2 Control with the JetBot" series, where I show you how to get a JetBot working with ROS2 Control! This is a sequel to the [part 1 blog post](/blog/jetbot-motors-pt1), where I showed how to drive the JetBot's motors using I<sup>2</sup>C and PWM with code written in C++.
+
 This post is also available in video form - check the video link below if you want to follow along!
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/2JJApj-PNVk?si=_nkaaluuLeg8ggnS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## ROS2 Control Concepts
 
@@ -298,7 +301,7 @@ Hooray! We have defined everything we need to launch ros2_control and configure 
 
 To try the package out, we first need a working JetBot. If you're not sure how to do the initial setup, I've created a video on exactly that:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/GdUGegYUOpM?si=b70pUlHgR4W7dNkI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<YouTubeVideo videoId="GdUGegYUOpM" title="'Initial Setup of Waveshare Jetbot AI Robot!' by Mike Likes Robots" />
 
 With the JetBot working, we can create a workspace and clone the code into it. Use VSCode over SSH to execute the following commands:
 

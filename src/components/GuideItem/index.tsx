@@ -1,10 +1,11 @@
 import styles from './styles.module.css';
+import YouTubeVideo from '@site/src/components/YouTubeVideo';
 import Image from '@theme/ThemedImage';
 import Link from '@docusaurus/Link';
-import clsx from 'clsx';
 
 export type GuideItemProps = {
   title: string;
+  headingLevel?: 4 | 5;
   summary?: string;
   youtube?: string;
   local_blog?: string;
@@ -12,72 +13,69 @@ export type GuideItemProps = {
   github?: string;
 }
 
-function Summary(props: Pick<GuideItemProps, 'summary'>): JSX.Element {
+type ResourceKind = 'guide' | 'aws' | 'github';
+
+const resourceTypes: Array<{kind: ResourceKind; label: string; source: string; icon: string}> = [
+  {kind: 'guide', label: 'Written guide', source: 'Mike Likes Robots', icon: '/img/logo.svg'},
+  {kind: 'aws', label: 'AWS Community article', source: 'community.aws', icon: '/img/aws-community-icon-180x180.png'},
+  {kind: 'github', label: 'Source code', source: 'GitHub repository', icon: '/img/social/github.svg'},
+];
+
+function Summary(props: Pick<GuideItemProps, 'summary'>): JSX.Element | null {
   return props.summary ?
     <p>{props.summary}</p> :
     null;
 }
 
-function YoutubeVideo(props: Pick<GuideItemProps, 'youtube'>): JSX.Element {
-  return props.youtube ?
-    <iframe className={clsx("youtube-video", styles.rounded_top_corners)} src={props.youtube} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe> :
-    null;
+function YoutubeVideo(props: Pick<GuideItemProps, 'youtube' | 'title'>): JSX.Element {
+  const id = props.youtube?.match(/\/embed\/([^?]+)/)?.[1];
+  return id ? <YouTubeVideo videoId={id} title={props.title} showCaption={false} /> : null;
 }
 
-function LocalBlogLink(props: {href?: string}): JSX.Element {
-  return props.href ? 
-    <div className={styles.text_link}>
-      <Link to={props.href}>
-        <Image alt="Ike-U - mascot icon for blog" height={"30px"} className={styles.pad_right} sources={{light: "/img/logo.svg", dark: "/img/logo.svg"}}/>
-        Read more on my blog!
-      </Link>
-    </div> :
-    null;
+function ResourceIcon({kind, icon}: {kind: ResourceKind; icon: string}): JSX.Element {
+  return <Image alt="" className={`${styles.resourceIcon} ${styles[`resourceIcon--${kind}`]}`} sources={{light: icon, dark: icon}} />;
 }
 
-function AWSCommunityBlogLink(props: {href?: string}): JSX.Element {
-  return props.href ? 
-    <div className={styles.text_link}>
-      <Link to={props.href}>
-        <Image alt="AWS Community Logo Icon" height={"30px"} className={styles.pad_right} sources={{light: "/img/aws_logo_smile_bullet.webp", dark: "/img/aws_logo_smile_bullet.webp"}}/>
-        Read more on AWS Community!
-      </Link>
-    </div> :
-    null;
+export function ResourceKey(): JSX.Element {
+  return <aside className={styles.resourceKey} aria-label="Resource icon key">
+    <strong>Resource links</strong>
+    <ul>{resourceTypes.map(resource => <li key={resource.kind}>
+      <ResourceIcon kind={resource.kind} icon={resource.icon} />
+      <span><strong>{resource.label}</strong><small>{resource.source}</small></span>
+    </li>)}</ul>
+  </aside>;
 }
 
-function GithubLink(props: Pick<GuideItemProps, 'github'>): JSX.Element {
-  return props.github ? 
-    <div className={styles.text_link}>
-      <Link to={props.github}>
-        <Image alt="Github Logo Icon" height={"30px"} className={styles.pad_right} sources={{light: "/img/github_bullet.webp", dark: "/img/github_bullet.webp"}}/>
-        See the source code on Github!
-      </Link>
-    </div> :
-    null;
+function ResourceLink({href, title, kind, label, source, icon}: {
+  href?: string;
+  title: string;
+  kind: ResourceKind;
+  label: string;
+  source: string;
+  icon: string;
+}): JSX.Element | null {
+  return href ? <li>
+    <Link className={styles.resourceLink} to={href} title={`${label}: ${title}`} aria-label={`${label} for ${title} on ${source}`}>
+      <ResourceIcon kind={kind} icon={icon} />
+      <span className="sr-only">{label}: {title}</span>
+    </Link>
+  </li> : null;
 }
 
-function TextLinks(props: Pick<GuideItemProps, 'local_blog' | 'aws_community' | 'github'>): JSX.Element {
-  const local = <LocalBlogLink href={props.local_blog} />;
-  const aws = <AWSCommunityBlogLink href={props.aws_community} />;
-  const github = <GithubLink {...props} />
-  if (local !== null || aws !== null || github !== null) {
-    return <div className={styles.text_links_wrapper}>
-      {local}
-      {aws}
-      {github}
-    </div>
-  } else {
-    return null;
-  }
+function TextLinks(props: Pick<GuideItemProps, 'title' | 'local_blog' | 'aws_community' | 'github'>): JSX.Element {
+  if (!props.local_blog && !props.aws_community && !props.github) return null;
+  return <ul className={styles.resourceLinks} aria-label={`Resources for ${props.title}`}>
+    {resourceTypes.map(resource => <ResourceLink key={resource.kind} href={resource.kind === 'guide' ? props.local_blog : resource.kind === 'aws' ? props.aws_community : props.github} title={props.title} {...resource} />)}
+  </ul>;
 }
 
 export default function GuideItem(props: GuideItemProps): JSX.Element {
+  const Title = `h${props.headingLevel || 5}` as 'h4' | 'h5';
   return (
     <section className={styles.card}>
       <div className={styles.card_title}>
         <YoutubeVideo {...props} />
-        <p className={styles.h5}>{props.title}</p>
+        <Title className={styles.h5}>{props.title}</Title>
       </div>
       <div className={styles.card_container}>
         <Summary {...props} />

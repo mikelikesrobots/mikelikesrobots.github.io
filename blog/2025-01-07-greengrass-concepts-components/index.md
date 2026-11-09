@@ -3,7 +3,10 @@ title: "AWS IoT Greengrass: Concepts and Components!"
 slug: greengrass-concepts-components
 authors: mike
 tags: [aws, cloud, iot, greengrass]
+youtube: 2VXIILtiMiU
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 AWS IoT Greengrass, or Greengrass for short, is a way of deploying software to
 an edge device, like a server on a factory floor, and managing the lifecycle of
@@ -11,9 +14,11 @@ that software. From the cloud you can configure the software that is deployed
 to the edge and how that software is configured, as well as build your own
 software to be deployed by Greengrass.
 
+<!-- truncate -->
+
 There are three parts: building and deploying [software
-applications](#building-a-component), the device(s) that those applications are
-being deployed to, and the [management service](#management-service) doing the
+applications](/blog/greengrass-concepts-components#building-a-component), the device(s) that those applications are
+being deployed to, and the [management service](/blog/greengrass-concepts-components#management-service) doing the
 deployment. This post goes over each part to explain how Greengrass as a whole
 works, and how you can try it out for yourself.
 
@@ -21,9 +26,7 @@ _This post was originally published as a video, but given how many people it has
 helped, converting it to a blog post made sense. If you prefer video format,
 click below._
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/2VXIILtiMiU?si=9ShnkT9WRSnuaV4I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Management Service
 

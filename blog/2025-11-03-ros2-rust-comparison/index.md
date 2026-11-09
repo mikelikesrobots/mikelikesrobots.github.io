@@ -3,13 +3,16 @@ title: "Comparing Rust Libraries for ROS Nodes"
 slug: ros2-rust-comparison
 authors: mike
 tags: [robotics, rust, ros2]
+youtube: ZOuJ2qmd1dc
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 While looking for guest speakers for the Cloud Robotics Working Group, I came across roslibrust, which is a package for building nodes in Rust that can communicate with ROS. Given how different the approach is from [ros2rust](https://github.com/ros2-rust/ros2_rust), I decided to make a few simple nodes in both libraries to see how they compare. This post compares the two libraries by writing the same application in each.
 
 This post is also available in video form. If you'd prefer to watch, click the link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/ZOuJ2qmd1dc?si=WCxfYYQmr-WmW1m2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<BlogVideo />
 
 <!-- truncate -->
 

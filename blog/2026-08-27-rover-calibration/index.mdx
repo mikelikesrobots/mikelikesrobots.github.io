@@ -2,16 +2,24 @@
 title: "Setting Up and Calibrating the Autonomous Viam Rover"
 slug: viam-rover-calibration
 authors: mike
-tags: [robotics, ros2, calibration, viam]
+tags: [robotics, ros2, calibration, viam, control]
+youtube: KgZdrtvqItI
+description: "Calibrate wheel encoders and build a motor lookup table to prepare the Viam Rover for reliable mapping and navigation."
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+Prepare the Viam Rover for reliable autonomous navigation by installing its remaining software, calibrating the wheel encoders, and generating a motor lookup table. These steps give the control system more accurate movement data, ready for future mapping and navigation tasks.
+
+<!-- truncate -->
+
+<hr />
 
 Before the Viam Rover can move autonomously, and hence map and navigate reliably, its control system needs accurate encoder measurements and benefits from a motor lookup table. This guide shows how to install the remaining rover software, calibrate both wheels, and generate that lookup table. At the end, the rover will be ready for mapping and navigation, although I'll save that process for a future post so as to give it more focus.
 
 These instructions are available in less detail from the README of the [GitHub repository](https://github.com/mikelikesrobots/viam-rover2). There is also more information on the Viam Rover project in my previous blog post, [Autonomously Mapping with Visual SLAM](/blog/autonomous-viam-rover).
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/KgZdrtvqItI?si=JjxtC732Yc2niaAo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Installing the Dependencies
 
@@ -19,7 +27,7 @@ These instructions are available in less detail from the README of the [GitHub r
 
 All instructions should be executed from the Radxa X4, either directly or through an SSH session. I have a video on how to set up the Radxa X4 below. The process is essentially creating a standard USB installation drive with [Ubuntu 24.04](https://releases.ubuntu.com/noble/) and installing it onto the Radxa X4, set up with a heat sink and M.2 SSD. The full robot should also be assembled and ready to use.
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/v7vi2d8ITEQ?si=78wA7nn3pB8aW_Bq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="v7vi2d8ITEQ" title="'#1: Radxa X4 Setup for Autonomous Viam Rover' by Mike Likes Robots" />
 
 :::
 

@@ -2,10 +2,15 @@
 title: "How to Build a Fleet Overview with AWS IoT Fleet Indexing"
 slug: robot-fleet-overview
 authors: mike
-tags: [robotics, iot, monitoring, fleet]
+tags: [robotics, iot, monitoring, fleet, cloud]
+youtube: IbCCwTWp0ec
 ---
 
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
 Congratulations! You have a whole lab full of robots running your latest software. Now you want to start looking at an **overall** view of your robots. It's time to build a fleet overview, and this post will show you how to use Fleet Indexing from AWS IoT Device Management to start your overview.
+
+<!-- truncate -->
 
 Fleet Indexing is a feature of AWS IoT Core that collects and indexes information about all of your selected Things and allows you to execute queries on them and aggregate data about them. For example, you can check which of your Things are online, giving you an easy way to determine which of your robots are connected.
 
@@ -13,9 +18,7 @@ I want to walk you through this process and show you what it looks like in the c
 
 This guide is also available in video form - see the link below!
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/IbCCwTWp0ec?si=7N-uGh6eO16yJE0_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Fleet Indexing
 
@@ -40,7 +43,7 @@ Overall, we can keep this in mind when deciding which features to include in the
 
 If you'd like to learn more about pricing estimates and monitoring your usage at AWS, take a look at my video on the topic:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/LreFpJDXZs0?si=JM9oyzPXRk0gSCrX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="LreFpJDXZs0" title="'AWS Account: Signup, Costs, and Budgets!' by Mike Likes Robots" />
 
 ## Setup Guide
 
@@ -50,7 +53,7 @@ Now we know a bit more about what Fleet Indexing is, I want to show you how to s
 
 For the sample application, use a computer with Ubuntu 22.04 and [ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) installed. Install `ros-dev-tools` as well as `ros-humble-desktop`. Also install the AWS CLI and the AWS IoT SDK - instructions are in the [repository's README](https://github.com/mikelikesrobots/aws-iot-robot-connectivity-samples-ros2) and my video on setting up the sample application:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/OnVewSeayjI?si=K6ZHoPqSCoU8Kb7T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<YouTubeVideo videoId="OnVewSeayjI" title="'How to send ROS2 Data to AWS IoT Core!' by Mike Likes Robots" />
 
 Once the necessary tools are installed, clone the repository:
 

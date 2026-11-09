@@ -26,7 +26,7 @@ const HighlightList: Highlight[] = [
   {
     title: 'YouTube Channel',
     title_href: 'https://www.youtube.com/@mikelikesrobots',
-    Icon: <i className={clsx("fab fa-youtube fa-lg", styles.featureSvg)}></i>,
+    Icon: <span className={styles.featureSvg} aria-hidden="true">▶</span>,
     description: (
       <>
         All videos are hosted on YouTube, including tutorials and labs, coding videos,
@@ -35,13 +35,13 @@ const HighlightList: Highlight[] = [
     ),
   },
   {
-    title: 'Github',
+    title: 'GitHub',
     title_href: 'https://github.com/mikelikesrobots',
-    Icon: <i className={clsx("fab fa-github fa-lg", styles.featureSvg)}></i>,
+    Icon: <span className={styles.featureSvg} aria-hidden="true">&lt;/&gt;</span>,
     description: (
       <>
         Any video or blog post with more than a few lines of code will have the full source code
-        put up on Github, so you can look through the code and try it for yourself.
+        put up on GitHub, so you can look through the code and try it for yourself.
       </>
     ),
   },
@@ -59,12 +59,12 @@ const HighlightList: Highlight[] = [
 
 function SiteHighlight({title, title_href, Svg, Icon, description}: Highlight) {
   const titleElement = title_href ?
-    <Heading as="h2" className={styles.pad_top}><Link to={title_href}>{title}</Link></Heading> :
-    <Heading as="h2" className={styles.pad_top}>{title}</Heading>;
-  const Img = Svg ? <Svg className={styles.featureSvg} role="img" /> : Icon;
+    <Heading as="h3" className={styles.pad_top}><Link to={title_href}>{title}</Link></Heading> :
+    <Heading as="h3" className={styles.pad_top}>{title}</Heading>;
+  const Img = Svg ? <Svg className={styles.featureSvg} aria-hidden="true" focusable="false" /> : Icon;
   return (
     <div className={clsx('col col--3')}>
-      <Link to={title_href} className={styles.hover_expand}>
+      <Link to={title_href} className={styles.hover_expand} aria-label={title}>
         <div className={clsx("text--center", styles.svg_background)}>
           {Img}
         </div>
@@ -79,12 +79,14 @@ function SiteHighlight({title, title_href, Svg, Icon, description}: Highlight) {
 
 export default function SiteHighlights(): JSX.Element {
   return (
-    <section className={clsx("container", "padding-vert--lg", styles.homepageFeaturesWrapper)}>
-      <Heading as="h1" className="text--center padding-vert--sm">Site Highlights</Heading>
-      <div className={clsx("row", styles.homepageFeatures)}>
-        {HighlightList.map((props, idx) => (
-          <SiteHighlight key={idx} {...props} />
-        ))}
+    <section className={clsx("padding-vert--lg", styles.homepageFeaturesWrapper)}>
+      <div className="container">
+        <Heading as="h2" className="text--center padding-vert--sm">More ways to learn</Heading>
+        <div className={clsx("row", styles.homepageFeatures)}>
+          {HighlightList.map((props, idx) => (
+            <SiteHighlight key={idx} {...props} />
+          ))}
+        </div>
       </div>
     </section>
   );

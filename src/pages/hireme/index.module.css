@@ -1,54 +1,123 @@
-:root {
-    --description-grey-background-colour: #dfdfdf;
+.heroBanner {
+  padding: 3.5rem 0;
 }
-
-[data-theme='dark'] {
-    --description-grey-background-colour: #303030;
+.heroBanner:global(.hero) {
+  background-color: #ffffff;
+  color: var(--ifm-font-color-base);
 }
-
-.flexColumn {
-    display: flex;
-    flex-direction: column;
+.heroBanner p {
+  max-width: 48rem;
 }
-
-.collapsiblePadding {
-    flex-grow: 1;
-    min-width: 1.5rem;
-    max-width: 10rem;
-}
-
-.descriptionBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px auto;
-    width: 100%;
-    color: rgb(57, 58, 52);
-    background-color: var(--description-grey-background-colour);
-}
-
-[data-theme='dark'] .descriptionBox {
-    color: rgb(248, 248, 242);
-    box-shadow: 0 4px 6px rgba(248, 248, 242, 0.1);
-}
-
+.heroActions,
 .linkButtons {
-    display: flex;
-    column-gap: 1rem;
-    row-gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-
+.heroLink {
+  color: var(--ifm-link-color);
+  text-decoration: underline;
+  font-weight: 600;
+  padding: 0.75rem 0;
+}
+.heroLink:hover {
+  color: var(--ifm-link-hover-color);
+}
+[data-theme="dark"] .heroBanner:global(.hero) {
+  background-color: #000000;
+  color: #ffffff;
+}
+[data-theme="dark"] .heroLink,
+[data-theme="dark"] .heroLink:hover {
+  color: #ffffff;
+}
+.discussButton:global(.button.button--primary) {
+  --ifm-button-background-color: var(--color-emphasis);
+  --ifm-button-border-color: var(--color-emphasis);
+  --ifm-button-color: var(--site-accent-contrast);
+}
+.discussButton:global(.button.button--primary):hover,
+.discussButton:global(.button.button--primary):active {
+  --ifm-button-background-color: var(--site-accent-hover);
+  --ifm-button-border-color: var(--site-accent-hover);
+}
+.projectList {
+  --project-foreground-color: #10283f;
+  --project-tone-1: #edf5fc;
+  --project-tone-2: #e4eff9;
+  --project-tone-3: #dbe9f5;
+  --project-tone-4: #d2e3f1;
+}
+.projectList > :nth-child(4n + 1) {
+  --project-background-color: var(--project-tone-1);
+}
+.projectList > :nth-child(4n + 2) {
+  --project-background-color: var(--project-tone-2);
+}
+.projectList > :nth-child(4n + 3) {
+  --project-background-color: var(--project-tone-3);
+}
+.projectList > :nth-child(4n + 4) {
+  --project-background-color: var(--project-tone-4);
+}
+[data-theme="dark"] .projectList {
+  --project-foreground-color: #e3eef7;
+  --project-tone-1: #10283f;
+  --project-tone-2: #123049;
+  --project-tone-3: #153852;
+  --project-tone-4: #183f5b;
+}
+.descriptionBox {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--site-border);
+  border-radius: 12px;
+  background: var(--site-section-bg);
+}
+.descriptionBox > h2 {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+.descriptionBox p:last-child {
+  margin-bottom: 0;
+}
+.portrait {
+  display: block;
+  width: 12rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.profileName {
+  margin: 1rem 0 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.profileRole {
+  color: var(--ifm-font-color-secondary);
+}
 .capabilityCardRow {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    column-gap: 2rem;
-    row-gap: 2rem;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.contactSection {
+  border-top: 1px solid var(--site-border);
+  margin-bottom: 2rem;
+}
+@media (max-width: 480px) {
+  .heroBanner {
+    padding: 2rem 0;
+  }
+}
+@media (max-width: 767px) {
+  .descriptionBox {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
 }

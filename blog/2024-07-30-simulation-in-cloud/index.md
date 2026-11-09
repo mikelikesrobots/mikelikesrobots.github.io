@@ -2,8 +2,15 @@
 title: "Simulating Robots in the Cloud with EC2 and O3DE"
 slug: simulation-in-cloud
 authors: mike
-tags: [robotics, simulation, aws, ec2]
+tags: [robotics, simulation, aws, ec2, cloud]
+youtube: GOcf0bCtINM
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+Robot simulation makes development faster and more repeatable, but realistic environments often demand powerful hardware. In this guide, we'll use a GPU-equipped Amazon EC2 instance to run an O3DE multi-robot simulation in the cloud, accessing and controlling it through a remote desktop.
+
+<!-- truncate -->
 
 Simulators such as [Gazebo](https://gazebosim.org/home), [NVIDIA Isaac Sim](https://developer.nvidia.com/isaac/sim), and [O3DE](https://o3de.org/) are incredibly helpful tools when it comes to robotics development. Robots are very slow and expensive to develop, and a large part of the reason is not being able to test how the robot works for real because of how slow it is to set up and run tests. With simulations, we can repeatedly run a robot through exactly the same setup every time to see how it behaves, allowing us to more quickly modify the robot software and run it again.
 
@@ -11,9 +18,7 @@ There's one issue - the more realistic the simulation, the more powerful the com
 
 In this post, I'll show you how to run a multi-robot sample simulation using O3DE in the cloud, using an on-demand EC2 instance with graphics hardware available. If you'd like to follow along, this post is also available in video form using the link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/GOcf0bCtINM?si=qJfoIAos1G7UIfzK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## O3DE
 

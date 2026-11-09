@@ -1,0 +1,16 @@
+h2.previewTitle {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.previewTitle a,
+.previewTitle a:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  h2.previewTitle {
+    font-size: 1.5rem;
+  }
+}

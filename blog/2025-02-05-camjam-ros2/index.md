@@ -3,14 +3,21 @@ title: "ROS 2 on a Raspberry Pi Robot"
 slug: raspi-camjam-ros2
 authors: mike
 tags: [robotics, ros2, edukit]
+youtube: JxhMEpHXym4
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
 
 This post shows how to use [ROS 2](https://docs.ros.org/en/jazzy/index.html) to
 control the CamJam EduKit #3. It uses a [Raspberry Pi Zero
 2W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/), which is a
 small development board with minimal compute power. However, the Pi Zero can
 still run a full Linux Operating System, which makes it a great entry point into
-building your own cost-effective robot. All instructions should be
+building your own cost-effective robot.
+
+<!-- truncate -->
+
+All instructions should be
 applicable to more powerful Raspberry Pi models, such as the 4 or 5 models.
 
 The [CamJam EduKit #3](https://camjam.me/?page_id=1035) is a cheap robot kit you
@@ -25,7 +32,7 @@ sensors and move the robot.
 This post is also available in video form. If you'd prefer to watch, click the
 link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/JxhMEpHXym4?si=tzme7QR86opYRF7K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<BlogVideo />
 
 <!-- truncate -->
 

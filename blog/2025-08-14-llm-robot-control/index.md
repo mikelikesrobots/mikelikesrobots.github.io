@@ -3,7 +3,16 @@ title: "Controlling Robots using a Large Language Model"
 slug: llm-robot-control
 authors: mike
 tags: [robotics, ai, llm, simulation]
+youtube: Lr-LjwPR1hM
 ---
+
+import YouTubeVideo, {BlogVideo} from '@site/src/components/YouTubeVideo';
+
+Discover how large language models can translate natural-language requests into commands a robot can execute. Using Claude and a robot simulated in Gazebo, this post demonstrates flexible robot control before exploring how the LLM selects tools, breaks down tasks, and communicates with the robot.
+
+<!-- truncate -->
+
+<hr />
 
 In the past, a human controlling a robot has depended entirely on what commands the human can send the robot, either through structured messages or through user interfaces. That's changing with Large Language Models (LLMs), because we can provide a few tools for controlling robots to an LLM and then give commands in natural language, and the LLM works out how to send the right commands to the robot. This gives us a lot more flexibility in how we can interact with robots.
 
@@ -20,9 +29,7 @@ The demonstration project in this post is from a university-based robotics cours
 
 This post is also available in video form. If you'd prefer to watch, click the link below:
 
-<iframe class="youtube-video" src="https://www.youtube.com/embed/Lr-LjwPR1hM?si=CwY2vn-VHDPKB4Pv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<!-- truncate -->
+<BlogVideo />
 
 ## Why Control Robots With an LLM?
 
