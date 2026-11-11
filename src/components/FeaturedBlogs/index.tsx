@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import {usePluginData} from '@docusaurus/useGlobalData';
-import {videoThumbnail} from '@site/src/components/YouTubeVideo';
+import BlogThumbnail, {type ThumbnailMetadata} from '@site/src/components/BlogThumbnail';
 import styles from './styles.module.css';
 
-type ArticleMetadata = {title: string; url: string; description: string; date: string; youtube?: string};
-type FeaturedArticle = Pick<ArticleMetadata, 'title' | 'url' | 'description' | 'youtube'> & {topic: string};
+type ArticleMetadata = {title: string; url: string; description: string; date: string} & ThumbnailMetadata;
+type FeaturedArticle = Pick<ArticleMetadata, 'title' | 'url' | 'description' | 'youtube' | 'thumbnail' | 'source'> & {topic: string};
 
 const featuredArticles: FeaturedArticle[] = [
   {
@@ -29,8 +29,8 @@ const featuredArticles: FeaturedArticle[] = [
 ];
 
 function ArticleImage({article, className}: {article: FeaturedArticle | ArticleMetadata; className?: string}) {
-  return article.youtube
-    ? <img className={className || styles.thumbnail} src={videoThumbnail(article.youtube)} alt="" width="480" height="270" loading="lazy" />
+  return article.youtube || article.thumbnail
+    ? <BlogThumbnail className={className || styles.thumbnail} youtube={article.youtube} thumbnail={article.thumbnail} source={article.source} width={480} height={270} />
     : <div className={`${className || styles.topicImage} ${styles.topicImage}`} aria-hidden="true">{'topic' in article ? article.topic : 'Robotics'}</div>;
 }
 
@@ -64,7 +64,7 @@ export default function FeaturedBlogs() {
         </nav>
         <div className={styles.featureCardRow}>{featuredArticles.map(article => {
           const metadata = posts.find(post => post.url === article.url);
-          const card = {...article, youtube: metadata?.youtube};
+          const card = {...article, youtube: metadata?.youtube, thumbnail: metadata?.thumbnail, source: metadata?.source};
           return <article className={styles.featureCard} key={article.url}>
             <Link to={article.url} tabIndex={-1} aria-hidden="true"><ArticleImage article={card} /></Link>
             <div className={styles.cardBody}>
