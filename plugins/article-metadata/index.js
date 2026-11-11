@@ -31,11 +31,13 @@ module.exports = function articleMetadata(context) {
           const slug = meta.slug || relative.replace(/\/index$/, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
 
           posts.push({
+            source: `@site/${path.relative(context.siteDir, file).replace(/\\/g, '/')}`,
             title: meta.title,
             url: `/blog/${slug}`,
             description: meta.description || '',
             date,
             youtube: meta.youtube,
+            thumbnail: meta.thumbnail,
           });
         }
       }
@@ -44,6 +46,17 @@ module.exports = function articleMetadata(context) {
       return posts.sort((a, b) => b.date.localeCompare(a.date));
     },
     async contentLoaded({content, actions}) {
+      // Import post-local images so Webpack emits them with the other site assets.
+      const imports = [];
+      const entries = [];
+      for (const post of content) {
+        if (typeof post.thumbnail !== 'string' || !/^\.\.?\//.test(post.thumbnail)) continue;
+        const imagePath = path.posix.join(path.posix.dirname(post.source), post.thumbnail);
+        const identifier = `thumbnail${imports.length}`;
+        imports.push(`import ${identifier} from ${JSON.stringify(imagePath)};`);
+        entries.push(`${JSON.stringify(post.source)}: ${identifier}`);
+      }
+      await actions.createData('thumbnails.js', `${imports.join('\n')}\nexport default {${entries.join(',\n')}};\n`);
       actions.setGlobalData({posts: content});
     },
   };
